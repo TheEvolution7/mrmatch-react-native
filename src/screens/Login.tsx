@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-const LoginScreen: React.FC = () => {
+const LoginScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
