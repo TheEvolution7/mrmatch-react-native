@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Navigation from './src/router/Navigation';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -8,4 +8,5 @@ function App() {
   }, []);
   return <Navigation />;
 }
+
 export default App;
