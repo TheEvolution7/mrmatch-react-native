@@ -2,10 +2,10 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import LoginScreen from '../screens/Login';
 import Welcome from '../screens/OnboardScreens/Welcome';
 import Onboarding from '../screens/OnboardScreens/Onboarding';
 import Registration from '../screens/Registration/Registration';
+import LoginPage from '../screens/account/Login';
 
 const Stack = createNativeStackNavigator();
 function Navigation() {
@@ -15,7 +15,7 @@ function Navigation() {
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="Registration" component={Registration} />
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Login" component={LoginPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
