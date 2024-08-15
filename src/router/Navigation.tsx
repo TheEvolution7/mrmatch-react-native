@@ -6,6 +6,8 @@ import Welcome from '../screens/OnboardScreens/Welcome';
 import Onboarding from '../screens/OnboardScreens/Onboarding';
 import Registration from '../screens/Registration/Registration';
 import LoginPage from '../screens/account/Login';
+import PasswordCreate from '../screens/Registration/PasswordCreate';
+import YearSelected from '../screens/Registration/YearSelected';
 
 const Stack = createNativeStackNavigator();
 function Navigation() {
@@ -15,6 +17,8 @@ function Navigation() {
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="Registration" component={Registration} />
+        <Stack.Screen name="PasswordCreate" component={PasswordCreate} />
+        <Stack.Screen name="YearSelected" component={YearSelected} />
         <Stack.Screen name="Login" component={LoginPage} />
       </Stack.Navigator>
     </NavigationContainer>
