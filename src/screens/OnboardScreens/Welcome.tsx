@@ -6,16 +6,13 @@ import LinearGradient from "react-native-linear-gradient";
 const widthScreen = Dimensions.get('window').width;
 const heightScreen = Dimensions.get('window').height;
 
-export default function OnboardScreen() {
+export default function Welcome() {
     const navigation = useNavigation();
     return (
         <Container style={styles.container}>
-            {/* Background Gradient */}
-            {/* Logo and Title */}
             <ImageBackground source={require('../../assets/images/Welcome.jpg')} resizeMode="cover" style={styles.container}>
                 <View style={styles.logoContainer}>
                     <Text style={styles.welcomeText}>Welcome to</Text>
-                    {/* Replace with your logo or an Image */}
                     <Image
                         source={require('../../assets/images/heart.png')}
                         style={styles.image}
@@ -26,22 +23,15 @@ export default function OnboardScreen() {
                         style={styles.imageMrMatch}
                         resizeMode='contain'
                     />
-
                 </View>
-
-                {/* Subtitle */}
-
-
-                {/* Buttons */}
                 <View style={styles.buttonContainer}>
                     <Text style={styles.subtitle}>Sign up and get started</Text>
-                    <LinearGradient style={styles.loginButton} locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} >
-                        <TouchableOpacity onPress={() => navigation.reset({ index: 0, routes: [{ name: '(tabs)' }] })} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 
+                    <TouchableOpacity style={styles.loginButton} onPress={() => navigation.reset({ index: 0, routes: [{ name: 'Onboarding' }] })} >
+                        <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={styles.loginButton}>
                             <Text style={styles.loginButtonText}>Log In</Text>
-
-                        </TouchableOpacity>
-                    </LinearGradient>
+                        </LinearGradient>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.getStartedButton}>
                         <Text style={styles.getStartedButtonText}>Get Started</Text>
                     </TouchableOpacity>
@@ -58,7 +48,6 @@ const styles = StyleSheet.create({
     gradient: {
         flex: 1,
         justifyContent: 'center',
-        // padding: 20,
     },
     image: {
         width: widthScreen * 0.207,
@@ -75,7 +64,6 @@ const styles = StyleSheet.create({
         marginTop: heightScreen * 0.12
     },
     logo: {
-        // marginBottom: 20,
     },
     logoImage: {
         width: '100%',
@@ -110,7 +98,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24
     },
     loginButton: {
-        // backgroundColor: '#D1A055',
         borderRadius: 30,
         marginBottom: 20,
         width: '100%',
