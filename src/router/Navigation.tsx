@@ -8,6 +8,7 @@ import Registration from '../screens/Registration/Registration';
 import LoginPage from '../screens/account/Login';
 import PasswordCreate from '../screens/Registration/PasswordCreate';
 import YearSelected from '../screens/Registration/YearSelected';
+import PhoneRegister from '../screens/Registration/PhoneRegister';
 
 const Stack = createNativeStackNavigator();
 function Navigation() {
@@ -19,6 +20,7 @@ function Navigation() {
         <Stack.Screen name="Registration" component={Registration} />
         <Stack.Screen name="PasswordCreate" component={PasswordCreate} />
         <Stack.Screen name="YearSelected" component={YearSelected} />
+        <Stack.Screen name="PhoneRegister" component={PhoneRegister} />
         <Stack.Screen name="Login" component={LoginPage} />
       </Stack.Navigator>
     </NavigationContainer>

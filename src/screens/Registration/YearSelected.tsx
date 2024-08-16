@@ -1,16 +1,19 @@
 import * as React from 'react';
 import Container from '../../components/Container';
-import { FlatList, Image, Keyboard, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Keyboard, Modal, Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
+import { BlurView } from "@react-native-community/blur";
 
 export default function YearSelected() {
     const [email, setEmail] = React.useState('');
     const [isShowClear, setShowClear] = React.useState(false);
     const [isShowError, setShowError] = React.useState(false);
     const navigation = useNavigation();
-    const ITEM_HEIGHT = 50;
+    const ITEM_HEIGHT = 44;
     const [idSelected, setIdSelected] = React.useState(0);
+    const [modalVisible, setModalVisible] = React.useState(false);
+    const [btnSelected, setBtnSelected] = React.useState(0);
     const DATA = [
         {
             id: 1,
@@ -104,12 +107,47 @@ export default function YearSelected() {
     const onScroll = (event) => {
         const offsetY = event.nativeEvent.contentOffset.y;
         const index = Math.round(offsetY / ITEM_HEIGHT);
-        console.log('offsetY: ', offsetY, index);
+        // console.log('offsetY: ', offsetY, index);
         setIdSelected(index);
+        console.log(index + 1975 + 3);
     };
 
     return (
         <Container style={{ backgroundColor: '#131B22', flex: 1 }}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    Alert.alert('Modal has been closed.');
+                    // setModalVisible(!modalVisible);
+                }}>
+                <BlurView
+                    style={styles.absolute}
+                    blurType="light"
+                    blurAmount={1}
+                    reducedTransparencyFallbackColor="white"
+                />
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.titleTxt}>Gender Identity</Text>
+                        <View style={styles.line}></View>
+                        <View style={{ width: '100%', paddingHorizontal: 20 }}>
+                            <TouchableOpacity style={{ width: '100%' }}>
+                                <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={styles.btn1}>
+                                    <Text style={[styles.txt1, { color: '#f8f1e6' }]}>Prefer Not to Say</Text>
+                                </LinearGradient>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[styles.btn1, { borderWidth: 1, borderColor: '#d7c09c' }]}>
+                                <Text style={[styles.txt1, { color: '#d7c09c' }]}>Non-Binary</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => setModalVisible(false)} style={[styles.btn1, { backgroundColor: '#2c3843' }]}>
+                                <Text style={[styles.txt1, { color: '#f8f1e6' }]}>Cancel</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Image
@@ -127,28 +165,60 @@ export default function YearSelected() {
             <View style={{ paddingHorizontal: 20 }}>
                 <Text style={styles.txtEmail}>What year were you born?</Text>
                 <View style={styles.selectYear}>
-                    {/* <FlatList
+                    <FlatList
                         data={DATA}
                         renderItem={({ item }) => <Item title={item.title} id={item.id} />}
                         keyExtractor={item => item.id}
                         onScroll={onScroll}
                         snapToInterval={ITEM_HEIGHT}
-                        // getItemLayout={(data, index) => (
-                        //     { length: 50, offset: 50 * index, index }
-                        // )}
+                        showsVerticalScrollIndicator={false}
+                    // getItemLayout={(data, index) => (
+                    //     { length: 50, offset: 50 * index, index }
+                    // )}
 
-                        style={{ flex: 1 }}
-                    /> */}
-                    <ScrollView  onScroll={onScroll} style={{height:220}}>
-                        {selectYearList}
-                    </ScrollView>
-
+                    />
+                </View>
+                <Text style={styles.genderTxt}>What's your gender?</Text>
+                <View style={styles.wrapbtn}>
+                    <TouchableOpacity onPress={() => setBtnSelected(1)} style={[styles.genderBtn]}>
+                        {btnSelected == 1 ?
+                            <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={styles.lineGra}>
+                                <Text style={[styles.genderSelectTxt, { color: '#f8f1e6' }]}>Female</Text>
+                            </LinearGradient>
+                            :
+                            <Text style={[styles.genderSelectTxt, { color: btnSelected == 1 ? '#f8f1e6' : '#d7c09c' }]}>Female</Text>
+                        }
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setBtnSelected(2)} style={[styles.genderBtn, { marginLeft: 15 }]}>
+                        {btnSelected == 2 ?
+                            <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={styles.lineGra}>
+                                <Text style={[styles.genderSelectTxt, { color: '#f8f1e6' }]}>Male</Text>
+                            </LinearGradient>
+                            :
+                            <Text style={[styles.genderSelectTxt, { color: btnSelected == 2 ? '#f8f1e6' : '#d7c09c' }]}>Male</Text>
+                        }
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setBtnSelected(3)} style={[styles.genderBtn, { marginLeft: 15 }]}>
+                        {btnSelected == 3 ?
+                            <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={styles.lineGra}>
+                                <Text style={[styles.genderSelectTxt, { color: '#f8f1e6' }]}>More+</Text>
+                            </LinearGradient>
+                            :
+                            <Text style={[styles.genderSelectTxt, { color: btnSelected == 3 ? '#f8f1e6' : '#d7c09c' }]}>More+</Text>
+                        }
+                    </TouchableOpacity>
+                    {/* <TouchableOpacity style={[styles.genderBtn, { marginLeft: 15 }]}>
+                        <Text style={styles.genderSelectTxt}>Male</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.genderBtn, { marginLeft: 15 }]}>
+                        <Text style={styles.genderSelectTxt}>More+</Text>
+                    </TouchableOpacity> */}
                 </View>
             </View>
-            {isShowError ?
-                <TouchableOpacity style={styles.createAcc}>
+            {btnSelected != 0 ?
+                <TouchableOpacity onPress={() => navigation.navigate('PhoneRegister')} style={styles.createAcc}>
                     <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={styles.createAcc}>
-                        <Text style={styles.createTxt}>Next step</Text>
+                        <Text style={styles.createTxt}>Create a new account</Text>
                         <Image
                             source={require('../../assets/images/rightArrow.png')}
                             style={{ width: 7, height: 14, marginLeft: 8, alignSelf: 'center', marginTop: 2 }}>
@@ -157,8 +227,7 @@ export default function YearSelected() {
                 </TouchableOpacity>
                 :
                 <TouchableOpacity onPress={() => {
-                    setShowError(true);
-                    Keyboard.dismiss();
+                    setModalVisible(true);
                 }} style={styles.next}>
                     <Image
                         source={require('../../assets/images/nextBtn.png')}
@@ -166,7 +235,6 @@ export default function YearSelected() {
                     </Image>
                 </TouchableOpacity>
             }
-
         </Container>
     )
 }
@@ -292,7 +360,7 @@ const styles = StyleSheet.create({
         marginTop: 30,
     },
     selectYear: {
-        marginTop: 50,
+        marginTop: 20,
         height: 220,
         // backgroundColor: 'red'
     },
@@ -331,14 +399,111 @@ const styles = StyleSheet.create({
         // justifyContent:'center',
         // alignItems:'center',
         // alignSelf:'center',
-        marginBottom:12
+        marginBottom: 12
     },
     item: {
-        height: 50,
+        height: 44,
         justifyContent: 'center',
         alignItems: 'center',
         // marginTop: 1,
         // backgroundColor: 'blue',
         // textAlign: 'center',
+    },
+    genderTxt: {
+        fontSize: 24,
+        letterSpacing: -0.2,
+        lineHeight: 35,
+        fontWeight: "500",
+        fontFamily: "Inter-Medium",
+        color: '#f8f1e6',
+        // textAlign: "left",
+        marginTop: 64
+    },
+    wrapbtn: {
+        flexDirection: 'row'
+    },
+    genderBtn: {
+        flex: 1,
+        height: 44,
+        borderRadius: 30,
+        borderColor: '#d7c09c',
+        backgroundColor: '#1c252d',
+        borderWidth: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 26
+    },
+    genderSelectTxt: {
+        fontSize: 16,
+        fontFamily: "Inter-Regular",
+        color: '#d7c09c',
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+        paddingHorizontal: 20
+    },
+    modalView: {
+        margin: 20,
+        // padding: 22,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        borderRadius: 21,
+        backgroundColor: '#1c252d',
+        borderStyle: "solid",
+        borderColor: '#bb9a65',
+        borderWidth: 1,
+        height: 334,
+        width: '100%',
+    },
+    absolute: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        backgroundColor: 'rgba(19, 27, 34, 0.8)'
+    },
+    titleTxt: {
+        fontSize: 21,
+        letterSpacing: -0.2,
+        lineHeight: 35,
+        fontWeight: "500",
+        fontFamily: "Inter-Medium",
+        color: '#f8f1e6',
+        marginTop: 22
+    },
+    line: {
+        height: 2,
+        width: '100%',
+        backgroundColor: 'rgba(255, 255, 255, 0.14)',
+        marginTop: 16,
+        marginBottom: 20
+    },
+    btn1: {
+        height: 56,
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 16,
+        width: '100%',
+        paddingHorizontal: 20,
+    },
+    txt1: {
+        fontSize: 16,
+        fontWeight: "500",
+        fontFamily: "Inter-Medium",
+    },
+    lineGra: {
+        flex: 1, width: '100%', borderRadius: 30, alignItems: 'center', justifyContent: 'center'
     }
 })
