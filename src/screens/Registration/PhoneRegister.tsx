@@ -76,7 +76,8 @@ export default function PhoneRegister() {
                                     input2Ref.current.focus();
                                 }
                             }}
-                            keyboardType='phone-pad' />
+                            keyboardType='phone-pad'
+                            maxLength={1} />
 
                         <TextInput
                             ref={input2Ref}
@@ -94,7 +95,8 @@ export default function PhoneRegister() {
                                     input3Ref.current.focus();
                                 }
                             }}
-                            keyboardType='phone-pad' />
+                            keyboardType='phone-pad'
+                            maxLength={1} />
 
                         <TextInput
                             ref={input3Ref}
@@ -112,7 +114,8 @@ export default function PhoneRegister() {
                                     input4Ref.current.focus()
                                 }
                             }}
-                            keyboardType='phone-pad' />
+                            keyboardType='phone-pad'
+                            maxLength={1} />
 
                         <TextInput
                             ref={input4Ref}
@@ -130,7 +133,8 @@ export default function PhoneRegister() {
                                     // input2Ref.current.focus();
                                 }
                             }}
-                            keyboardType='phone-pad' />
+                            keyboardType='phone-pad'
+                            maxLength={1} />
 
                     </View>
                 </View>
