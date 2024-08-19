@@ -1,51 +1,77 @@
-import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
 import EmailInput from '../../component/InputEmail';
 import PasswordInput from '../../component/InputPassword';
-import RememberMeCheckbox from '../../component/Remember';
 import SignInButton from '../../component/SignButton';
+import {useNavigation} from '@react-navigation/native';
 
 const LoginPage: React.FC = () => {
+  const [checked, setChecked] = useState(false);
+  const navigation = useNavigation();
+
+  const handleForgot = () => {
+    navigation.navigate('Forgot');
+  };
   return (
     <ScrollView className="bg-gray-900">
-      <View className="flex overflow-hidden flex-col items-center pt-16 pb-9 mx-auto w-full text-sm max-w-[480px]">
-        <View className="flex flex-col self-stretch px-5 w-full text-red-300">
-          <View
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/efd28b43457a98242905e6fd612099467aab2e6c9cb115fb7f8f75a9160e8cae?placeholderIfAbsent=true&apiKey=5f30f84f7dc74a9ab1dd8fe0b2c0e78d"
-            className="object-contain aspect-[0.5] w-[7px]"
-          />
-          <View className="flex gap-5 mt-8">
+      <View className="flex relative overflow-hidden bg-[#131B22] flex-col items-center pt-[60px] pb-[50px] mx-auto w-full text-sm ">
+        <View className="w-full h-full absolute">
+          <Image
+            className="top-[150px] left-[-10px] w-[400px]"
+            source={require('../../../assest/Ellipse4.png')}></Image>
+        </View>
+        <View className="flex z-10 flex-col self-stretch px-5 w-full text-red-300">
+          <View className="flex gap-5 ">
+            <TouchableOpacity>
+              <View className="w-full  pb-[20px]">
+                <Image
+                  className="w-[8px] h-[15px] object-cover"
+                  source={require('../../../assest/Layer3.png')}></Image>
+              </View>
+            </TouchableOpacity>
+
             <View className="flex flex-col grow shrink-0 items-start basis-0 w-fit">
-              <Text className="text-2xl font-semibold tracking-tight leading-none text-red-300">
+              <Text className="text-2xl font-semibold tracking-tight leading-none text-[#D7C09C]">
                 Welcome back
               </Text>
-              <Text className="self-stretch mt-2 tracking-normal leading-6 text-orange-50 opacity-50">
+              <Text className="self-stretch mt-2 tracking-normal leading-6 text-[#F8F1E6] opacity-50">
                 Please enter your email & password to sign in.
               </Text>
               <EmailInput />
             </View>
-            <View
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/f42dcb39ecefb7f5ba15096ce4d69a6b3ddb7835729ed0ec20a8f4e2f769ce13?placeholderIfAbsent=true&apiKey=5f30f84f7dc74a9ab1dd8fe0b2c0e78d"
-              className="object-contain shrink-0 self-end mt-32 w-6 aspect-square"
-            />
           </View>
           <PasswordInput />
-          <View className="flex gap-10 mt-8 w-full tracking-normal leading-relaxed max-w-[337px]">
-            <RememberMeCheckbox />
-            <View className="grow shrink text-right text-stone-400 w-[97px]">
-              <Text>Forgot password?</Text>
+          <View className="flex flex-row justify-between items-center mt-[20px] w-full  ">
+            <View className="flex flex-row items-center">
+              <TouchableOpacity
+                className="flex justify-center items-center p-2"
+                onPress={() => setChecked(!checked)}>
+                <View
+                  className={`w-5 h-5 rounded border-2 border-[#BB9A65] ${
+                    checked ? 'bg-[#FFA500]' : ''
+                  }`}
+                />
+              </TouchableOpacity>
+              <Text className="ml-2 text-[#F8F1E6]">Remember me</Text>
+            </View>
+            <View>
+              <TouchableOpacity onPress={handleForgot}>
+                <Text className="text-[14px] text-[#BB9A65]">
+                  Forgot password?
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
-          <View className="flex shrink-0 mt-9 max-w-full h-px bg-white bg-opacity-30 w-[335px]" />
-          <View className="flex gap-2 justify-center items-center mt-11 w-full text-base tracking-normal leading-relaxed text-center max-w-[334px]">
-            <Text className="self-stretch my-auto text-orange-50">
+          <View className="flex shrink-0 mt-[20px] max-w-full h-px bg-[#292F32] bg-opacity-30 " />
+          <View className="flex flex-row  gap-2 justify-center items-center mt-[25px] w-full t ext-base tracking-normal leading-relaxed text-center max-w-[334px]">
+            <Text className="self-stretch my-auto text-[#F8F1E6] text-[16px]">
               Don't have an account?
             </Text>
-            <Text className="self-stretch my-auto font-bold text-stone-400">
-              Sign up
-            </Text>
+            <TouchableOpacity>
+              <Text className="self-stretch my-auto font-bold text-[#BB9A65] text-[16px] ">
+                Sign up
+              </Text>
+            </TouchableOpacity>
           </View>
           <SignInButton />
         </View>
