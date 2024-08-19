@@ -169,7 +169,7 @@ export default function PhoneRegister() {
             {isShowCode ?
                 <View style={styles.wrapBtn}>
                     <TouchableOpacity onPress={() => {
-                        // setShowCode(true);
+                        navigation.navigate('FindNearBy');
                     }} style={{}}>
                         <View style={styles.Receicode}>
                             <Text style={styles.nextTxt}>I haven't received a code</Text>
