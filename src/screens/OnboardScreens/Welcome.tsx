@@ -29,7 +29,7 @@ export default function Welcome() {
 
                     <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('LoginScreen')}>
                         <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={styles.loginButton}>
-                            <Text style={styles.loginButtonText}>Log In</Text>
+                            <Text style={styles.loginButtonText}>Log In a</Text>
                         </LinearGradient>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.reset({ index: 0, routes: [{ name: 'Onboarding' }] })} style={styles.getStartedButton}>

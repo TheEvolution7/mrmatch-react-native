@@ -1,22 +1,18 @@
 import React from 'react';
-import {View, Text, TextInput} from 'react-native';
-import SafeDateTopButton from './SafeDateTopButton';
+import {View, Text, TextInput, ScrollView, TouchableOpacity, Image} from 'react-native';
+
 import ModeButton from './ModeButton';
 import Container from '../../components/Container';
-import FeatureList from './FeatureList';
 
 const SafeDateScreen: React.FC = () => {
   return (
     <Container>
-        <View>
-            <SafeDateTopButton />
-            <View>
-                <ModeButton />
-            </View>
-            <View className="w-full">
-                <FeatureList />
-            </View>
-        </View>
+      <ScrollView>
+          <View>
+              <ModeButton />
+          </View>
+      </ScrollView>
+        
         
     </Container>
     
