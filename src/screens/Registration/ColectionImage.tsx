@@ -125,7 +125,7 @@ export default function CollectionImage() {
                 </View>
             </View>
             <TouchableOpacity onPress={() => {
-                navigation.navigate('CollectionImage');
+                navigation.navigate('Notification');
             }} style={styles.next}>
                 <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={styles.lineGra}>
                     <Text style={styles.nextTxt}>Next</Text>

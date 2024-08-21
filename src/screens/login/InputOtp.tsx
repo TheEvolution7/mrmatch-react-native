@@ -2,14 +2,12 @@ import * as React from 'react';
 import Container from '../../components/Container';
 import { Image, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { FPhoneNumber } from '../../components/FormatPhone';
 import LinearGradient from 'react-native-linear-gradient';
 
-export default function PhoneRegister() {
+export default function InputOtp() {
     const navigation = useNavigation();
-    const [phoneNumber, setPhoneNumber] = React.useState('');
+    const [email, setEmail] = React.useState('');
     const [isShowClear, setShowClear] = React.useState(false);
-    const [isShowCode, setShowCode] = React.useState(false);
     const [seconds, setSeconds] = React.useState(60);
     const [code1, setCode1] = React.useState('●');
     const [code2, setCode2] = React.useState('●');
@@ -21,15 +19,14 @@ export default function PhoneRegister() {
     const input4Ref = React.useRef(null);
 
     React.useEffect(() => {
-        if (phoneNumber.length > 0) {
+        if (email.length > 0) {
             setShowClear(true);
         } else {
             setShowClear(false);
         }
-    }, [phoneNumber])
-
+    }, [email])
     React.useEffect(() => {
-        if (seconds > 0 && isShowCode) {
+        if (seconds > 0) {
             const interval = setInterval(() => {
                 setSeconds(seconds => seconds - 1);
                 if (seconds <= 1) {
@@ -38,27 +35,21 @@ export default function PhoneRegister() {
             }, 1000);
             return () => clearInterval(interval);
         }
-    }, [seconds, isShowCode])
-
+    }, [seconds])
     return (
         <Container style={{ backgroundColor: '#131B22', flex: 1 }}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
+                <TouchableOpacity hitSlop={20} onPress={() => navigation.goBack()}>
                     <Image
                         source={require('../../assets/images/btnBack.png')}
                         style={styles.btnBack}>
                     </Image>
                 </TouchableOpacity>
-                <View style={styles.wrapSl}>
-                    <Image
-                        source={require('../../assets/images/groupSlide_3.png')}
-                        style={styles.grSlide}>
-                    </Image>
-                </View>
             </View>
-            {isShowCode ?
+            <View style={{ paddingHorizontal: 20 }}>
+                <Text style={styles.txtEmail}>OTP code verification</Text>
+                <Text style={styles.txtDesc}>We have sent an OTP code to your email in******@mrmatch.com. Enter the OTP code below to verify.</Text>
                 <View style={styles.wrapCode}>
-                    <Text style={styles.titleCode}>Enter the 4-digit code sent to you at <Text style={{ color: '#bb9a65' }}>0{FPhoneNumber(phoneNumber)}</Text></Text>
                     <View style={styles.inputCode}>
                         <TextInput
                             ref={input1Ref}
@@ -131,6 +122,7 @@ export default function PhoneRegister() {
                                 setCode4(value);
                                 if (value.length === 1) {
                                     // input2Ref.current.focus();
+                                    navigation.navigate('CreatePassword');
                                 }
                             }}
                             keyboardType='phone-pad'
@@ -138,56 +130,17 @@ export default function PhoneRegister() {
 
                     </View>
                 </View>
-                :
-                <View style={{ paddingHorizontal: 20 }}>
-                    <Text style={styles.txtPhone}>Enter your phone number</Text>
-                    <Text style={styles.yourPhone}>Your Phone Number</Text>
-                    <View>
-                        <TextInput
-                            style={styles.input}
-                            value={FPhoneNumber(phoneNumber)}
-                            onChangeText={setPhoneNumber}
-                            keyboardType='phone-pad'
-                        />
-                        {isShowClear && <TouchableOpacity onPress={() => setPhoneNumber('')}>
-                            <Image
-                                source={require('../../assets/images/clearTxt.png')}
-                                style={styles.btnClear}>
-                            </Image>
-                        </TouchableOpacity>}
-                        <Image
-                            source={require('../../assets/images/flag.png')}
-                            style={styles.flag}>
-                        </Image>
-                        <View style={styles.codePhone}>
-                            <Text style={styles.codePhoneTxt}>(+90) </Text>
-                        </View>
-                        {phoneNumber.length > 0 && phoneNumber.length <= 8 && <Text style={styles.error}>Please enter a valid phone</Text>}
-
-                    </View>
-                </View>
-            }
-
-            {isShowCode ?
-                <View style={styles.wrapBtn}>
-                    <TouchableOpacity onPress={() => {
-                        navigation.navigate('FindNearBy');
-                    }} style={{}}>
-                        <View style={styles.Receicode}>
-                            <Text style={styles.nextTxt}>I haven't received a code</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={styles.txtCountDown}>You can resend code in <Text style={{ color: '#bb9a65' }}>{seconds}s</Text></Text>
-                </View>
-                :
+            </View>
+            <View style={styles.wrapBtn}>
                 <TouchableOpacity onPress={() => {
-                    setShowCode(true);
-                }} style={styles.next}>
-                    <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={styles.lineGra}>
-                        <Text style={styles.nextTxt}>Next</Text>
-                    </LinearGradient>
+                    setSeconds(60);
+                }} style={{}}>
+                    <View style={styles.Receicode}>
+                        <Text style={styles.nextTxt}>I haven't received a code</Text>
+                    </View>
                 </TouchableOpacity>
-            }
+                <Text style={styles.txtCountDown}>You can resend code in <Text style={{ color: '#bb9a65' }}>{seconds}s</Text></Text>
+            </View>
         </Container>
     )
 }
@@ -205,17 +158,7 @@ const styles = StyleSheet.create({
         width: 7,
         marginLeft: 20
     },
-    grSlide: {
-        width: 167,
-        height: 20,
-        marginLeft: -27
-    },
-    wrapSl: {
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    txtPhone: {
+    txtEmail: {
         fontSize: 24,
         letterSpacing: -0.2,
         lineHeight: 35,
@@ -225,15 +168,22 @@ const styles = StyleSheet.create({
         textAlign: "left",
         marginTop: 30
     },
-    yourPhone: {
+    yourEmail: {
         fontSize: 14,
         fontFamily: "Inter-Regular",
         color: '#d7c09c',
         textAlign: "left",
-        marginTop: 30
+        marginTop: 28
+    },
+    btnClear: {
+        height: 24,
+        width: 24,
+        position: 'absolute',
+        right: 0,
+        top: -26
     },
     input: {
-        marginTop: 10,
+        marginTop: 0,
         borderBottomColor: 'rgba(255, 255, 255, 0.35)',
         borderBottomWidth: 1,
         color: '#f8f1e6',
@@ -241,36 +191,15 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: "Inter-Regular",
         textAlign: "left",
-        paddingLeft: 75,
-
     },
-    btnClear: {
-        height: 24,
-        width: 24,
-        position: 'absolute',
-        right: 0,
-        top: -33
-    },
-    flag: {
-        position: 'absolute',
-        width: 19,
-        height: 19,
-        top: Platform.OS === 'ios' ? 10 : 13,
-        left: 0
-    },
-    codePhone: {
-        position: 'absolute',
-        // width: 19,
-        // height: 19,
-        top: Platform.OS === 'ios' ? 10 : 13,
-        left: 30,
-
-    },
-    codePhoneTxt: {
-        fontSize: 16,
+    txtDesc: {
+        fontSize: 14,
+        letterSpacing: -0.2,
+        lineHeight: 24,
         fontFamily: "Inter-Regular",
         color: '#f8f1e6',
-        textAlign: "left",
+        opacity: 0.5,
+        marginTop: 10
     },
     next: {
         position: 'absolute',
@@ -297,28 +226,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    Receicode: {
-        // marginHorizontal: 20,
-        borderRadius: 30,
-        width: '100%',
-        height: 56,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#2c3843',
-    },
-    titleCode: {
-        fontSize: 24,
-        letterSpacing: -0.2,
-        lineHeight: 35,
-        fontWeight: "500",
-        fontFamily: "Inter-Medium",
-        textAlign: "left",
-        color: '#f8f1e6'
-    },
-    wrapCode: {
-        marginTop: 28,
-        paddingHorizontal: 18
-    },
     wrapBtn: {
         position: 'absolute',
         bottom: 0,
@@ -336,9 +243,31 @@ const styles = StyleSheet.create({
         marginBottom: 28,
         marginTop: 15,
     },
+    Receicode: {
+        // marginHorizontal: 20,
+        borderRadius: 30,
+        width: '100%',
+        height: 56,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#2c3843',
+    },
+    wrapCode: {
+        marginTop: 0,
+        paddingHorizontal: 18
+    },
+    titleCode: {
+        fontSize: 24,
+        letterSpacing: -0.2,
+        lineHeight: 35,
+        fontWeight: "500",
+        fontFamily: "Inter-Medium",
+        textAlign: "left",
+        color: '#f8f1e6'
+    },
     inputCode: {
         flexDirection: 'row',
-        marginTop: 92
+        marginTop: 45
     },
     inputCodeNumber: {
         width: 60,
@@ -356,12 +285,4 @@ const styles = StyleSheet.create({
         color: '#f8f1e6',
         textAlign: 'center'
     },
-    error: {
-        fontSize: 14,
-        letterSpacing: -0.2,
-        lineHeight: 24,
-        fontFamily: "Inter-Regular",
-        color: '#d54444',
-        marginTop: 10
-    }
 })

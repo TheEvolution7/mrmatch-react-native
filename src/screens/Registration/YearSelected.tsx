@@ -124,7 +124,7 @@ export default function YearSelected() {
                 }}>
                 <BlurView
                     style={styles.absolute}
-                    blurType="light"
+                    // blurType="light"
                     blurAmount={1}
                     reducedTransparencyFallbackColor="white"
                 />

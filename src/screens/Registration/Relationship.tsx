@@ -70,7 +70,7 @@ export default function SetRelationship() {
                     keyExtractor={item => item.id}
                     numColumns={2} // Display 2 items per row
                     columnWrapperStyle={styles.rowMenu} // Style for the row
-                    style={{ marginTop: 16 }}
+                    style={{ marginTop: 16, marginBottom:100}}
                 />
             </View>
             <TouchableOpacity onPress={() => {
@@ -108,7 +108,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     wrapContent: {
-        paddingHorizontal: 18
+        paddingHorizontal: 18,
+        flex:1
     },
     next: {
         position: 'absolute',

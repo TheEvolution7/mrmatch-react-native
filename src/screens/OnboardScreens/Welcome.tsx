@@ -27,12 +27,12 @@ export default function Welcome() {
                 <View style={styles.buttonContainer}>
                     <Text style={styles.subtitle}>Sign up and get started</Text>
 
-                    <TouchableOpacity style={styles.loginButton} onPress={() => navigation.reset({ index: 0, routes: [{ name: 'Onboarding' }] })} >
+                    <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('LoginScreen')}>
                         <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={styles.loginButton}>
                             <Text style={styles.loginButtonText}>Log In</Text>
                         </LinearGradient>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.getStartedButton}>
+                    <TouchableOpacity onPress={() => navigation.reset({ index: 0, routes: [{ name: 'Onboarding' }] })} style={styles.getStartedButton}>
                         <Text style={styles.getStartedButtonText}>Get Started</Text>
                     </TouchableOpacity>
                 </View>
@@ -44,6 +44,7 @@ export default function Welcome() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor:'#131B22'
     },
     gradient: {
         flex: 1,
