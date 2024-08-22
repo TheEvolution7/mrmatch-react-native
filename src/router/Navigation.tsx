@@ -21,6 +21,7 @@ import LoginScreen from '../screens/login/LoginScreen';
 import ForgotPassword from '../screens/login/ForgotPassword';
 import InputOtp from '../screens/login/InputOtp';
 import CreatePassword from '../screens/login/CreatePassword';
+import HomePage from '../screens/explore/HomePage';
 const Stack = createNativeStackNavigator();
 function Navigation() {
   return (
@@ -44,6 +45,7 @@ function Navigation() {
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         <Stack.Screen name="InputOtp" component={InputOtp} />
         <Stack.Screen name="CreatePassword" component={CreatePassword} />
+        <Stack.Screen name="HomePage" component={HomePage} />
         <Stack.Screen name="Login" component={LoginPage} />
       </Stack.Navigator>
     </NavigationContainer>
