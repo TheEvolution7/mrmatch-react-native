@@ -28,7 +28,8 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^15.5.0",
     "react-navigation": "^5.0.0",
-    "react-navigation-stack": "^2.10.4"
+    "react-navigation-stack": "^2.10.4",
+    "rn-swiper-list": "^2.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
