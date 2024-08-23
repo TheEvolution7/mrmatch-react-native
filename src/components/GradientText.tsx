@@ -32,9 +32,11 @@ const GradientText: React.FC<GradientTextProps> = ({
           </LinearGradient>
         </Defs>
         <Text
+          
           fill="url(#grad)"
           fontSize={fontSize}
           fontWeight="bold"
+          fontFamily="Inter-Medium"
           x={x}
           y={y}
           textAnchor="start"

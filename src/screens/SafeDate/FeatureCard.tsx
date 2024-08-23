@@ -24,7 +24,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon,iconActive, title, isAct
                 <Image source={ isActive ? iconActive : icon} resizeMode="contain" className="z-[3] mt-4 w-[40px] h-[50px]" />
             </View>
             <View className="mt-[10px]">
-                <Text className="text-white font-medium tracking-normal text-center">{title}</Text>
+                <Text className="text-white font-heading font-medium tracking-normal text-center">{title}</Text>
             </View>
         </Pressable>
     );
