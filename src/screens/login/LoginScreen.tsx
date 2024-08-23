@@ -35,6 +35,15 @@ export default function LoginScreen() {
         );
     }, []);
 
+    React.useEffect(() => {
+        if (modalVisible) {
+            setTimeout(() => {
+                setModalVisible(false);
+                navigation.navigate('HomePage');
+            }, 3000);
+        }
+    }, [modalVisible]);
+
     const animatedStyle = useAnimatedStyle(() => {
         return {
             transform: [{ rotate: `${rotateValue.value}deg` }],

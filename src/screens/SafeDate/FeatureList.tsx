@@ -42,18 +42,24 @@ const FeatureList: React.FC = () => {
   );
   
   return (
-    <View className="flex flex-row mx-[-8px] px-[20px]">
-      {features.map((item) => (
-        <FeatureCard
-          key={item.id}
-          icon={item.icon}
-          iconActive={item.iconActive}
-          title={item.title}
-          isActive={item.isActive}
-          onPress={() => toggleFeatureActive(item.id)}
-        />
-      ))}
+    <View>
+      <View className="flex justify-center space-x-2 px-[20px]">
+          <Text className={`${styleText} font-medium text-[20px] leading-[24px] mt-[30px] mb-[30px]`}>{text2}</Text>
+      </View>
+      <View className="flex flex-row mx-[-8px] px-[20px]">
+        {features.map((item) => (
+          <FeatureCard
+            key={item.id}
+            icon={item.icon}
+            iconActive={item.iconActive}
+            title={item.title}
+            isActive={item.isActive}
+            onPress={() => toggleFeatureActive(item.id)}
+          />
+        ))}
+      </View>
     </View>
+    
   );
 };
 

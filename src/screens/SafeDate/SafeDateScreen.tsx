@@ -8,7 +8,7 @@ const SafeDateScreen: React.FC = () => {
   return (
     <Container>
       <ScrollView>
-          <View>
+          <View className="pt-[10px] pb-[100px]">
               <ModeButton />
           </View>
       </ScrollView>

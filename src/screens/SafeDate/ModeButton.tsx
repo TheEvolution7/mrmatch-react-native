@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import {
     View,
     Text,
@@ -7,11 +7,21 @@ import {
     ScrollView,
     Animated,
     Alert,
+    Linking,
 } from 'react-native';
 import GradientText from '../../components/GradientText';
 import LinearGradient from 'react-native-linear-gradient';
 import FeatureCard from './FeatureCard';
-const ModeButton: React.FC = () => {
+
+
+
+type SafeDateScreenProps = {
+    setIsIconOn: React.Dispatch<React.SetStateAction<boolean>>;
+    isIconOn: boolean;
+};
+
+const ModeButton: React.FC<SafeDateScreenProps> = ({ setIsIconOn, isIconOn }) => {
+
     const [features, setFeatures] = React.useState([
         {
             id: '1',
@@ -48,27 +58,31 @@ const ModeButton: React.FC = () => {
     );
 
 
-    const [isOn, setIsActive] = useState<boolean>(false);
+    const [isOn, setIsActive] = useState(false);
+    // isIconOn = false;
+    [isIconOn, setIsIconOn] = useState(false);
     const pressTimer = useRef(null);
     const [timer, setTimer] = useState(null);
+
+    const phoneNumber = '000000000';
     
     // const [isHolding, setIsHolding] = useState(false);
     const scaleAnim = useRef(new Animated.Value(0)).current;
-    
-    
 
-   
 
     const handlePressIn = () => {
         // Alert.alert('a');
         const timeout = setTimeout(() => {
             if (isOn) {
               // Perform action when button is held for 3 seconds
-              Alert.alert('Activated', 'to contact emergency services');
+              Linking.openURL(`tel:${phoneNumber}`)
+              Alert.alert('Your call has been placed');
             }
         }, 2500);
         setTimer(timeout)
+        if (isOn == true) {
 
+        }
 
         
        
@@ -82,6 +96,12 @@ const ModeButton: React.FC = () => {
        
     };
 
+
+
+    useEffect(() => {
+        console.log('setIsIconOn:', setIsIconOn);
+      }, []);
+
     const handleTap = () => {
         Animated.spring(scaleAnim, {
             toValue: isOn ? 0 : 1, // Scale to 1.2 if not scaled, otherwise scale back to 1
@@ -90,7 +110,12 @@ const ModeButton: React.FC = () => {
             useNativeDriver: true,
         }).start();
         setIsActive(prev => !prev);
-
+        setIsIconOn(prev => !prev);
+        // setIsIconOn(!isIconOn);
+        console.log(isIconOn)
+        // if (!isOn) {
+            
+        // }
     };
  
 
@@ -165,7 +190,7 @@ const ModeButton: React.FC = () => {
                             source={require('../../assets/images/on-off.png')}></Image>
                     </LinearGradient>
                 </TouchableOpacity>
-                <Text className="max-w-[240px] self-center text-center text-[#D7C09C] font-heading text-[14px] leading-[24px] mt-[30px]">
+                <Text className="max-w-[240px] min-h-[48px] self-center text-center text-[#D7C09C] font-heading text-[14px] leading-[24px] mt-[30px]">
                     {isOn
                         ? 'Hold 3 seconds to contact emergency services'
                         : 'Tap 1 times to turn on/off'}

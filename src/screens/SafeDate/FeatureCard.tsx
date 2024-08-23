@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Pressable, TouchableHighlight } from 'react-native';
+import Tooltip from 'react-native-walkthrough-tooltip';
+
 
 type FeatureCardProps = {
     icon: any;
@@ -13,7 +15,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon,iconActive, title, isAct
     const borderColor = isActive ? 'border-[#BB9A65]' : 'border-[#2C3843]';
     const bgColor = isActive ? 'bg-[#23272a]' : 'bg-[#182128]';
     const dotColor = isActive ? 'bg-[#BB9A65]' : 'border-[#2C3843]';
-
+    const [showTip, setTip] = useState(true);
     return (
         <Pressable onPress={onPress} className={`relative m-[8px] flex flex-1 px-[10px] py-[15px] pt-[0px] rounded-[16px] border-[2px] border-solid ${borderColor} ${bgColor}`}>
             <View className="absolute top-[10px] right-[10px]">
