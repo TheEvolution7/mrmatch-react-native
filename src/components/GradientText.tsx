@@ -18,8 +18,6 @@ const GradientText: React.FC<GradientTextProps> = ({
   start = { x: '0%', y: '0%' },
   end = { x: '100%', y: '0%' },
   fontSize = 40,
-  x = 0,
-  y = 40,
 }) => {
   return (
     <View>
@@ -33,13 +31,16 @@ const GradientText: React.FC<GradientTextProps> = ({
         </Defs>
         <Text
           
+          
           fill="url(#grad)"
           fontSize={fontSize}
           fontWeight="bold"
           fontFamily="Inter-Medium"
-          x={x}
-          y={y}
-          textAnchor="start"
+          x={'50%'}
+          y={fontSize * 1.3 / 2}
+          
+          textAnchor="middle"
+          alignmentBaseline="middle"
         >
           {text}
         </Text>

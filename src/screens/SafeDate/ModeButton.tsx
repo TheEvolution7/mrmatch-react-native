@@ -155,8 +155,6 @@ export const ModeButton: React.FC = () => {
                             text="SafeDate Mode"
                             colors={['#F8F1E6', '#BB9A66']}
                             fontSize={30}
-                            x={0}
-                            y={30}
                         />
                     </View>
                     <Text className="font-body text-[14px] self-center text-center text-white leading-[24px] mt-[20px]">
