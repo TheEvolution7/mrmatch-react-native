@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@babel/plugin-transform-private-property-in-object": "^7.24.7",
+    "@ptomasroos/react-native-multi-slider": "^2.2.2",
     "@react-native-community/blur": "^4.4.0",
     "@react-native-community/slider": "^4.5.2",
     "@react-navigation/bottom-tabs": "^6.6.1",

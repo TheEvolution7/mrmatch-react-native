@@ -40,7 +40,7 @@ const IMAGES = [
 
 const ICON_SIZE = 24;
 
-export default function Explore({ showModalGotMatch }) {
+export default function Explore({ showModalGotMatch, showModalPrivacy }) {
     const ref = useRef<SwiperCardRefType>();
     const [isShowLike, setShowLike] = useState(false);
 
@@ -152,7 +152,7 @@ export default function Explore({ showModalGotMatch }) {
                             source={require('../../assets/images/fi_bell.png')} >
                         </Image>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{ marginLeft: 16 }}>
+                    <TouchableOpacity style={{ marginLeft: 16 }} onPress={() => showModalPrivacy()}>
                         <Image
                             source={require('../../assets/images/fi_sliders.png')}>
                         </Image>
