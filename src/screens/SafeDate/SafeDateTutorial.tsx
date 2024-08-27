@@ -18,13 +18,13 @@ const SafeDateTutorial: React.FC = () => {
         screenOptions={{
             headerShown: false
           }}>
-            <Stack.Screen name="SafeDateTutorial1" component={SafeDateTutorial1} />
-            <Stack.Screen name="SafeDateTutorial2" component={SafeDateTutorial2} />
-            <Stack.Screen name="SafeDateTutorial3" component={SafeDateTutorial3} />
-            <Stack.Screen name="SafeDateTutorial4" component={SafeDateTutorial4} />
-            <Stack.Screen name="SafeDateTutorial5" component={SafeDateTutorial5} />
-            <Stack.Screen name="SafeDateTutorial6" component={SafeDateTutorial6} />
-            <Stack.Screen name="SafeDateScreen" component={SafeDateScreen} />
+            <Stack.Screen name="SafeDateTutorial1" component={SafeDateTutorial1} options={{ animation: 'fade' }}/>
+            <Stack.Screen name="SafeDateTutorial2" component={SafeDateTutorial2} options={{ animation: 'fade' }}/>
+            <Stack.Screen name="SafeDateTutorial3" component={SafeDateTutorial3} options={{ animation: 'fade' }}/>
+            <Stack.Screen name="SafeDateTutorial4" component={SafeDateTutorial4} options={{ animation: 'fade' }}/>
+            <Stack.Screen name="SafeDateTutorial5" component={SafeDateTutorial5} options={{ animation: 'fade' }}/>
+            <Stack.Screen name="SafeDateTutorial6" component={SafeDateTutorial6} options={{ animation: 'fade' }}/>
+            <Stack.Screen name="SafeDateScreen" component={SafeDateScreen} options={{ animation: 'fade' }}/>
         </Stack.Navigator>
     );
 };

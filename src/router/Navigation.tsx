@@ -22,6 +22,12 @@ import ForgotPassword from '../screens/login/ForgotPassword';
 import InputOtp from '../screens/login/InputOtp';
 import CreatePassword from '../screens/login/CreatePassword';
 import HomePage from '../screens/explore/HomePage';
+import TravelMode from '../screens/explore/TravelMode';
+import AddTravelLocation from '../screens/explore/AddTravelLocation';
+import NotificationList from '../screens/notifications/NotificationList';
+import ProfileMember from '../screens/explore/ProfileMember';
+import NotificationDetai from '../screens/notifications/NotificationDetail';
+import ProfileScreen from '../screens/profile/ProfileScreen';
 const Stack = createNativeStackNavigator();
 const MyTheme = {
   ...DefaultTheme,
@@ -35,6 +41,7 @@ function Navigation() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="Registration" component={Registration} />
@@ -54,6 +61,11 @@ function Navigation() {
         <Stack.Screen name="InputOtp" component={InputOtp} />
         <Stack.Screen name="CreatePassword" component={CreatePassword} />
         <Stack.Screen name="HomePage" component={HomePage} />
+        <Stack.Screen name="AddTravelLocation" component={AddTravelLocation} />
+        <Stack.Screen name="TravelMode" component={TravelMode} />
+        <Stack.Screen name="NotificationList" component={NotificationList} />
+        <Stack.Screen name="NotificationDetai" component={NotificationDetai} />
+        <Stack.Screen name="ProfileMember" component={ProfileMember} />
         <Stack.Screen name="Login" component={LoginPage} />
       </Stack.Navigator>
     </NavigationContainer>

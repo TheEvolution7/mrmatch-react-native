@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import GradientText from '../../components/GradientText';
+import { useIsIconOnStyle } from './IsIconOnStyleContext';
+import LinearGradient from 'react-native-linear-gradient';
 
-const SafeDateScreen: React.FC = () => {
+const SafeDateTopMenu: React.FC = () => {
+    const { isIconOn, setIsIconOn } = useIsIconOnStyle();
+
     return (
         <View className="flex flex-row justify-between items-center space-x-2 px-[20px]">
             <TouchableOpacity className="w-[40px]">
@@ -12,9 +15,18 @@ const SafeDateScreen: React.FC = () => {
                     source={require('../../assets/images/heart.png')}></Image>
             </TouchableOpacity>
 
-            <TouchableOpacity className="py-[12px] px-[24px] bg-[#3A4A5A] rounded-[800px]">
-                <Text className="text-white">Disable</Text>
-            </TouchableOpacity>
+            <View>
+                <LinearGradient
+                    locations={[0, 1]}
+                    colors={isIconOn ? ['#bb9a65', '#775d34'] : ['#3A4A5A', '#3A4A5A']}
+                    useAngle={true}
+                    angle={101.24}
+                    className="py-[12px] px-[24px] rounded-[800px]">
+                    <Text className="text-white text-[16px] font-medium">
+                        {isIconOn ? 'Enabled' : 'Disable'}
+                    </Text>
+                </LinearGradient>
+            </View>
 
             <TouchableOpacity className="w-[40px]">
                 <Image
@@ -22,11 +34,8 @@ const SafeDateScreen: React.FC = () => {
                     resizeMode="contain"
                     source={require('../../assets/images/call.png')}></Image>
             </TouchableOpacity>
-           
         </View>
-
-        
     );
 };
 
-export default SafeDateScreen;
+export default SafeDateTopMenu;

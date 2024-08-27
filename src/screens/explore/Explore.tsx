@@ -11,6 +11,7 @@ import { GestureHandlerRootView, Gesture } from 'react-native-gesture-handler';
 import { Swiper, type SwiperCardRefType } from 'rn-swiper-list';
 import Container from '../../components/Container';
 import LinearGradient from 'react-native-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 
 // import { ActionButton } from '../components';
 
@@ -40,10 +41,10 @@ const IMAGES = [
 
 const ICON_SIZE = 24;
 
-export default function Explore({ showModalGotMatch }) {
+export default function Explore({ showModalGotMatch, showModalPrivacy }) {
     const ref = useRef<SwiperCardRefType>();
     const [isShowLike, setShowLike] = useState(false);
-
+    const navigation = useNavigation();
     const renderCard = useCallback((image) => {
         return (
             <View style={styles.renderCardContainer}>
@@ -52,7 +53,7 @@ export default function Explore({ showModalGotMatch }) {
                     style={styles.renderCardImage}
                     resizeMode="cover"
                 />
-                <View style={{ position: 'absolute', left: 0, bottom: 0, width: '100%', }}>
+                <TouchableOpacity onPress={() => navigation.navigate('ProfileMember')} style={{ position: 'absolute', left: 0, bottom: 0, width: '100%', }}>
                     <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 1.0 }} colors={['rgba(19, 27, 34, 0)', 'rgba(19, 27, 34, 1)']} style={{ width: '100%', paddingHorizontal: 20, paddingBottom: 164 }}>
                         <Text style={{
                             lineHeight: 51,
@@ -67,7 +68,7 @@ export default function Explore({ showModalGotMatch }) {
                             color: '#fff',
                         }}>5 km away</Text>
                     </LinearGradient>
-                </View>
+                </TouchableOpacity>
             </View>
         );
     }, []);
@@ -147,12 +148,12 @@ export default function Explore({ showModalGotMatch }) {
                 </View>
                 <View style={{ flex: 1 }}></View>
                 <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('NotificationList')}>
                         <Image
                             source={require('../../assets/images/fi_bell.png')} >
                         </Image>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{ marginLeft: 16 }}>
+                    <TouchableOpacity style={{ marginLeft: 16 }} onPress={() => showModalPrivacy()}>
                         <Image
                             source={require('../../assets/images/fi_sliders.png')}>
                         </Image>
