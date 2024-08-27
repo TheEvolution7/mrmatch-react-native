@@ -46,7 +46,7 @@ export default function TravelMode() {
                 </View>
             </View>
             <TouchableOpacity onPress={() => {
-
+                navigation.navigate('AddTravelLocation');
             }} style={styles.next}>
                 <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={styles.lineGra}>
                     <Text style={styles.nextTxt}>Add New Travel Location</Text>
