@@ -6,6 +6,7 @@ import ProfileTopMenu from './ProfileTopMenu';
 import ProfileTopSubs from './ProfileTopSubs';
 import ProfileImage from './ProfileImage';
 import ProfileInfo from './ProfileInfo';
+import ProfileRelationship from './ProfileRelationship';
 
 const ProfileScreen: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const ProfileScreen: React.FC = () => {
             <ProfileTopSubs />
             <ProfileImage />
             <ProfileInfo />
+            <ProfileRelationship/>
           </View>
       </ScrollView>
         

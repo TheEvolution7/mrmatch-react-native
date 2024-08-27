@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import CircularProgress from '../../components/CircularProgress';
+import ProfileInfoItem from './ProfileInfoItem';
 
 
-  
+
 
 const ProfileInfo: React.FC = () => {
     const [progress, setProgress] = useState(10);
@@ -12,6 +13,17 @@ const ProfileInfo: React.FC = () => {
     const increaseProgress = () => {
       setProgress(prev => (prev < 100 ? prev + 10 : 100));
     };
+    const [ infoitem ] = React.useState([
+        {
+            icon: require('../../assets/images/gender-male.png'),
+            title: 'Man',
+        },
+        {
+            icon: require('../../assets/images/Location.png'),
+            title: 'Less than a kilometer away',
+        },
+    ]);
+    
 
     return (
         <View className="flex mt-[20px] mx-[20px]">
@@ -116,8 +128,29 @@ const ProfileInfo: React.FC = () => {
 
             <View className="mt-[30px] flex flex-column">
                 <Text className="font-bold text-[24px] text-[#BB9A65]">Andrew (27)</Text>
-                
+                <View className="flex mt-[12px]">
+                    <LinearGradient 
+                        locations={[0, 1]} 
+                        colors={['#40505F', '#40505F']} 
+                        useAngle={true} 
+                        angle={101.24}
+                        className="flex-row self-start grow items-center px-[14px] py-[12px] rounded-[30px]"
+                    >
+                        <Image className="w-[16px] h-[16px] mr-[10px]" source={require('../../assets/images/verify_ic.png')} />
+                        <Text className="text-[#F8F1E6] text-[12px]">Profile Verified</Text>
+                    </LinearGradient>
+                </View>
+                <View>
+                    {infoitem.map((item) => (
+                        <ProfileInfoItem
+                            icon={item.icon}
+                            title={item.title}
+                        />
+                    ))}
+                </View>
             </View>
+
+            <View className="mt-[28px] mb-[28px] ml-[-20px] mr-[-20px] h-[1px] bg-[#6B7176]"></View>
         </View>
     );
 };

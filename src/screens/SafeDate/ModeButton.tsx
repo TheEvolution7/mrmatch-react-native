@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import GradientText from '../../components/GradientText';
 import LinearGradient from 'react-native-linear-gradient';
-import FeatureCard from './FeatureCard';
 import { useIsIconOnStyle } from './IsIconOnStyleContext';
 import FeatureList from './FeatureList';
 import SafeDateTopMenu from './SafeDateTopButton';
