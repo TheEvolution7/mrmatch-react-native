@@ -41,7 +41,7 @@ const IMAGES = [
 
 const ICON_SIZE = 24;
 
-export default function Explore({ showModalGotMatch, showModalPrivacy }) {
+export default function Explore({ showModalGotMatch, showModalPrivacy, showModalSafety }) {
     const ref = useRef<SwiperCardRefType>();
     const [isShowLike, setShowLike] = useState(false);
     const navigation = useNavigation();
@@ -220,7 +220,7 @@ export default function Explore({ showModalGotMatch, showModalPrivacy }) {
                         resizeMode="cover"
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={{ margin: 'auto' }}>
+                <TouchableOpacity onPress={() => showModalSafety()} style={{ margin: 'auto' }}>
                     <Image
                         source={require('../../assets/images/clear.png')}
                         style={{}}

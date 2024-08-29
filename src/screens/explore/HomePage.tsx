@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, Modal, TouchableOpacity, ScrollView, ImageBackground, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, Modal, TouchableOpacity, ScrollView, ImageBackground, FlatList, Share } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -10,6 +10,8 @@ const screenWidth = Dimensions.get('window').width;
 import Explore from './Explore';
 import { BlurView } from '@react-native-community/blur';
 import Slider from '@react-native-community/slider';
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withRepeat, withSequence, withTiming } from 'react-native-reanimated';
+import Match from '../match/Match';
 
 function ExploreScreen() {
     return (
@@ -57,7 +59,24 @@ export default function HomePage() {
     const insets = useSafeAreaInsets();
     const [modalVisible, setModalVisible] = React.useState(false);
     const [isShowPrivacy, setShowPrivacy] = React.useState(false);
+    const [isShowSafety, setShowSatety] = React.useState(false);
+    const [isShowBlock, setShowBlock] = React.useState(false);
+    const [isStatusBlock, setStatusBlock] = React.useState(false);
     const navigation = useNavigation();
+    const scale = useSharedValue(1);
+    scale.value = withRepeat(
+        withSequence(
+            withTiming(1.2, { duration: 1000, easing: Easing.inOut(Easing.ease) }),
+            withTiming(1, { duration: 1000, easing: Easing.inOut(Easing.ease) })
+        ),
+        -1, // Infinite repeat
+        true // Reverse on each iteration
+    );
+    const animatedStyle = useAnimatedStyle(() => {
+        return {
+            transform: [{ scale: scale.value }],
+        };
+    });
     const showModalGotMatch = () => {
         setModalVisible(!modalVisible);
     }
@@ -71,6 +90,10 @@ export default function HomePage() {
     const handleValueChange = (values) => {
         setAgeRange(values);
     };
+
+    const showModalSafety = () => {
+        setShowSatety(!isShowSafety);
+    }
 
     const [selectedNumber, setSelectedNumber] = React.useState(4);
     const [selectedInterests, setSelectedInterests] = React.useState([]);
@@ -150,6 +173,26 @@ export default function HomePage() {
         </TouchableOpacity>
     );
 
+    const onShare = async () => {
+        try {
+            const result = await Share.share({
+                message:
+                    'Sharing information',
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            //   Alert.alert(error.message);
+        }
+    };
+
     return (
         <>
             <Modal
@@ -177,7 +220,7 @@ export default function HomePage() {
                         <Text style={styles.txtDes}>meaningful conversation.</Text>
                         <TouchableOpacity onPress={() => { }} style={{ width: '100%', marginTop: 36 }}>
                             <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={{ height: 56, borderRadius: 30, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={styles.letChat}>Create a new account</Text>
+                                <Text style={styles.letChat}>Let’s Chat</Text>
                             </LinearGradient>
                         </TouchableOpacity>
 
@@ -187,6 +230,147 @@ export default function HomePage() {
                     </View>
                 </View>
             </Modal>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isShowBlock}
+                onRequestClose={() => {
+                }}>
+                <BlurView
+                    style={styles.absolute}
+                    blurAmount={1}
+                    reducedTransparencyFallbackColor="white"
+                />
+                <View style={styles.centeredView}>
+                    {isStatusBlock ?
+                        <View style={[styles.modalView, { paddingHorizontal: 20 }]}>
+                            <Text style={styles.titleTxt}>Report Sucessfully</Text>
+                            <View style={styles.device}></View>
+                            {/* <Animated.View style={animatedStyle}> */}
+                                <Image
+                                    source={require('../../assets/images/blockSuccess.png')}
+                                    style={{ width: 180, height: 186, marginTop: 23, marginBottom: 50 }}>
+                                </Image>
+                            {/* </Animated.View> */}
+
+                            <Text style={styles.txt6}>Profile has been blocked!</Text>
+                            <Text style={[styles.txt3, { color: '#8d8d8b', marginTop: 22, textAlign: 'center', opacity: 1 }]}>Want to block someone else you already know? Add them in Block List.</Text>
+                            <View style={{ width: '100%' }}>
+                                <TouchableOpacity onPress={() => { }} style={{ width: '100%', marginTop: 36 }}>
+                                    <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={{ height: 56, borderRadius: 30, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={styles.letChat}>Thanks, I’m done</Text>
+                                    </LinearGradient>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity onPress={() => { 
+                                    setShowBlock(false);
+                                    setStatusBlock(false);
+                                 }} style={{ height: 56, borderRadius: 30, width: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: '#2c3843', marginTop: 16 }}>
+                                    <Text style={styles.letChat}>Go to Block List</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        :
+                        <View style={[styles.modalView, { paddingHorizontal: 0, alignItems: 'flex-start' }]}>
+                            <Text style={[styles.titleTxt, { width: '100%', textAlign: 'center' }]}>Block Jessica</Text>
+                            <View style={[styles.device, { width: '100%', marginLeft: 0 }]}></View>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginTop: 20 }}>
+                                <Image
+                                    source={require('../../assets/images/closeBl.png')}
+                                />
+                                <Text style={[styles.txt3, { marginLeft: 16, opacity: 1, flex: 1 }]}>They will not be able to find your profile and send you messages.</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginTop: 20 }}>
+                                <Image
+                                    source={require('../../assets/images/alarmBl.png')}
+                                />
+                                <Text style={[styles.txt3, { marginLeft: 16, opacity: 1 }]}>They will not be notified if you block them.</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginTop: 20 }}>
+                                <Image
+                                    source={require('../../assets/images/settingBl.png')}
+                                />
+                                <Text style={[styles.txt3, { marginLeft: 16, opacity: 1 }]}>You can unblock them anytime in Settings.</Text>
+                            </View>
+                            <View style={{ paddingHorizontal: 20, width: '100%' }}>
+                                <TouchableOpacity onPress={() => setStatusBlock(true)} style={{ width: '100%', marginTop: 36 }}>
+                                    <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={{ height: 56, borderRadius: 30, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={styles.letChat}>Yes, Block</Text>
+                                    </LinearGradient>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity onPress={() => { setShowBlock(false); }} style={{ height: 56, borderRadius: 30, width: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: '#2c3843', marginTop: 16 }}>
+                                    <Text style={styles.letChat}>Cancel</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                        </View>}
+
+                </View>
+            </Modal>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isShowSafety}
+                onRequestClose={() => {
+                }}>
+                <BlurView
+                    style={styles.absolute}
+                    blurAmount={0.1}
+                />
+                <View style={styles.centeredViewSafety}>
+                    <View style={styles.modalViewSafety}>
+                        <View style={styles.wrapHeader}>
+                            <TouchableOpacity hitSlop={30} onPress={() => setShowSatety(false)}>
+                                <Image
+                                    source={require('../../assets/images/closeIc.png')}
+                                />
+                            </TouchableOpacity>
+                            <Text style={styles.txtHeader}>Safety Features</Text>
+                            <Image
+                                source={require('../../assets/images/fi_headPhone.png')} />
+                        </View>
+                        <View style={styles.device}></View>
+                        <TouchableOpacity onPress={() => onShare()} style={{ flexDirection: 'row', marginTop: 20, paddingHorizontal: 20 }}>
+                            <Image
+                                source={require('../../assets/images/share.png')} />
+                            <View style={{ marginLeft: 16 }}>
+                                <Text style={[styles.txt1, { marginTop: 0, color: '#f8f1e6' }]}>Share This Profile</Text>
+                                <Text style={styles.txt3}>Recommended Jessica to Friends</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <View style={styles.device}></View>
+                        <TouchableOpacity onPress={() => {
+                            setShowSatety(false);
+                            setShowBlock(true);
+                        }} style={{ flexDirection: 'row', marginTop: 20, paddingHorizontal: 20 }}>
+                            <Image
+                                source={require('../../assets/images/block.png')} />
+                            <View style={{ marginLeft: 16 }}>
+                                <Text style={[styles.txt1, { marginTop: 0, color: '#f8f1e6' }]}>Block Jessica</Text>
+                                <Text style={styles.txt3}>You won’t see them, and they won’t see you.</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <View style={styles.device}></View>
+                        <TouchableOpacity onPress={() => {
+                            setShowSatety(false);
+                            navigation.navigate('Report');
+                        }} style={{ flexDirection: 'row', marginTop: 20, paddingHorizontal: 20, paddingBottom: 30 }}>
+                            <Image
+                                source={require('../../assets/images/reportIc.png')} />
+                            <View style={{ marginLeft: 16 }}>
+                                <Text style={[styles.txt1, { marginTop: 0, color: '#f8f1e6' }]}>Report Jessica</Text>
+                                <Text style={styles.txt3}>Don’t worry, we won’t tell them.</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+
+
+
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -499,7 +683,7 @@ export default function HomePage() {
                     }}
                     name="Explore"
                     children={() => (
-                        <Explore showModalGotMatch={showModalGotMatch} showModalPrivacy={showModalPrivacy} />
+                        <Explore showModalGotMatch={showModalGotMatch} showModalPrivacy={showModalPrivacy} showModalSafety={showModalSafety} />
                     )} />
                 <Tab.Screen
                     options={{
@@ -517,7 +701,7 @@ export default function HomePage() {
                                             </Image>
                                             :
                                             <Image
-                                                source={require('../../assets/images/matchAct.png')}
+                                                source={require('../../assets/images/matchIna.png')}
                                                 width={24} height={24}>
                                             </Image>}
                                         {focused && <Text style={styles.txtTabBar}>Match</Text>}
@@ -527,7 +711,7 @@ export default function HomePage() {
                                 </View>
                             )
                         }
-                    }} name="Match" component={DiscoverScreen} />
+                    }} name="Match" component={Match} />
                 <Tab.Screen options={{
                     tabBarIcon: ({ focused }) => {
                         return (
@@ -686,7 +870,7 @@ const styles = StyleSheet.create({
         borderColor: '#bb9a65',
         borderWidth: 1,
         width: '100%',
-        height: '100%',
+        // height: '100%',
         paddingBottom: 32
     },
     titleTxt: {
@@ -825,6 +1009,13 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: 'right'
     },
+    txt6: {
+        fontSize: 18,
+        fontWeight: "500",
+        fontFamily: "Inter-Medium",
+        color: '#f8f1e6',
+        textAlign: 'center'
+    },
     wrapNumPhoto: {
         flexDirection: 'row',
         marginTop: 22
@@ -935,4 +1126,18 @@ const styles = StyleSheet.create({
         marginRight: 10,
         opacity: 0.5
     },
+    modalViewSafety: {
+        width: '100%',
+        backgroundColor: '#1c252d',
+        position: 'absolute',
+        bottom: 0,
+        // left:0
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20
+    },
+    centeredViewSafety: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 });

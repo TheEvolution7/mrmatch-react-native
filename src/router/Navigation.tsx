@@ -27,6 +27,7 @@ import AddTravelLocation from '../screens/explore/AddTravelLocation';
 import NotificationList from '../screens/notifications/NotificationList';
 import ProfileMember from '../screens/explore/ProfileMember';
 import NotificationDetai from '../screens/notifications/NotificationDetail';
+import Report from '../screens/explore/Report';
 const Stack = createNativeStackNavigator();
 function Navigation() {
   return (
@@ -56,6 +57,7 @@ function Navigation() {
         <Stack.Screen name="NotificationList" component={NotificationList} />
         <Stack.Screen name="NotificationDetai" component={NotificationDetai} />
         <Stack.Screen name="ProfileMember" component={ProfileMember} />
+        <Stack.Screen name="Report" component={Report} />
         <Stack.Screen name="Login" component={LoginPage} />
       </Stack.Navigator>
     </NavigationContainer>
