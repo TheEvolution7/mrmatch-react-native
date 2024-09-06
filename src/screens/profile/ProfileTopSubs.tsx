@@ -5,7 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 const ProfileTopSubs: React.FC = () => {
 
     return (
-        <View className="flex flex-row justify-between items-center px-[20px] mt-[30px]">
+        <View className="flex flex-row justify-between items-center px-[20px] mt-[0px]">
             <LinearGradient
                 locations={[0, 1]}
                 colors={['#bb9a65', '#775d34']}

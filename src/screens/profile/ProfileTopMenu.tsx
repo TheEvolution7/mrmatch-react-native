@@ -1,10 +1,11 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 
 const ProfileTopMenu: React.FC = () => {
-
+    const navigation = useNavigation();
     return (
-        <View className="flex flex-row justify-between items-center space-x-2 px-[20px]">
+        <View className="flex flex-row justify-between items-center space-x-2 px-[20px] pb-[15px]">
             <View className="flex-1">
                 <TouchableOpacity>
                     <Image
@@ -28,7 +29,8 @@ const ProfileTopMenu: React.FC = () => {
                         resizeMode="contain"
                         source={require('../../assets/images/lock.png')}></Image>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                navigation.navigate('ProfileEditScreen')}}>
                     <Image
                         className="w-[24px] h-[24px]"
                         resizeMode="contain"

@@ -28,6 +28,7 @@ import NotificationList from '../screens/notifications/NotificationList';
 import ProfileMember from '../screens/explore/ProfileMember';
 import NotificationDetai from '../screens/notifications/NotificationDetail';
 import ProfileScreen from '../screens/profile/ProfileScreen';
+import ProfileEditScreen from '../screens/profile/ProfileEditScreen';
 const Stack = createNativeStackNavigator();
 const MyTheme = {
   ...DefaultTheme,
@@ -41,7 +42,7 @@ function Navigation() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+        
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="Registration" component={Registration} />
@@ -67,6 +68,9 @@ function Navigation() {
         <Stack.Screen name="NotificationDetai" component={NotificationDetai} />
         <Stack.Screen name="ProfileMember" component={ProfileMember} />
         <Stack.Screen name="Login" component={LoginPage} />
+
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <Stack.Screen name="ProfileEditScreen" component={ProfileEditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -8,7 +8,9 @@ type ProfileInfoItemProps = {
 };
 
 const ProfileInfoItem: React.FC<ProfileInfoItemProps> = ({ icon, title }) => {
-
+    // const borderColor = isActive ? 'border-[#BB9A65]' : 'border-[#2C3843]';
+    // const bgColor = isActive ? 'bg-[#23272a]' : 'bg-[#182128]';
+    // const dotColor = isActive ? 'bg-[#BB9A65]' : 'border-[#2C3843]';
     return (
         <View className="flex-row mt-[10px] items-center gap-x-[12px]">
             <Image className="w-[20px] h-[20px]" resizeMode="contain" source={icon} />
