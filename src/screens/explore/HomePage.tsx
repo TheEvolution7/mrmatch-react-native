@@ -552,8 +552,6 @@ export default function HomePage() {
                     </View>
                 </View>
             </Modal>
-
-
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -1179,5 +1177,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     }
-});
 });
