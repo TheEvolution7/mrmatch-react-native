@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Welcome from '../screens/OnboardScreens/Welcome';
@@ -29,11 +29,22 @@ import ProfileMember from '../screens/explore/ProfileMember';
 import NotificationDetai from '../screens/notifications/NotificationDetail';
 import Report from '../screens/explore/Report';
 import ChatBox from '../screens/chats/ChatBox';
+import ProfileScreen from '../screens/profile/ProfileScreen';
+import ProfileEditScreen from '../screens/profile/ProfileEditScreen';
 const Stack = createNativeStackNavigator();
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#131B22',
+    primary: '#fff',
+  },
+};
 function Navigation() {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="Registration" component={Registration} />
@@ -61,6 +72,9 @@ function Navigation() {
         <Stack.Screen name="Report" component={Report} />
         <Stack.Screen name="ChatBox" component={ChatBox} />
         <Stack.Screen name="Login" component={LoginPage} />
+
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <Stack.Screen name="ProfileEditScreen" component={ProfileEditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
