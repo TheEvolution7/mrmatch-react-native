@@ -12,6 +12,9 @@ import { BlurView } from '@react-native-community/blur';
 import Slider from '@react-native-community/slider';
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withRepeat, withSequence, withTiming } from 'react-native-reanimated';
 import Match from '../match/Match';
+import ModalSafety from '../../components/ModalSafety';
+import ModalBlock from '../../components/ModalBlock';
+import ListChat from '../chats/ListChat';
 
 function ExploreScreen() {
     return (
@@ -59,6 +62,7 @@ export default function HomePage() {
     const insets = useSafeAreaInsets();
     const [modalVisible, setModalVisible] = React.useState(false);
     const [isShowPrivacy, setShowPrivacy] = React.useState(false);
+    const [isShowFilter, setShowFilter] = React.useState(false);
     const [isShowSafety, setShowSatety] = React.useState(false);
     const [isShowBlock, setShowBlock] = React.useState(false);
     const [isStatusBlock, setStatusBlock] = React.useState(false);
@@ -83,6 +87,14 @@ export default function HomePage() {
 
     const showModalPrivacy = () => {
         setShowPrivacy(!isShowPrivacy);
+    }
+
+    const showModalFilter = () => {
+        setShowFilter(!isShowFilter);
+    }
+
+    const showModalBlock = (value) => {
+        setShowBlock(value);
     }
     const [distance, setDistance] = React.useState(200);
     const [ageRange, setAgeRange] = React.useState([18, 40])
@@ -243,70 +255,7 @@ export default function HomePage() {
                     reducedTransparencyFallbackColor="white"
                 />
                 <View style={styles.centeredView}>
-                    {isStatusBlock ?
-                        <View style={[styles.modalView, { paddingHorizontal: 20 }]}>
-                            <Text style={styles.titleTxt}>Report Sucessfully</Text>
-                            <View style={styles.device}></View>
-                            {/* <Animated.View style={animatedStyle}> */}
-                                <Image
-                                    source={require('../../assets/images/blockSuccess.png')}
-                                    style={{ width: 180, height: 186, marginTop: 23, marginBottom: 50 }}>
-                                </Image>
-                            {/* </Animated.View> */}
-
-                            <Text style={styles.txt6}>Profile has been blocked!</Text>
-                            <Text style={[styles.txt3, { color: '#8d8d8b', marginTop: 22, textAlign: 'center', opacity: 1 }]}>Want to block someone else you already know? Add them in Block List.</Text>
-                            <View style={{ width: '100%' }}>
-                                <TouchableOpacity onPress={() => { }} style={{ width: '100%', marginTop: 36 }}>
-                                    <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={{ height: 56, borderRadius: 30, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={styles.letChat}>Thanks, I’m done</Text>
-                                    </LinearGradient>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity onPress={() => { 
-                                    setShowBlock(false);
-                                    setStatusBlock(false);
-                                 }} style={{ height: 56, borderRadius: 30, width: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: '#2c3843', marginTop: 16 }}>
-                                    <Text style={styles.letChat}>Go to Block List</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        :
-                        <View style={[styles.modalView, { paddingHorizontal: 0, alignItems: 'flex-start' }]}>
-                            <Text style={[styles.titleTxt, { width: '100%', textAlign: 'center' }]}>Block Jessica</Text>
-                            <View style={[styles.device, { width: '100%', marginLeft: 0 }]}></View>
-                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginTop: 20 }}>
-                                <Image
-                                    source={require('../../assets/images/closeBl.png')}
-                                />
-                                <Text style={[styles.txt3, { marginLeft: 16, opacity: 1, flex: 1 }]}>They will not be able to find your profile and send you messages.</Text>
-                            </View>
-                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginTop: 20 }}>
-                                <Image
-                                    source={require('../../assets/images/alarmBl.png')}
-                                />
-                                <Text style={[styles.txt3, { marginLeft: 16, opacity: 1 }]}>They will not be notified if you block them.</Text>
-                            </View>
-                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginTop: 20 }}>
-                                <Image
-                                    source={require('../../assets/images/settingBl.png')}
-                                />
-                                <Text style={[styles.txt3, { marginLeft: 16, opacity: 1 }]}>You can unblock them anytime in Settings.</Text>
-                            </View>
-                            <View style={{ paddingHorizontal: 20, width: '100%' }}>
-                                <TouchableOpacity onPress={() => setStatusBlock(true)} style={{ width: '100%', marginTop: 36 }}>
-                                    <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={{ height: 56, borderRadius: 30, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={styles.letChat}>Yes, Block</Text>
-                                    </LinearGradient>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity onPress={() => { setShowBlock(false); }} style={{ height: 56, borderRadius: 30, width: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: '#2c3843', marginTop: 16 }}>
-                                    <Text style={styles.letChat}>Cancel</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                        </View>}
-
+                    <ModalBlock showModalBlock={showModalBlock} />
                 </View>
             </Modal>
 
@@ -322,49 +271,7 @@ export default function HomePage() {
                 />
                 <View style={styles.centeredViewSafety}>
                     <View style={styles.modalViewSafety}>
-                        <View style={styles.wrapHeader}>
-                            <TouchableOpacity hitSlop={30} onPress={() => setShowSatety(false)}>
-                                <Image
-                                    source={require('../../assets/images/closeIc.png')}
-                                />
-                            </TouchableOpacity>
-                            <Text style={styles.txtHeader}>Safety Features</Text>
-                            <Image
-                                source={require('../../assets/images/fi_headPhone.png')} />
-                        </View>
-                        <View style={styles.device}></View>
-                        <TouchableOpacity onPress={() => onShare()} style={{ flexDirection: 'row', marginTop: 20, paddingHorizontal: 20 }}>
-                            <Image
-                                source={require('../../assets/images/share.png')} />
-                            <View style={{ marginLeft: 16 }}>
-                                <Text style={[styles.txt1, { marginTop: 0, color: '#f8f1e6' }]}>Share This Profile</Text>
-                                <Text style={styles.txt3}>Recommended Jessica to Friends</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <View style={styles.device}></View>
-                        <TouchableOpacity onPress={() => {
-                            setShowSatety(false);
-                            setShowBlock(true);
-                        }} style={{ flexDirection: 'row', marginTop: 20, paddingHorizontal: 20 }}>
-                            <Image
-                                source={require('../../assets/images/block.png')} />
-                            <View style={{ marginLeft: 16 }}>
-                                <Text style={[styles.txt1, { marginTop: 0, color: '#f8f1e6' }]}>Block Jessica</Text>
-                                <Text style={styles.txt3}>You won’t see them, and they won’t see you.</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <View style={styles.device}></View>
-                        <TouchableOpacity onPress={() => {
-                            setShowSatety(false);
-                            navigation.navigate('Report');
-                        }} style={{ flexDirection: 'row', marginTop: 20, paddingHorizontal: 20, paddingBottom: 30 }}>
-                            <Image
-                                source={require('../../assets/images/reportIc.png')} />
-                            <View style={{ marginLeft: 16 }}>
-                                <Text style={[styles.txt1, { marginTop: 0, color: '#f8f1e6' }]}>Report Jessica</Text>
-                                <Text style={styles.txt3}>Don’t worry, we won’t tell them.</Text>
-                            </View>
-                        </TouchableOpacity>
+                        <ModalSafety showModalSafety={showModalSafety} showModalBlock={showModalBlock} setShowSatety={setShowSatety} />
                     </View>
                 </View>
             </Modal>
@@ -640,6 +547,132 @@ export default function HomePage() {
                     </View>
                 </View>
             </Modal>
+
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isShowFilter}
+                onRequestClose={() => {
+                }}>
+                <BlurView
+                    style={styles.absolute}
+                    // blurType="light"
+                    blurAmount={0.1}
+                // reducedTransparencyFallbackColor="white"
+                />
+                <View style={[styles.centeredView, { paddingHorizontal: 0, paddingTop: 80 }]}>
+                    <View style={[styles.modalView, { borderWidth: 0, backgroundColor: '#1c252d', paddingHorizontal: 0, alignItems: 'flex-start' }]}>
+                        <View style={styles.wrapHeader}>
+                            <TouchableOpacity hitSlop={30} onPress={() => setShowFilter(false)}>
+                                <Image
+                                    source={require('../../assets/images/closeIc.png')}
+                                />
+                            </TouchableOpacity>
+                            <Text style={styles.txtHeader}>Filter & Show</Text>
+                        </View>
+                        <View style={styles.device} />
+                        <ScrollView style={{flex:1, paddingHorizontal:20}}>
+                            <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+                                <Text style={styles.txt1}>Distance Range</Text>
+                                <Text style={styles.txt5}>{distance}</Text>
+                            </View>
+                            <Slider
+                                style={styles.slider}
+                                minimumValue={0}
+                                maximumValue={500}
+                                minimumTrackTintColor="#D4B07A" // Gold-like color for the track
+                                maximumTrackTintColor="#FFFFFF" // White color for the track
+                                // thumbTintColor="#FFFFFF" // White color for the thumb
+                                value={distance}
+                                onValueChange={(value) => setDistance(Math.floor(value))} // Update the distance value
+                                thumbImage={require('../../assets/images/thumtintIc.png')}
+                            />
+                            <View style={styles.device} />
+                            <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+                                <Text style={styles.txt1}>Age Range</Text>
+                                <Text style={styles.txt5}>{ageRange[0]} - {ageRange[1]}</Text>
+                            </View>
+                            <MultiSlider
+                                values={ageRange}
+                                sliderLength={screenWidth - 40}
+                                onValuesChange={handleValueChange}
+                                min={0}
+                                max={100}
+                                step={1}
+                                allowOverlap={false}
+                                snapped
+                                selectedStyle={{ backgroundColor: '#BB9A65', height: 4 }} // Gold-like color for the selected track
+                                unselectedStyle={{ backgroundColor: '#FFFFFF', height: 4 }} // White color for the unselected track
+                                markerStyle={{ backgroundColor: '#FFFFFF', borderWidth: 4, borderColor: '#BB9A65' }} // Customize marker (thumb)
+                            />
+                            <View style={styles.device} />
+                            <Text style={styles.txt1}>Minimum Number of Photos</Text>
+                            <View style={styles.wrapNumPhoto}>
+                                {[1, 2, 3, 4, 5, 6].map((item) => {
+                                    const isSelected = item === selectedNumber;
+                                    return (
+                                        <TouchableOpacity
+                                            key={item}
+                                            style={[
+                                                styles.circle,
+                                                isSelected ? styles.selectedCircle : styles.unselectedCircle,
+                                            ]}
+                                            onPress={() => setSelectedNumber(item)}
+                                        >
+                                            {isSelected ?
+                                                <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={styles.circle}>
+                                                    <Text
+                                                        style={[
+                                                            styles.number,
+                                                            isSelected ? styles.selectedNumber : styles.unselectedNumber,
+                                                        ]}
+                                                    >
+                                                        {item}
+                                                    </Text>
+                                                </LinearGradient>
+                                                :
+                                                <Text
+                                                    style={[
+                                                        styles.number,
+                                                        isSelected ? styles.selectedNumber : styles.unselectedNumber,
+                                                    ]}
+                                                >
+                                                    {item}
+                                                </Text>
+                                            }
+
+
+                                        </TouchableOpacity>
+                                    );
+                                })}
+                            </View>
+                            <View style={styles.device} />
+                            <Text style={styles.txt1}>Show Me</Text>
+                            <View style={styles.wrapGender}>
+                                <TouchableOpacity style={{ flex: 1, borderRadius: 30, borderWidth: 1, borderColor: 'rgba(44, 56, 67, 1)', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={styles.number}>Men</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ flex: 1, marginLeft: 8 }}>
+                                    <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={{ borderRadius: 30, justifyContent: 'center', alignItems: 'center', height: 44 }}>
+                                        <Text style={styles.number}>Women</Text>
+                                    </LinearGradient>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.device} />
+                            <View style={styles.wrapGender}>
+                                <Text style={[styles.txt1, { marginTop: 0, flex: 1 }]}>Has a Bio</Text>
+                                <Image
+                                    source={require('../../assets/images/sliderOn.png')}
+                                >
+                                </Image>
+                            </View>
+                            <View style={styles.device} />
+                        </ScrollView>
+                    </View>
+                </View>
+            </Modal>
+
             <Tab.Navigator
                 screenOptions={({ route }) => ({
 
@@ -711,7 +744,12 @@ export default function HomePage() {
                                 </View>
                             )
                         }
-                    }} name="Match" component={Match} />
+                    }} name="Match"
+                    children={() => (
+                        <Match showModalFilter={showModalFilter} />
+                    )}
+                // component={Match} 
+                />
                 <Tab.Screen options={{
                     tabBarIcon: ({ focused }) => {
                         return (
@@ -722,7 +760,7 @@ export default function HomePage() {
                                 <View style={{ position: 'absolute', left: 0, bottom: 0, alignItems: 'center', height: 64, width: '100%', justifyContent: 'center', borderTopLeftRadius: 20 }}>
                                     {focused ?
                                         <Image
-                                            source={require('../../assets/images/chatInact.png')}
+                                            source={require('../../assets/images/chatAct.png')}
                                             width={24} height={24}>
                                         </Image>
                                         :
@@ -737,7 +775,7 @@ export default function HomePage() {
                             </View>
                         )
                     }
-                }} name="Chats" component={ChatScreen} />
+                }} name="Chats" component={ListChat} />
                 <Tab.Screen options={{
                     tabBarIcon: ({ focused }) => {
                         return (
@@ -850,7 +888,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 22,
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
     },
     modalView: {
         margin: 20,
@@ -870,7 +908,7 @@ const styles = StyleSheet.create({
         borderColor: '#bb9a65',
         borderWidth: 1,
         width: '100%',
-        // height: '100%',
+        height: '100%',
         paddingBottom: 32
     },
     titleTxt: {

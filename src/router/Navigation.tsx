@@ -28,6 +28,7 @@ import NotificationList from '../screens/notifications/NotificationList';
 import ProfileMember from '../screens/explore/ProfileMember';
 import NotificationDetai from '../screens/notifications/NotificationDetail';
 import Report from '../screens/explore/Report';
+import ChatBox from '../screens/chats/ChatBox';
 const Stack = createNativeStackNavigator();
 function Navigation() {
   return (
@@ -58,6 +59,7 @@ function Navigation() {
         <Stack.Screen name="NotificationDetai" component={NotificationDetai} />
         <Stack.Screen name="ProfileMember" component={ProfileMember} />
         <Stack.Screen name="Report" component={Report} />
+        <Stack.Screen name="ChatBox" component={ChatBox} />
         <Stack.Screen name="Login" component={LoginPage} />
       </Stack.Navigator>
     </NavigationContainer>
