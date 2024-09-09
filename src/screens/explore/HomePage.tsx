@@ -296,7 +296,7 @@ export default function HomePage() {
                 // reducedTransparencyFallbackColor="white"
                 />
                 <View style={[styles.centeredView, { paddingHorizontal: 0, paddingTop: 80 }]}>
-                    <View style={[styles.modalView, { borderWidth: 0, backgroundColor: '#1c252d', paddingHorizontal: 0, alignItems: 'flex-start' }]}>
+                    <View style={[styles.modalView, { borderWidth: 0, backgroundColor: '#1c252d', paddingHorizontal: 0, alignItems: 'flex-start', height:'100%' }]}>
                         <View style={styles.wrapHeader}>
                             <TouchableOpacity hitSlop={30} onPress={() => setShowPrivacy(false)}>
                                 <Image
@@ -907,7 +907,7 @@ const styles = StyleSheet.create({
         borderColor: '#bb9a65',
         borderWidth: 1,
         width: '100%',
-        height: '100%',
+        // height: '100%',
         paddingBottom: 32
     },
     titleTxt: {
