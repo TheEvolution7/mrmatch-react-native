@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, Modal, TouchableOpacity, ScrollView, ImageBackground, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, Modal, TouchableOpacity, ScrollView, ImageBackground, FlatList, Share } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -15,6 +15,11 @@ import SafeDateTutorial from '../SafeDate/SafeDateTutorial';
 import { SafeOnOffUnactive } from '../SafeDate/SafeOnOffUnactive';
 import { SafeOnOff } from '../SafeDate/SafeOnOff';
 import ProfileScreen from '../profile/ProfileScreen';
+import ModalSafety from '../../components/ModalSafety';
+import ModalBlock from '../../components/ModalBlock';
+import Match from '../match/Match';
+import ListChat from '../chats/ListChat';
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withRepeat, withSequence, withTiming } from 'react-native-reanimated';
 
 function ExploreScreen() {
     return (
@@ -62,7 +67,25 @@ export default function HomePage() {
     const insets = useSafeAreaInsets();
     const [modalVisible, setModalVisible] = React.useState(false);
     const [isShowPrivacy, setShowPrivacy] = React.useState(false);
+    const [isShowFilter, setShowFilter] = React.useState(false);
+    const [isShowSafety, setShowSatety] = React.useState(false);
+    const [isShowBlock, setShowBlock] = React.useState(false);
+    const [isStatusBlock, setStatusBlock] = React.useState(false);
     const navigation = useNavigation();
+    const scale = useSharedValue(1);
+    scale.value = withRepeat(
+        withSequence(
+            withTiming(1.2, { duration: 1000, easing: Easing.inOut(Easing.ease) }),
+            withTiming(1, { duration: 1000, easing: Easing.inOut(Easing.ease) })
+        ),
+        -1, // Infinite repeat
+        true // Reverse on each iteration
+    );
+    const animatedStyle = useAnimatedStyle(() => {
+        return {
+            transform: [{ scale: scale.value }],
+        };
+    });
     const showModalGotMatch = () => {
         setModalVisible(!modalVisible);
     }
@@ -70,12 +93,24 @@ export default function HomePage() {
     const showModalPrivacy = () => {
         setShowPrivacy(!isShowPrivacy);
     }
+
+    const showModalFilter = () => {
+        setShowFilter(!isShowFilter);
+    }
+
+    const showModalBlock = (value) => {
+        setShowBlock(value);
+    }
     const [distance, setDistance] = React.useState(200);
     const [ageRange, setAgeRange] = React.useState([18, 40])
 
     const handleValueChange = (values) => {
         setAgeRange(values);
     };
+
+    const showModalSafety = () => {
+        setShowSatety(!isShowSafety);
+    }
 
     const [selectedNumber, setSelectedNumber] = React.useState(4);
     const [selectedInterests, setSelectedInterests] = React.useState([]);
@@ -155,6 +190,26 @@ export default function HomePage() {
         </TouchableOpacity>
     );
 
+    const onShare = async () => {
+        try {
+            const result = await Share.share({
+                message:
+                    'Sharing information',
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            //   Alert.alert(error.message);
+        }
+    };
+
     return (
         <>
             <Modal
@@ -182,7 +237,7 @@ export default function HomePage() {
                         <Text style={styles.txtDes}>meaningful conversation.</Text>
                         <TouchableOpacity onPress={() => { }} style={{ width: '100%', marginTop: 36 }}>
                             <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={{ height: 56, borderRadius: 30, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={styles.letChat}>Create a new account</Text>
+                                <Text style={styles.letChat}>Let’s Chat</Text>
                             </LinearGradient>
                         </TouchableOpacity>
 
@@ -192,6 +247,42 @@ export default function HomePage() {
                     </View>
                 </View>
             </Modal>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isShowBlock}
+                onRequestClose={() => {
+                }}>
+                <BlurView
+                    style={styles.absolute}
+                    blurAmount={1}
+                    reducedTransparencyFallbackColor="white"
+                />
+                <View style={styles.centeredView}>
+                    <ModalBlock showModalBlock={showModalBlock} />
+                </View>
+            </Modal>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isShowSafety}
+                onRequestClose={() => {
+                }}>
+                <BlurView
+                    style={styles.absolute}
+                    blurAmount={0.1}
+                />
+                <View style={styles.centeredViewSafety}>
+                    <View style={styles.modalViewSafety}>
+                        <ModalSafety showModalSafety={showModalSafety} showModalBlock={showModalBlock} setShowSatety={setShowSatety} />
+                    </View>
+                </View>
+            </Modal>
+
+
+
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -476,65 +567,39 @@ export default function HomePage() {
                     })}
                 // tabBar={(props) => <MyTabBar {...props} />}
                 >
-                    <Tab.Screen
-                        options={{
-                            tabBarIcon: ({ focused }) => {
-                                return (
-                                    <View style={{ backgroundColor: '#1c252d', height: 64, marginTop: 20, width: screenWidth / 5, borderTopLeftRadius: 20, marginBottom: insets.bottom }}>
-                                        {focused && <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 1.0 }} colors={['rgba(187, 154, 101, 0)', 'rgba(187, 154, 101, 1)']} style={{ height: 60, width: screenWidth / 5, opacity: 0.2 }}>
-                                        </LinearGradient>}
+                <Tab.Screen
+                    options={{
+                        tabBarIcon: ({ focused }) => {
+                            return (
+                                <View style={{ backgroundColor: '#1c252d', height: 64, marginTop: 20, width: screenWidth / 5, borderTopLeftRadius: 20, marginBottom: insets.bottom }}>
+                                    {focused && <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 1.0 }} colors={['rgba(187, 154, 101, 0)', 'rgba(187, 154, 101, 1)']} style={{ height: 60, width: screenWidth / 5, opacity: 0.2 }}>
+                                    </LinearGradient>}
 
-                                        <View style={{ position: 'absolute', left: 0, bottom: 0, alignItems: 'center', height: 64, width: '100%', justifyContent: 'center', borderTopLeftRadius: 20 }}>
-                                            {focused ?
-                                                <Image
-                                                    source={require('../../assets/images/heartIcon.png')}
-                                                    width={24} height={24}>
-                                                </Image>
-                                                :
-                                                <Image
-                                                    source={require('../../assets/images/heartInactive.png')}
-                                                    width={24} height={24}>
-                                                </Image>}
-                                            {focused && <Text style={styles.txtTabBar}>Explore</Text>}
+                                    <View style={{ position: 'absolute', left: 0, bottom: 0, alignItems: 'center', height: 64, width: '100%', justifyContent: 'center', borderTopLeftRadius: 20 }}>
+                                        {focused ?
+                                            <Image
+                                                source={require('../../assets/images/heartIcon.png')}
+                                                width={24} height={24}>
+                                            </Image>
+                                            :
+                                            <Image
+                                                source={require('../../assets/images/heartInactive.png')}
+                                                width={24} height={24}>
+                                            </Image>}
+                                        {focused && <Text style={styles.txtTabBar}>Explore</Text>}
 
-                                        </View>
-                                        {focused && <View style={{ height: 4, width: screenWidth / 5, backgroundColor: '#BB9A65' }}></View>}
                                     </View>
-                                )
-                            }
-                        }}
-                        name="Explore"
-                        children={() => (
-                            <Explore showModalGotMatch={showModalGotMatch} showModalPrivacy={showModalPrivacy} />
-                        )} />
-                    <Tab.Screen
-                        options={{
-                            tabBarIcon: ({ focused }) => {
-                                return (
-                                    <View style={{ backgroundColor: '#1c252d', height: 64, marginTop: 20, width: screenWidth / 5, marginBottom: insets.bottom }}>
-                                        {focused && <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 1.0 }} colors={['rgba(187, 154, 101, 0)', 'rgba(187, 154, 101, 1)']} style={{ height: 60, width: screenWidth / 5, opacity: 0.2 }}>
-                                        </LinearGradient>}
-
-                                        <View style={{ position: 'absolute', left: 0, bottom: 0, alignItems: 'center', height: 64, width: '100%', justifyContent: 'center', borderTopLeftRadius: 20 }}>
-                                            {focused ?
-                                                <Image
-                                                    source={require('../../assets/images/matchAct.png')}
-                                                    width={24} height={24}>
-                                                </Image>
-                                                :
-                                                <Image
-                                                    source={require('../../assets/images/matchInact.png')}
-                                                    width={24} height={24}>
-                                                </Image>}
-                                            {focused && <Text style={styles.txtTabBar}>Match</Text>}
-
-                                        </View>
-                                        {focused && <View style={{ height: 4, width: screenWidth / 5, backgroundColor: '#BB9A65' }}></View>}
-                                    </View>
-                                )
-                            }
-                        }} name="Match" component={DiscoverScreen} />
-                    <Tab.Screen options={{
+                                    {focused && <View style={{ height: 4, width: screenWidth / 5, backgroundColor: '#BB9A65' }}></View>}
+                                </View>
+                            )
+                        }
+                    }}
+                    name="Explore"
+                    children={() => (
+                        <Explore showModalGotMatch={showModalGotMatch} showModalPrivacy={showModalPrivacy} showModalSafety={showModalSafety} />
+                    )} />
+                <Tab.Screen
+                    options={{
                         tabBarIcon: ({ focused }) => {
                             return (
                                 <View style={{ backgroundColor: '#1c252d', height: 64, marginTop: 20, width: screenWidth / 5, marginBottom: insets.bottom }}>
@@ -544,23 +609,54 @@ export default function HomePage() {
                                     <View style={{ position: 'absolute', left: 0, bottom: 0, alignItems: 'center', height: 64, width: '100%', justifyContent: 'center', borderTopLeftRadius: 20 }}>
                                         {focused ?
                                             <Image
-                                                source={require('../../assets/images/chatActive.png')}
+                                                source={require('../../assets/images/matchAct.png')}
                                                 width={24} height={24}>
                                             </Image>
                                             :
                                             <Image
-                                                source={require('../../assets/images/chatInact.png')}
+                                                source={require('../../assets/images/matchIna.png')}
                                                 width={24} height={24}>
                                             </Image>}
-                                        {focused && <Text style={styles.txtTabBar}>Chats</Text>}
+                                        {focused && <Text style={styles.txtTabBar}>Match</Text>}
 
                                     </View>
                                     {focused && <View style={{ height: 4, width: screenWidth / 5, backgroundColor: '#BB9A65' }}></View>}
                                 </View>
                             )
                         }
-                    }} name="Chats" component={ChatScreen} />
-                    <Tab.Screen options={{
+                    }} name="Match"
+                    children={() => (
+                        <Match showModalFilter={showModalFilter} />
+                    )}
+                // component={Match} 
+                />
+                <Tab.Screen options={{
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <View style={{ backgroundColor: '#1c252d', height: 64, marginTop: 20, width: screenWidth / 5, marginBottom: insets.bottom }}>
+                                {focused && <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 1.0 }} colors={['rgba(187, 154, 101, 0)', 'rgba(187, 154, 101, 1)']} style={{ height: 60, width: screenWidth / 5, opacity: 0.2 }}>
+                                </LinearGradient>}
+
+                                <View style={{ position: 'absolute', left: 0, bottom: 0, alignItems: 'center', height: 64, width: '100%', justifyContent: 'center', borderTopLeftRadius: 20 }}>
+                                    {focused ?
+                                        <Image
+                                            source={require('../../assets/images/chatAct.png')}
+                                            width={24} height={24}>
+                                        </Image>
+                                        :
+                                        <Image
+                                            source={require('../../assets/images/chatInact.png')}
+                                            width={24} height={24}>
+                                        </Image>}
+                                    {focused && <Text style={styles.txtTabBar}>Chats</Text>}
+
+                                </View>
+                                {focused && <View style={{ height: 4, width: screenWidth / 5, backgroundColor: '#BB9A65' }}></View>}
+                            </View>
+                        )
+                    }
+                }} name="Chats" component={ListChat} />
+                <Tab.Screen options={{
                         tabBarIcon: ({ focused }) => {
                             
                             return (
@@ -581,12 +677,12 @@ export default function HomePage() {
                             )
                         }
                     }} name="SafeDate"  component={SafeDateTutorial} />
-                    <Tab.Screen options={{
-                        tabBarIcon: ({ focused }) => {
-                            return (
-                                <View style={{ backgroundColor: '#1c252d', height: 64, marginTop: 20, width: screenWidth / 5, borderTopRightRadius: 20, marginBottom: insets.bottom }}>
-                                    {focused && <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 1.0 }} colors={['rgba(187, 154, 101, 0)', 'rgba(187, 154, 101, 1)']} style={{ height: 60, width: screenWidth / 5, opacity: 0.2 }}>
-                                    </LinearGradient>}
+                <Tab.Screen options={{
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <View style={{ backgroundColor: '#1c252d', height: 64, marginTop: 20, width: screenWidth / 5, marginBottom: insets.bottom }}>
+                                {focused && <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 1.0 }} colors={['rgba(187, 154, 101, 0)', 'rgba(187, 154, 101, 1)']} style={{ height: 60, width: screenWidth / 5, opacity: 0.2 }}>
+                                </LinearGradient>}
 
                                     <View style={{ position: 'absolute', left: 0, bottom: 0, alignItems: 'center', height: 64, width: '100%', justifyContent: 'center', borderTopLeftRadius: 20 }}>
                                         {focused ?
@@ -669,7 +765,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 22,
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
     },
     modalView: {
         margin: 20,
@@ -828,6 +924,13 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: 'right'
     },
+    txt6: {
+        fontSize: 18,
+        fontWeight: "500",
+        fontFamily: "Inter-Medium",
+        color: '#f8f1e6',
+        textAlign: 'center'
+    },
     wrapNumPhoto: {
         flexDirection: 'row',
         marginTop: 22
@@ -938,4 +1041,18 @@ const styles = StyleSheet.create({
         marginRight: 10,
         opacity: 0.5
     },
+    modalViewSafety: {
+        width: '100%',
+        backgroundColor: '#1c252d',
+        position: 'absolute',
+        bottom: 0,
+        // left:0
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20
+    },
+    centeredViewSafety: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 });

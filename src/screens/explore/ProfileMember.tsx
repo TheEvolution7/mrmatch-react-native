@@ -1,11 +1,24 @@
 import * as React from 'react';
 import Container from '../../components/Container';
-import { FlatList, Image, PanResponder, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Modal, PanResponder, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
+import { BlurView } from '@react-native-community/blur';
+import ModalSafety from '../../components/ModalSafety';
+import ModalBlock from '../../components/ModalBlock';
+import ModalUnmatched from '../../components/ModalUnmatched';
 
-export default function ProfileMember() {
+export default function ProfileMember({ route }) {
     const navigation = useNavigation();
+    // const { showModalSafety } = route.params;
+    const [isShowSafety, setShowSatety] = React.useState(false);
+    const [isShowBlock, setShowBlock] = React.useState(false);
+    const [isShowUnmatched, setShowUnmatched] = React.useState(false);
+
+    const showModalBlock = (value) => {
+        setShowBlock(value);
+    }
+
     const profile = [
         {
             id: 1,
@@ -187,6 +200,56 @@ export default function ProfileMember() {
     ]
     return (
         <Container style={{ backgroundColor: '#131B22', flex: 1 }}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isShowUnmatched}
+                onRequestClose={() => {
+                }}>
+                <BlurView
+                    style={styles.absolute}
+                    blurAmount={1}
+                    reducedTransparencyFallbackColor="white"
+                />
+                <View style={styles.centeredView}>
+                    <ModalUnmatched setShowUnmatched={setShowUnmatched} />
+                </View>
+            </Modal>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isShowBlock}
+                onRequestClose={() => {
+                }}>
+                <BlurView
+                    style={styles.absolute}
+                    blurAmount={1}
+                    reducedTransparencyFallbackColor="white"
+                />
+                <View style={styles.centeredView}>
+                    <ModalBlock showModalBlock={showModalBlock} />
+                </View>
+            </Modal>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isShowSafety}
+                onRequestClose={() => {
+                }}>
+                <BlurView
+                    style={styles.absolute}
+                    blurAmount={0.1}
+                />
+                <View style={styles.centeredViewSafety}>
+                    <View style={styles.modalViewSafety}>
+                        <ModalSafety setShowUnmatched={setShowUnmatched} showModalBlock={showModalBlock} setShowSatety={setShowSatety} isShowUnmatch={true} />
+                    </View>
+                </View>
+            </Modal>
+
+
+
             <View style={styles.header}>
                 <TouchableOpacity hitSlop={20} onPress={() => navigation.goBack()}>
                     <Image
@@ -195,11 +258,19 @@ export default function ProfileMember() {
                     </Image>
                 </TouchableOpacity>
                 <Text style={styles.txtHeader}>Jessica’s Profile</Text>
-                <Image
-                    source={require('../../assets/images/shield.png')} />
+                <TouchableOpacity onPress={() => setShowSatety(true)}>
+                    <Image
+                        source={require('../../assets/images/shield.png')} />
+                </TouchableOpacity>
             </View>
             <ScrollView style={{ flex: 1 }}>
-                <Image resizeMode='cover' source={require('../../assets/images/profileMember.png')} style={styles.profileImage} />
+                <View >
+                    <Image resizeMode='cover' source={require('../../assets/images/profileMember.png')} style={styles.profileImage} />
+                    <TouchableOpacity style={styles.btnChat}>
+                        <Image resizeMode='cover' source={require('../../assets/images/chatIc.png')} />
+                    </TouchableOpacity>
+                </View>
+
                 <View style={{ flex: 1, paddingHorizontal: 20 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 30 }}>
                         <Text style={styles.txt1}>Jessica (24)</Text>
@@ -472,5 +543,39 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 19,
         paddingTop: 28
-    }
+    },
+    btnChat: {
+        position: 'absolute',
+        right: 18,
+        bottom: 26
+    },
+    absolute: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        backgroundColor: 'rgba(19, 27, 34, 0.4)'
+    },
+    modalViewSafety: {
+        width: '100%',
+        backgroundColor: '#1c252d',
+        position: 'absolute',
+        bottom: 0,
+        // left:0
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20
+    },
+    centeredViewSafety: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+        paddingHorizontal: 20
+    },
 })
