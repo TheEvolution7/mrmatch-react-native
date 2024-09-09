@@ -40,11 +40,16 @@ const MyTheme = {
     primary: '#fff',
   },
 };
+
+
 function Navigation() {
+
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        
+        <Stack.Screen name="ProfileEditScreen" component={ProfileEditScreen}  />
+       
+
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="Registration" component={Registration} />
@@ -74,7 +79,7 @@ function Navigation() {
         <Stack.Screen name="Login" component={LoginPage} />
 
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
-        <Stack.Screen name="ProfileEditScreen" component={ProfileEditScreen} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

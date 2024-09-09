@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import RelaItem from './RelaItem';
 
 
 
 
-
-const ProfileRelationship: React.FC = () => {
+const ProfileEditRelationship: React.FC = () => {
     const [relations, setRelation] = React.useState([
         {
             id: '1',
@@ -51,6 +50,14 @@ const ProfileRelationship: React.FC = () => {
             isActive: false,
         },
     ]);
+
+    const toggleRelationActive = (id: string) => {
+        setRelation((prevRelation) =>
+          prevRelation.map((relation) =>
+            relation.id === id ? { ...relation, isActive: !relation.isActive } : relation
+          )
+        );
+    };
     
 
     return (
@@ -62,9 +69,7 @@ const ProfileRelationship: React.FC = () => {
             </View>
 
             <View className="flex flex-row flex-wrap content-center items-center ml-[-8px] mr-[-8px]">
-                {relations
-                    .filter((item) => item.isActive)
-                    .map((item) => (
+                {relations.map((item) => (
                         <View className="min-w-[50%] flex flex-1">
                             <RelaItem
                                 key={item.id}
@@ -72,7 +77,7 @@ const ProfileRelationship: React.FC = () => {
                                 iconActive={item.iconActive}
                                 title={item.title}
                                 isActive={item.isActive} 
-                                onPress={() => {}}                  
+                                onPress={() => toggleRelationActive(item.id)}                 
                             />
                         </View>
                     ))}
@@ -83,7 +88,7 @@ const ProfileRelationship: React.FC = () => {
     );
 };
 
-export default ProfileRelationship;
+export default ProfileEditRelationship;
 
 
 

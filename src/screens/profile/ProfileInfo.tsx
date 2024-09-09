@@ -4,10 +4,24 @@ import LinearGradient from 'react-native-linear-gradient';
 import CircularProgress from '../../components/CircularProgress';
 import ProfileInfoItem from './ProfileInfoItem';
 
-
-
+export interface UserProfile {
+    name: string;
+    birthdate: string;
+    gender: string;
+    pronouns: string;
+    height: string;
+    weight: string;
+    jobtitle: string;
+    company: string;
+    school: string;
+    livingin: string;
+    aboutme: string;
+}
 
 const ProfileInfo: React.FC = () => {
+
+ 
+    
     const [progress, setProgress] = useState(10);
 
     const increaseProgress = () => {
