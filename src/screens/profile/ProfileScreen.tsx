@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {View, Text, TextInput, ScrollView, TouchableOpacity, Image} from 'react-native';
 
 import Container from '../../components/Container';
@@ -15,7 +15,13 @@ import ProfileOptionMovie from './ProfileOptionMovie';
 import ProfileOptionBook from './ProfileOptionBook';
 import ProfileOptionTravel from './ProfileOptionTravel';
 
+
+
+
 const ProfileScreen: React.FC = () => {
+
+  
+
   return (
     <Container>
       <ProfileTopMenu />
