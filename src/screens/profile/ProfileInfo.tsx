@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import CircularProgress from '../../components/CircularProgress';
 import ProfileInfoItem from './ProfileInfoItem';
@@ -19,15 +19,8 @@ export interface UserProfile {
 }
 
 const ProfileInfo: React.FC = () => {
-
- 
-    
     const [progress, setProgress] = useState(10);
-
-    const increaseProgress = () => {
-      setProgress(prev => (prev < 100 ? prev + 10 : 100));
-    };
-    const [ infoitem ] = React.useState([
+    const [infoitem] = useState([
         {
             icon: require('../../assets/images/gender-male.png'),
             title: 'Man',
@@ -37,126 +30,110 @@ const ProfileInfo: React.FC = () => {
             title: 'Less than a kilometer away',
         },
     ]);
-    
 
     return (
-        <View className="flex mt-[20px] mx-[20px]">
+        <View style={styles.container}>
             <LinearGradient
                 locations={[0, 1]}
                 colors={['#BB9A65', '#775D3400']}
                 useAngle={true}
                 angle={-160.24}
-                className="flex flex-row rounded-[10px] p-[2px] justify-center items-center">
-                
-                
-                <View className="flex flex-row gap-x-[15px]">
+                style={styles.profileCompletionContainer}
+            >
+                <View style={styles.profileCompletionContent}>
                     <LinearGradient
                         locations={[0, 0.3, 1]}
-                        colors={['#6F5D3F','#394148F5', '#1C252D']}
+                        colors={['#6F5D3F', '#394148F5', '#1C252D']}
                         useAngle={true}
                         angle={20.24}
-                        className="flex flex-row rounded-[10px] p-[18px] justify-center gap-x-[15px]">
-                        
+                        style={styles.innerGradient}
+                    >
                         <CircularProgress size={72} progress={progress} />
-                        
-                        
-                        <View className="flex-1 flex-column self-center">
-                            <Text className="text-[#BB9A65] text-[16px] font-heading font-bold mb-[10px]">
+                        <View style={styles.profileCompletionTextContainer}>
+                            <Text style={styles.profileCompletionTitle}>
                                 Complete your profile
                             </Text>
-                            <Text className="text-[12px] text-[#F8F1E6] font-body">
+                            <Text style={styles.profileCompletionSubtitle}>
                                 Complete to verify your profile and experience the best dating experience and better matches!
                             </Text>
                         </View>
-
                         <TouchableOpacity>
                             <Image
-                                className="w-[24px] h-[24px]"
+                                style={styles.closeIcon}
                                 resizeMode="contain"
-                                source={require('../../assets/images/close.png')}></Image>
+                                source={require('../../assets/images/close.png')}
+                            />
                         </TouchableOpacity>
                     </LinearGradient>
                 </View>
             </LinearGradient>
 
-            <View className="flex flex-row gap-x-[16px] mt-[16px]">
-                <TouchableOpacity
-                    className="flex-1 flex flex-column items-center justify-between border-[#2D3843] border-[1px] rounded-[10px] bg-[#1C252D] p-[15px]"
-                > 
+            <View style={styles.actionsContainer}>
+                <TouchableOpacity style={styles.actionButton}>
                     <Image
-                        className="w-[40px] h-[40px]"
+                        style={styles.actionIcon}
                         resizeMode="contain"
-                        source={require('../../assets/images/star-like.png')}></Image>
-                    <View className="flex flex-column items-center">
-                        <Text className="text-[#3DA2FF] text-[12px] mt-[20px]">
-                            0 
-                            <Text className="text-white text-[12px]"> Super Likes</Text>
+                        source={require('../../assets/images/star-like.png')}
+                    />
+                    <View style={styles.actionTextContainer}>
+                        <Text style={styles.superLikesText}>
+                            0 <Text style={styles.whiteText}>Super Likes</Text>
                         </Text>
-                        <Text className="font-medium font-heading text-[12px] text-[#3DA2FF] mt-[5px]">
-                            Get more
-                        </Text>
+                        <Text style={styles.getMoreText}>Get more</Text>
                     </View>
-                    
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                    className="flex-1 flex flex-column items-center justify-between border-[#2D3843] border-[1px] rounded-[10px] bg-[#1C252D] p-[15px]"
-                > 
+                <TouchableOpacity style={styles.actionButton}>
                     <Image
-                        className="w-[40px] h-[40px]"
+                        style={styles.actionIcon}
                         resizeMode="contain"
-                        source={require('../../assets/images/boost.png')}></Image>
-                    <View className="flex flex-column items-center">
-                        <Text className="text-[#B85DFF] text-[12px] mt-[20px]">
-                            0 
-                            <Text className="text-white text-[12px]"> Boost</Text>
+                        source={require('../../assets/images/boost.png')}
+                    />
+                    <View style={styles.actionTextContainer}>
+                        <Text style={styles.boostText}>
+                            0 <Text style={styles.whiteText}>Boost</Text>
                         </Text>
-                        <Text className="font-medium font-heading text-[12px] text-[#B85DFF] mt-[5px]">
-                            Get more
-                        </Text>
+                        <Text style={styles.getMoreText}>Get more</Text>
                     </View>
-                    
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                    className="flex-1 flex flex-column items-center justify-between border-[#2D3843] border-[1px] rounded-[10px] bg-[#1C252D] p-[15px] shadow shadow-[#5E728472]"
-                > 
-                    <Text className="font-medium font-heading text-[12px] text-[#BB9A65] mb-[10px]">
-                        Basic
-                    </Text>
+                <TouchableOpacity style={[styles.actionButton, styles.shadow]}>
+                    <Text style={styles.basicText}>Basic</Text>
                     <Image
-                        className="w-[32px] h-[30px]"
+                        style={styles.basicIcon}
                         resizeMode="contain"
-                        source={require('../../assets/images/basic.png')}></Image>
-                    <View className="flex flex-column items-center">
-                        <Text className="text-[#B85DFF] text-[12px] mt-[20px]">
-                            <Text className="text-white text-[12px]"> Subscriptions</Text>
+                        source={require('../../assets/images/basic.png')}
+                    />
+                    <View style={styles.actionTextContainer}>
+                        <Text style={styles.subscriptionText}>
+                            <Text style={styles.whiteText}>Subscriptions</Text>
                         </Text>
-                        <Text className="font-medium font-heading text-[12px] text-[#BB9A65] mt-[5px]">
-                            Upgrade
-                        </Text>
+                        <Text style={styles.upgradeText}>Upgrade</Text>
                     </View>
-                    
                 </TouchableOpacity>
             </View>
 
-            <View className="mt-[30px] flex flex-column">
-                <Text className="font-bold text-[24px] text-[#BB9A65]">Andrew (27)</Text>
-                <View className="flex mt-[12px]">
-                    <LinearGradient 
-                        locations={[0, 1]} 
-                        colors={['#40505F', '#40505F']} 
-                        useAngle={true} 
+            <View style={styles.profileDetailsContainer}>
+                <Text style={styles.profileName}>Andrew (27)</Text>
+                <View style={styles.verifiedContainer}>
+                    <LinearGradient
+                        locations={[0, 1]}
+                        colors={['#40505F', '#40505F']}
+                        useAngle={true}
                         angle={101.24}
-                        className="flex-row self-start grow items-center px-[14px] py-[12px] rounded-[30px]"
+                        style={styles.verifiedBadge}
                     >
-                        <Image className="w-[16px] h-[16px] mr-[10px]" source={require('../../assets/images/verify_ic.png')} />
-                        <Text className="text-[#F8F1E6] text-[12px]">Profile Verified</Text>
+                        <Image
+                            style={styles.verifyIcon}
+                            source={require('../../assets/images/verify_ic.png')}
+                        />
+                        <Text style={styles.verifiedText}>Profile Verified</Text>
                     </LinearGradient>
                 </View>
                 <View>
                     {infoitem.map((item) => (
                         <ProfileInfoItem
+                            key={item.title}
                             icon={item.icon}
                             title={item.title}
                         />
@@ -164,13 +141,143 @@ const ProfileInfo: React.FC = () => {
                 </View>
             </View>
 
-            <View className="mt-[28px] mb-[28px] ml-[-20px] mr-[-20px] h-[1px] bg-[#6B7176]"></View>
+            <View style={styles.separator}></View>
         </View>
     );
 };
 
 export default ProfileInfo;
 
-
-
-
+const styles = StyleSheet.create({
+    container: {
+        marginTop: 20,
+        marginHorizontal: 20,
+    },
+    profileCompletionContainer: {
+        borderRadius: 10,
+        padding: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    profileCompletionContent: {
+        flexDirection: 'row',
+        gap: 15,
+    },
+    innerGradient: {
+        borderRadius: 10,
+        padding: 18,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: 15,
+    },
+    profileCompletionTextContainer: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    profileCompletionTitle: {
+        color: '#BB9A65',
+        fontSize: 16,
+        fontFamily: 'font-heading',
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    profileCompletionSubtitle: {
+        color: '#F8F1E6',
+        fontSize: 12,
+        fontFamily: 'font-body',
+    },
+    closeIcon: {
+        width: 24,
+        height: 24,
+    },
+    actionsContainer: {
+        flexDirection: 'row',
+        gap: 16,
+        marginTop: 16,
+    },
+    actionButton: {
+        flex: 1,
+        backgroundColor: '#1C252D',
+        borderColor: '#2D3843',
+        borderWidth: 1,
+        borderRadius: 10,
+        padding: 15,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    actionIcon: {
+        width: 40,
+        height: 40,
+    },
+    actionTextContainer: {
+        alignItems: 'center',
+    },
+    superLikesText: {
+        color: '#3DA2FF',
+        fontSize: 12,
+        marginTop: 20,
+    },
+    boostText: {
+        color: '#B85DFF',
+        fontSize: 12,
+        marginTop: 20,
+    },
+    whiteText: {
+        color: '#FFFFFF',
+    },
+    getMoreText: {
+        color: '#3DA2FF',
+        fontSize: 12,
+        fontWeight: '500',
+        marginTop: 5,
+    },
+    basicText: {
+        color: '#BB9A65',
+        fontSize: 12,
+        fontWeight: '500',
+        marginBottom: 10,
+    },
+    basicIcon: {
+        width: 32,
+        height: 30,
+    },
+    shadow: {
+        shadowColor: '#5E728472',
+    },
+    profileDetailsContainer: {
+        marginTop: 30,
+    },
+    profileName: {
+        color: '#BB9A65',
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+    verifiedContainer: {
+        marginTop: 12,
+    },
+    verifiedBadge: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 14,
+        paddingVertical: 12,
+        borderRadius: 30,
+    },
+    verifyIcon: {
+        width: 16,
+        height: 16,
+        marginRight: 10,
+    },
+    verifiedText: {
+        color: '#F8F1E6',
+        fontSize: 12,
+    },
+    separator: {
+        marginTop: 28,
+        marginBottom: 28,
+        height: 1,
+        backgroundColor: '#6B7176',
+        marginLeft: -20,
+        marginRight: -20,
+    },
+});

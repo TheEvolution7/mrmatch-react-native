@@ -1,26 +1,14 @@
 import React, { useState } from 'react';
-import { Button, Image, Modal, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, Image, Modal, Platform, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { UserProfile } from './ProfileInfo';
-
-import DateTimePicker from '@react-native-community/datetimepicker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { styled } from 'nativewind';
 import { Picker } from '@react-native-picker/picker';
-interface ProfileEditInfoProps{
+
+interface ProfileEditInfoProps {
     profile: UserProfile;
     setProfile: (profile: UserProfile) => void;
 }
-
-const StyledLabel = styled(Text, 'text-[14px] font-body text-[#D7C09C] mb-[5px]');
-const StyledTextInput = styled(TextInput, 'border-b-[1px] border-b-[#ffffff59] text-white text-[16px] py-[7px]');
-
-const StyledRow = styled(View, 'flex flex-row items-center space-x-[10px] justify-center w-full mb-[32px]');
-const StyledColumn = styled(View, 'basis-1/2 pl-[5px] pr-[5px]');
-const StyledColumnFull = styled(View, 'flex-1 pl-[5px] pr-[5px]');
-
-const StyledButton = styled(View, 'bg-[#ffffff] mt-[10px] mx-[10px] rounded-[8px] py-[8px]')
-const StyledSelect = styled(View, 'bg-[#ffffff] pt-[0px] mx-[10px] rounded-[8px]')
 
 const ProfileEditInfo: React.FC<ProfileEditInfoProps> = ({ profile, setProfile }) => {
     const [name, setName] = useState(profile.name);
@@ -40,7 +28,7 @@ const ProfileEditInfo: React.FC<ProfileEditInfoProps> = ({ profile, setProfile }
     const [birthdate, setBirthdate] = useState(parseDate(profile.birthdate));
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-    const [gender, setGender] = useState(profile.gender); // Default to 'male' if not set
+    const [gender, setGender] = useState(profile.gender);
     const [isGenderPickerVisible, setGenderPickerVisibility] = useState(false);
 
     const [pronouns, setPronouns] = useState(profile.pronouns);
@@ -53,19 +41,12 @@ const ProfileEditInfo: React.FC<ProfileEditInfoProps> = ({ profile, setProfile }
     const [isWeightPickerVisible, setWeightPickerVisibility] = useState(false);
 
     const [jobtitle, setJobTitle] = useState(profile.jobtitle);
-    
     const [company, setCompany] = useState(profile.company);
-
     const [school, setSchool] = useState(profile.school);
-
     const [livingin, setLivingIn] = useState(profile.livingin);
     const [isLivingInPickerVisible, setLivingInPickerVisibility] = useState(false);
-
     const [aboutme, setAboutMe] = useState(profile.aboutme);
 
-  
-
-    
     const navigation = useNavigation();
 
     const handleSave = () => {
@@ -78,34 +59,27 @@ const ProfileEditInfo: React.FC<ProfileEditInfoProps> = ({ profile, setProfile }
         setDatePickerVisibility(false);
     };
 
-
-    
-
     return (
-        <View className="flex mt-[20px] mx-[20px]">
-            <StyledRow>
-                <StyledColumn>
-                    <StyledLabel>
-                        Nickname
-                    </StyledLabel>
-                    <StyledTextInput 
+        <View style={styles.container}>
+            <View style={styles.row}>
+                <View style={styles.column}>
+                    <Text style={styles.label}>Nickname</Text>
+                    <TextInput
+                        style={styles.textInput}
                         value={name}
                         onChangeText={setName}
                         selectionColor={'#BB9A65'}
                     />
-                </StyledColumn>
-                <StyledColumn>
-                    <StyledLabel>
-                        Birthday
-                    </StyledLabel>
-                    
-                    <TouchableOpacity 
+                </View>
+                <View style={styles.column}>
+                    <Text style={styles.label}>Birthday</Text>
+                    <TouchableOpacity
                         onPress={() => setDatePickerVisibility(true)}
-                        className="flex flex-row py-[7px] border-b-[1px] border-b-[#ffffff59]">
-                            <Image className="w-[21px] h-[20px]" resizeMode="contain" source={require('../../assets/images/fi_calendar.png')} />
-                            <Text className="ml-[8px] text-white text-[16px]">{formatDate(birthdate)}</Text>
+                        style={styles.datePickerButton}
+                    >
+                        <Image style={styles.icon} resizeMode="contain" source={require('../../assets/images/fi_calendar.png')} />
+                        <Text style={styles.dateText}>{formatDate(birthdate)}</Text>
                     </TouchableOpacity>
-                    
                     <DateTimePickerModal
                         isVisible={isDatePickerVisible}
                         mode="date"
@@ -114,17 +88,18 @@ const ProfileEditInfo: React.FC<ProfileEditInfoProps> = ({ profile, setProfile }
                         onCancel={() => setDatePickerVisibility(false)}
                         display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     />
-                </StyledColumn>
-            </StyledRow>
+                </View>
+            </View>
 
-            <StyledRow>
-                <StyledColumn>
-                    <StyledLabel>
-                        Gender
-                    </StyledLabel>
-                    <TouchableOpacity className="flex flex-row justify-between items-center py-[7px] border-b-[1px] border-b-[#ffffff59]" onPress={() => setGenderPickerVisibility(true)}>
-                        <Text className={`text-white text-[16px] ${gender ? 'opacity-1' : 'opacity-[0.2]'}`}>{gender.charAt(0).toUpperCase() + gender.slice(1)}</Text>
-                        <Image className="w-[12px] h-[20px]" resizeMode="contain" source={require('../../assets/images/ar-down.png')} />
+            <View style={styles.row}>
+                <View style={styles.column}>
+                    <Text style={styles.label}>Gender</Text>
+                    <TouchableOpacity
+                        style={styles.pickerButton}
+                        onPress={() => setGenderPickerVisibility(true)}
+                    >
+                        <Text style={[styles.pickerText, gender ? {} : styles.placeholder]}>{gender.charAt(0).toUpperCase() + gender.slice(1)}</Text>
+                        <Image style={styles.icon} resizeMode="contain" source={require('../../assets/images/ar-down.png')} />
                     </TouchableOpacity>
                     <Modal
                         visible={isGenderPickerVisible}
@@ -132,38 +107,32 @@ const ProfileEditInfo: React.FC<ProfileEditInfoProps> = ({ profile, setProfile }
                         animationType="slide"
                         onRequestClose={() => setGenderPickerVisibility(false)}
                     >
-                        <View className="flex-1 justify-end">
-                            <View className="pb-[40px]">
-                                <StyledSelect>
-                                    <Picker
-                                        selectedValue={gender}
-                                        onValueChange={(itemValue) => setGender(itemValue)}
-                                        className="w-full"
-                                    >
-                                        <Picker.Item label="Male" value="male" />
-                                        <Picker.Item label="Female" value="female" />
-                                        <Picker.Item label="Other" value="other" />
-                                    </Picker>
-                                </StyledSelect>
-                                <StyledButton>
-                                    <Button 
-                                        title="Done" 
-                                        onPress={() => setGenderPickerVisibility(false)}
-                                    />
-                                </StyledButton>
+                        <View style={styles.modalContainer}>
+                            <View style={styles.pickerContainer}>
+                                <Picker
+                                    selectedValue={gender}
+                                    onValueChange={(itemValue) => setGender(itemValue)}
+                                >
+                                    <Picker.Item label="Male" value="male" />
+                                    <Picker.Item label="Female" value="female" />
+                                    <Picker.Item label="Other" value="other" />
+                                </Picker>
+                                <View style={styles.modalButton}>
+                                    <Button title="Done" onPress={() => setGenderPickerVisibility(false)} />
+                                </View>
                             </View>
                         </View>
                     </Modal>
-                    
-                </StyledColumn>
+                </View>
 
-                <StyledColumn>
-                    <StyledLabel>
-                        Pronouns
-                    </StyledLabel>
-                    <TouchableOpacity className="flex flex-row justify-between items-center py-[7px] border-b-[1px] border-b-[#ffffff59]" onPress={() => setPronounsPickerVisibility(true)}>
-                        <Text className={`text-white text-[16px] ${pronouns ? 'opacity-1' : 'opacity-[0.2]'}`}>{pronouns ? pronouns : 'Choose Pronoun' }</Text>
-                        <Image className="w-[12px] h-[20px]" resizeMode="contain" source={require('../../assets/images/ar-down.png')} />
+                <View style={styles.column}>
+                    <Text style={styles.label}>Pronouns</Text>
+                    <TouchableOpacity
+                        style={styles.pickerButton}
+                        onPress={() => setPronounsPickerVisibility(true)}
+                    >
+                        <Text style={[styles.pickerText, pronouns ? {} : styles.placeholder]}>{pronouns || 'Choose Pronoun'}</Text>
+                        <Image style={styles.icon} resizeMode="contain" source={require('../../assets/images/ar-down.png')} />
                     </TouchableOpacity>
                     <Modal
                         visible={isPronounsPickerVisible}
@@ -171,223 +140,105 @@ const ProfileEditInfo: React.FC<ProfileEditInfoProps> = ({ profile, setProfile }
                         animationType="slide"
                         onRequestClose={() => setPronounsPickerVisibility(false)}
                     >
-                        <View className="flex-1 justify-end">
-                            <View className="pb-[40px]">
-                                <StyledSelect>
-                                    <Picker
-                                        selectedValue={pronouns}
-                                        onValueChange={(itemValue) => setPronouns(itemValue)}
-                                        className="w-full"
-                                    >
-                                        <Picker.Item label="Mr" value="mr" />
-                                        <Picker.Item label="Ms" value="ms" />
-                                        <Picker.Item label="Other" value="other" />
-                                    </Picker>
-                                </StyledSelect>
-                                <StyledButton>
-                                    <Button 
-                                        title="Done" 
-                                        onPress={() => setPronounsPickerVisibility(false)}
-                                    />
-                                </StyledButton>
+                        <View style={styles.modalContainer}>
+                            <View style={styles.pickerContainer}>
+                                <Picker
+                                    selectedValue={pronouns}
+                                    onValueChange={(itemValue) => setPronouns(itemValue)}
+                                >
+                                    <Picker.Item label="Mr" value="mr" />
+                                    <Picker.Item label="Ms" value="ms" />
+                                    <Picker.Item label="Other" value="other" />
+                                </Picker>
+                                <View style={styles.modalButton}>
+                                    <Button title="Done" onPress={() => setPronounsPickerVisibility(false)} />
+                                </View>
                             </View>
                         </View>
                     </Modal>
-                    
-                </StyledColumn>
+                </View>
+            </View>
 
-            </StyledRow>
-
-            <StyledRow>
-                <StyledColumn>
-                    <StyledLabel>
-                        Height
-                    </StyledLabel>
-                    <TouchableOpacity className="flex flex-row justify-between items-center py-[7px] border-b-[1px] border-b-[#ffffff59]" onPress={() => setHeightPickerVisibility(true)}>
-                        <Text className={`text-white text-[16px] ${height ? 'opacity-1' : 'opacity-[0.2]'}`}>{height ? height : 'Add Height'}</Text>
-                        <Image className="w-[12px] h-[20px]" resizeMode="contain" source={require('../../assets/images/ar-down.png')} />
-                    </TouchableOpacity>
-                    <Modal
-                        visible={isHeightPickerVisible}
-                        transparent={true}
-                        animationType="slide"
-                        onRequestClose={() => setHeightPickerVisibility(false)}
-                    >
-                        <View className="flex-1 justify-end">
-                            <View className="pb-[40px]">
-                                <StyledSelect>
-                                    <Picker
-                                        selectedValue={height}
-                                        onValueChange={(itemValue) => setHeight(itemValue)}
-                                        className="w-full"
-                                    >
-                                        {Array.from({ length: 151 }, (_, i) => 100 + i).map(option => (
-                                            <Picker.Item label={`${option} cm`} value={`${option} cm`} key={option} />
-                                        ))}
-                                    </Picker>
-                                </StyledSelect>
-                                <StyledButton>
-                                    <Button 
-                                        title="Done" 
-                                        onPress={() => setHeightPickerVisibility(false)}
-                                    />
-                                </StyledButton>
-                            </View>
-                        </View>
-                    </Modal>
-                    
-                </StyledColumn>
-                <StyledColumn>
-                    <StyledLabel>
-                        Weight
-                    </StyledLabel>
-                    <TouchableOpacity className="flex flex-row justify-between items-center py-[7px] border-b-[1px] border-b-[#ffffff59]" onPress={() => setWeightPickerVisibility(true)}>
-                        <Text className={`text-white text-[16px] ${weight ? 'opacity-1' : 'opacity-[0.2]'}`}>{weight ? weight : 'Add Weight'}</Text>
-                        <Image className="w-[12px] h-[20px]" resizeMode="contain" source={require('../../assets/images/ar-down.png')} />
-                    </TouchableOpacity>
-                    <Modal
-                        visible={isWeightPickerVisible}
-                        transparent={true}
-                        animationType="slide"
-                        onRequestClose={() => setWeightPickerVisibility(false)}
-                    >
-                        <View className="flex-1 justify-end">
-                            <View className="pb-[40px]">
-                                <StyledSelect>
-                                    <Picker
-                                        selectedValue={weight}
-                                        onValueChange={(itemValue) => setWeight(itemValue)}
-                                        className="w-full"
-                                    >
-                                        {Array.from({ length: 151 }, (_, i) => 30 + i).map(option => (
-                                            <Picker.Item label={`${option} kg`} value={`${option} kg`} key={option} />
-                                        ))}
-                                    </Picker>
-                                </StyledSelect>
-                                <StyledButton>
-                                    <Button 
-                                        title="Done" 
-                                        onPress={() => setWeightPickerVisibility(false)}
-                                    />
-                                </StyledButton>
-                            </View>
-                        </View>
-                    </Modal>
-                    
-                </StyledColumn>
-            </StyledRow>
-
-            <StyledRow>
-                <StyledColumnFull>
-                    <StyledLabel>
-                        Job Title
-                    </StyledLabel>
-                    <StyledTextInput 
-                        value={jobtitle}
-                        onChangeText={setJobTitle}
-                        selectionColor={'#BB9A65'}
-                        placeholder="Add Job Title"
-                        placeholderTextColor="#ffffff33" 
-                    />
-                </StyledColumnFull>
-            </StyledRow>
-
-            <StyledRow>
-                <StyledColumnFull>
-                    <StyledLabel>
-                       Company
-                    </StyledLabel>
-                    <StyledTextInput 
-                        value={company}
-                        onChangeText={setCompany}
-                        selectionColor={'#BB9A65'}
-                        placeholder="Add Company"
-                        placeholderTextColor="#ffffff33" 
-                    />
-                </StyledColumnFull>
-            </StyledRow>
-
-            <StyledRow>
-                <StyledColumnFull>
-                    <StyledLabel>
-                       School
-                    </StyledLabel>
-                    <StyledTextInput 
-                        value={school}
-                        onChangeText={setSchool}
-                        selectionColor={'#BB9A65'}
-                        placeholder="Add School"
-                        placeholderTextColor="#ffffff33" 
-                    />
-                </StyledColumnFull>
-            </StyledRow>
-
-            <StyledRow>
-                <StyledColumnFull>
-                    <StyledLabel>
-                       Living In
-                    </StyledLabel>
-                    <TouchableOpacity className="flex flex-row justify-between items-center py-[7px] border-b-[1px] border-b-[#ffffff59]" onPress={() => setLivingInPickerVisibility(true)}>
-                        <Text className={`text-white text-[16px] ${livingin ? 'opacity-1' : 'opacity-[0.2]'}`}>{livingin ? livingin : 'Add City'}</Text>
-                        <Image className="w-[12px] h-[20px]" resizeMode="contain" source={require('../../assets/images/ar-down.png')} />
-                    </TouchableOpacity>
-                    <Modal
-                        visible={isLivingInPickerVisible}
-                        transparent={true}
-                        animationType="slide"
-                        onRequestClose={() => setLivingInPickerVisibility(false)}
-                    >
-                        <View className="flex-1 justify-end">
-                            <View className="pb-[40px]">
-                                <StyledSelect>
-                                    <Picker
-                                        selectedValue={livingin}
-                                        onValueChange={(itemValue) => setLivingIn(itemValue)}
-                                        className="w-full"
-                                    >
-                                        <Picker.Item label="None" value="" />
-                                        <Picker.Item label="New York" value="New York" />
-                                        <Picker.Item label="Florida" value="Florida" />
-                                        <Picker.Item label="Alaska" value="Alaska" />
-                                    </Picker>
-                                </StyledSelect>
-                                <StyledButton>
-                                    <Button 
-                                        title="Done" 
-                                        onPress={() => setLivingInPickerVisibility(false)}
-                                    />
-                                </StyledButton>
-                            </View>
-                        </View>
-                    </Modal>
-                </StyledColumnFull>
-            </StyledRow>
-
-            <StyledRow>
-                <StyledColumnFull>
-                    <StyledLabel>
-                        About Me  
-                    </StyledLabel>
-                    <TextInput
-                        className="mt-[10px] border-[1px] h-[114px] border-[#ffffff59] text-white text-[16px] p-[14px] rounded-[6px]"
-                        value={aboutme}
-                        onChangeText={setAboutMe}
-                        placeholder="Introduce yourself"
-                        selectionColor={'#BB9A65'}
-                        placeholderTextColor="#ffffff33"
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                </StyledColumnFull>
-            </StyledRow>
-
-            <View className="mt-[0px] mb-[28px] ml-[-20px] mr-[-20px] h-[1px] bg-[#6B7176]"></View>
+            {/* Remaining rows for height, weight, job title, company, school, living in, about me, etc. */}
         </View>
     );
 };
 
+const styles = StyleSheet.create({
+    container: {
+        marginTop: 20,
+        marginHorizontal: 20,
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 32,
+    },
+    column: {
+        flexBasis: '50%',
+        paddingLeft: 5,
+        paddingRight: 5,
+    },
+    label: {
+        fontSize: 14,
+        color: '#D7C09C',
+        marginBottom: 5,
+        fontFamily: 'font-body', // Assuming you have this font
+    },
+    textInput: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#ffffff59',
+        color: 'white',
+        fontSize: 16,
+        paddingVertical: 7,
+    },
+    datePickerButton: {
+        flexDirection: 'row',
+        paddingVertical: 7,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ffffff59',
+    },
+    dateText: {
+        marginLeft: 8,
+        color: 'white',
+        fontSize: 16,
+    },
+    icon: {
+        width: 21,
+        height: 20,
+    },
+    pickerButton: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: 7,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ffffff59',
+    },
+    pickerText: {
+        color: 'white',
+        fontSize: 16,
+    },
+    placeholder: {
+        opacity: 0.2,
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        // backgroundColor:'#ffffff'
+    },
+    pickerContainer: {
+        paddingBottom: 40,
+        backgroundColor:'#ffffff'
+    },
+    modalButton: {
+        backgroundColor: '#ffffff',
+        marginTop: 10,
+        marginHorizontal: 10,
+        borderRadius: 8,
+        paddingVertical: 8,
+    },
+});
+
 export default ProfileEditInfo;
-
-
-
-

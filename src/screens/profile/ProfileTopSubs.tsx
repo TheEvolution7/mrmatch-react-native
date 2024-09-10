@@ -1,43 +1,84 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 const ProfileTopSubs: React.FC = () => {
-
     return (
-        <View className="flex flex-row justify-between items-center px-[20px] mt-[0px]">
+        <View style={styles.container}>
             <LinearGradient
                 locations={[0, 1]}
                 colors={['#bb9a65', '#775d34']}
                 useAngle={true}
                 angle={101.24}
-                className="flex flex-row w-full gap-x-[0px] rounded-[10px] px-[13px] py-[12px] justify-between items-center">
-              
-                    <View>
+                style={styles.linearGradient}
+            >
+                <View>
+                    <Image
+                        style={styles.subscriptionImage}
+                        resizeMode="contain"
+                        source={require('../../assets/images/subs.png')}
+                    />
+                </View>
+
+                <View style={styles.textCenter}>
+                    <Text style={styles.text}>
+                        Upgrade Subscription Now
+                    </Text>
+                </View>
+
+                <View style={styles.rightIcons}>
+                    <TouchableOpacity>
                         <Image
-                            className="w-[48px] h-[48px]"
+                            style={styles.iconImage}
                             resizeMode="contain"
-                            source={require('../../assets/images/subs.png')}></Image>
-                    </View>
-                    
-
-                    <View className="text-center">
-                        <Text className="text-[#F8F1E6] text-[16px] font-heading text-center font-medium">
-                            Upgrade Subscription Now
-                        </Text>
-                    </View>
-
-                    <View className="flex flex-row gap-[16px] justify-end">
-                        <TouchableOpacity>
-                            <Image
-                                className="w-[24px] h-[24px]"
-                                resizeMode="contain"
-                                source={require('../../assets/images/close.png')}></Image>
-                        </TouchableOpacity>
-                    </View>
+                            source={require('../../assets/images/close.png')}
+                        />
+                    </TouchableOpacity>
+                </View>
             </LinearGradient>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        marginTop: 0,
+    },
+    linearGradient: {
+        flexDirection: 'row',
+        width: '100%',
+        borderRadius: 10,
+        paddingHorizontal: 13,
+        paddingVertical: 12,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    subscriptionImage: {
+        width: 48,
+        height: 48,
+    },
+    textCenter: {
+        justifyContent: 'center',
+    },
+    text: {
+        color: '#F8F1E6',
+        fontSize: 16,
+        fontFamily: 'font-heading', // Assuming you have this font
+        fontWeight: '500',
+        textAlign: 'center',
+    },
+    rightIcons: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    iconImage: {
+        width: 24,
+        height: 24,
+    },
+});
 
 export default ProfileTopSubs;

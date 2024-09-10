@@ -1,44 +1,82 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 const ProfileTopMenu: React.FC = () => {
     const navigation = useNavigation();
     return (
-        <View className="flex flex-row justify-between items-center space-x-2 px-[20px] pb-[15px]">
-            <View className="flex-1">
+        <View style={styles.container}>
+            <View style={styles.flexItem}>
                 <TouchableOpacity>
                     <Image
-                        className="w-[32px] h-[28px]"
+                        style={styles.heartIcon}
                         resizeMode="contain"
-                        source={require('../../assets/images/heart.png')}></Image>
+                        source={require('../../assets/images/heart.png')}
+                    />
                 </TouchableOpacity>
             </View>
-            
 
-            <View className="flex-1 text-center">
-                <Text className="text-[#D7C09C] text-[20px] font-heading text-center font-medium">
-                    Profile
-                </Text>
+            <View style={styles.centerItem}>
+                <Text style={styles.profileText}>Profile</Text>
             </View>
 
-            <View className="flex flex-row gap-[16px] flex-1 justify-end">
+            <View style={styles.rightIcons}>
                 <TouchableOpacity>
                     <Image
-                        className="w-[24px] h-[24px]"
+                        style={styles.icon}
                         resizeMode="contain"
-                        source={require('../../assets/images/lock.png')}></Image>
+                        source={require('../../assets/images/lock.png')}
+                    />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {
-                navigation.navigate('ProfileEditScreen')}}>
+                <TouchableOpacity onPress={() => navigation.navigate('ProfileEditScreen')}>
                     <Image
-                        className="w-[24px] h-[24px]"
+                        style={styles.icon}
                         resizeMode="contain"
-                        source={require('../../assets/images/fi_settings.png')}></Image>
+                        source={require('../../assets/images/fi_settings.png')}
+                    />
                 </TouchableOpacity>
             </View>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        paddingBottom: 15,
+    },
+    flexItem: {
+        flex: 1,
+    },
+    heartIcon: {
+        width: 32,
+        height: 28,
+    },
+    centerItem: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    profileText: {
+        color: '#D7C09C',
+        fontSize: 20,
+        fontFamily: 'font-heading', // Assuming you have this font loaded
+        fontWeight: '500',
+        textAlign: 'center',
+    },
+    rightIcons: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        flex: 1,
+        gap: 16, // React Native doesn't directly support gap; you'd handle this with margins if needed
+    },
+    icon: {
+        width: 24,
+        height: 24,
+        marginLeft: 16, // Use marginLeft to mimic gap in flex direction row
+    },
+});
 
 export default ProfileTopMenu;

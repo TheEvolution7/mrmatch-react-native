@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
-
+import { View, Text, Image, StyleSheet } from 'react-native';
 
 type OptionItemProps = {
     text: string;
@@ -9,20 +8,39 @@ type OptionItemProps = {
 };
 
 const OptionItem: React.FC<OptionItemProps> = ({ text, iconLeft, iconRight }) => {
-
     return (
-        <View className={'flex flex-row gap-x-[6px] items-center border-[#BB9A65] border-[1.5px] rounded-[50px] py-[12px] pr-[13px] pl-[8px]'}>
+        <View style={styles.container}>
             {iconLeft ? (
-                <Image className="w-[16px] h-[14px]" resizeMode="contain" source={iconLeft} />
+                <Image style={styles.icon} resizeMode="contain" source={iconLeft} />
             ) : null}
-            <Text className="text-[#F8F1E6] text-[14px]">
-                {text}
-            </Text>
+            <Text style={styles.text}>{text}</Text>
             {iconRight ? (
-                <Image className="w-[16px] h-[14px]" resizeMode="contain" source={iconRight} />
+                <Image style={styles.icon} resizeMode="contain" source={iconRight} />
             ) : null}
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderColor: '#BB9A65',
+        borderWidth: 1.5,
+        borderRadius: 50,
+        paddingVertical: 12,
+        paddingRight: 13,
+        paddingLeft: 8,
+        marginHorizontal: 6, // For spacing equivalent to Tailwind's gap-x-[6px]
+    },
+    icon: {
+        width: 16,
+        height: 14,
+    },
+    text: {
+        color: '#F8F1E6',
+        fontSize: 14,
+    },
+});
 
 export default OptionItem;

@@ -4,8 +4,6 @@ import { View, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-nat
 import Carousel from "react-native-reanimated-carousel";
 import CustomPagination from '../../components/CustomPagination';
 
-
-
 const width = Dimensions.get("window").width;
 
 const images = [
@@ -13,22 +11,19 @@ const images = [
     require('../../assets/images/av-2.jpg'),
 ];
 
-  
-
 const ProfileImage: React.FC = () => {
-
-    const [loop, setLoop] = React.useState<boolean>(false);
-
-    
+    const [loop, setLoop] = useState<boolean>(false);
     const [currentIndex, setCurrentIndex] = useState(0);
     const carouselRef = useRef<Carousel<number>>(null); 
+
     const handleDotPress = (index: number) => {
         if (carouselRef.current) {
-          carouselRef.current.scrollTo({ index, animated: true });
+            carouselRef.current.scrollTo({ index, animated: true });
         }
     };
+
     return (
-        <View className="flex items-center justify-center mt-[20px] relative">
+        <View style={styles.container}>
             <Carousel
                 width={width}
                 height={width * 1.4}
@@ -41,20 +36,18 @@ const ProfileImage: React.FC = () => {
                     </View>
                 )}
                 onSnapToItem={(index) => setCurrentIndex(index)}
-           
                 panGestureHandlerProps={{
                     activeOffsetX: [-10, 10],
                 }}
             />
             <CustomPagination index={currentIndex} total={images.length} onDotPress={handleDotPress} />
 
-            <TouchableOpacity
-                className="absolute bottom-[20px] right-[20px]"
-            >
+            <TouchableOpacity style={styles.editButton}>
                 <Image
-                    className="w-[56px] h-[56px] mr-[15px] rounded-[800px]"
+                    style={styles.editImage}
                     resizeMode="contain"
-                    source={require('../../assets/images/edit-img.png')}></Image>
+                    source={require('../../assets/images/edit-img.png')}
+                />
             </TouchableOpacity>
         </View>
     );
@@ -63,7 +56,13 @@ const ProfileImage: React.FC = () => {
 export default ProfileImage;
 
 const styles = StyleSheet.create({
-   
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
+        position: 'relative',
+    },
     imageContainer: {
         width: width - 40,
         height: width * 1.4,
@@ -78,6 +77,14 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         borderRadius: 15,
     },
+    editButton: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+    },
+    editImage: {
+        width: 56,
+        height: 56,
+        borderRadius: 800,
+    },
 });
-
-

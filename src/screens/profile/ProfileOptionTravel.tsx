@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import OptionItem from './OptionItem';
 
 
@@ -39,33 +39,58 @@ const ProfileOptionTravel: React.FC = () => {
             iconRight: '',
         },
     ]);
-    
 
     return (
-        <View className="flex flex-column mx-[20px]">
-            <View className="mb-[30px]">
-                <Text className="text-[#BB9A65] text-[18px] font-semibold font-heading">
-                    Travel Preferences
-                </Text>
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.headerText}>Travel Preferences</Text>
             </View>
 
-            <View className="flex flex-row flex-wrap content-center items-center gap-[10px] ml-[-5px]">
+            <View style={styles.optionsContainer}>
                 {options.map((item) => (
-                        <View>
-                            <OptionItem
-                                key={item.id}
-                                text={item.text}
-                                iconLeft={item.iconLeft} 
-                                iconRight={item.iconRight}                            
-                            />
-                        </View>
-                    ))}
+                    <View key={item.id}>
+                        <OptionItem
+                            text={item.text}
+                            iconLeft={item.iconLeft}
+                            iconRight={item.iconRight}
+                        />
+                    </View>
+                ))}
             </View>
 
-            <View className="mt-[28px] mb-[28px] ml-[-20px] mr-[-20px] h-[1px] bg-[#6B7176]"></View>
+            <View style={styles.separator}></View>
         </View>
     );
 };
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'column',
+        marginHorizontal: 20,
+    },
+    header: {
+        marginBottom: 30,
+    },
+    headerText: {
+        color: '#BB9A65',
+        fontSize: 18,
+        fontWeight: '600',
+        fontFamily: 'font-heading', // Assuming this font is available
+    },
+    optionsContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        marginLeft: -5,
+    },
+    separator: {
+        marginTop: 28,
+        marginBottom: 28,
+        marginLeft: -20,
+        marginRight: -20,
+        height: 1,
+        backgroundColor: '#6B7176',
+    },
+});
 
 export default ProfileOptionTravel;
 

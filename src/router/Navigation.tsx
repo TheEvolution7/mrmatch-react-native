@@ -47,10 +47,11 @@ function Navigation() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="ProfileEditScreen" component={ProfileEditScreen}  />
        
 
-        <Stack.Screen name="Welcome" component={Welcome} />
+        
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="Registration" component={Registration} />
         <Stack.Screen name="PasswordCreate" component={PasswordCreate} />

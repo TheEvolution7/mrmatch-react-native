@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 type RelaItemProps = {
     icon: any;
@@ -11,13 +10,40 @@ type RelaItemProps = {
 };
 
 const RelaItem: React.FC<RelaItemProps> = ({ icon, iconActive, isActive, title, onPress }) => {
-
     return (
-        <TouchableOpacity onPress={onPress}  className={`flex mt-[16px] mr-[8px] ml-[8px] flex-column items-center ${ isActive ? 'border-[#BB9A65]' : 'border-[#2D3843]'} border-[1px] rounded-[10px] ${isActive ? 'bg-[#BB9A6520]' : 'bg-[#1C252D]]'} p-[25px]`}>
-            <Image className="w-[41px] h-[41px] mb-[11px]" resizeMode="contain" source={ isActive ? iconActive : icon} />
-            <Text className="text-[#ffffff] text-[16px]">{title}</Text>
+        <TouchableOpacity
+            onPress={onPress}
+            style={[
+                styles.container,
+                { borderColor: isActive ? '#BB9A65' : '#2D3843', backgroundColor: isActive ? '#BB9A6520' : '#1C252D' }
+            ]}
+        >
+            <Image style={styles.image} resizeMode="contain" source={isActive ? iconActive : icon} />
+            <Text style={styles.text}>{title}</Text>
         </TouchableOpacity>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        // flex: 1,
+        marginTop: 16,
+        marginRight: 8,
+        marginLeft: 8,
+        alignItems: 'center',
+        borderWidth: 1,
+        borderRadius: 10,
+        padding: 25,
+    },
+    image: {
+        width: 41,
+        height: 41,
+        marginBottom: 11,
+    },
+    text: {
+        color: '#ffffff',
+        fontSize: 16,
+    },
+});
 
 export default RelaItem;
