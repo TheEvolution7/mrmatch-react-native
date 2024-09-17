@@ -1,15 +1,15 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Animated, StyleSheet } from 'react-native';
 
 
 const SwitchS: React.FC = () => {
 
     // const [isHolding, setIsHolding] = useState(false);
     const transAnim = useRef(new Animated.Value(0)).current;
-    const [ isActive, setIsActive ] = useState(false);
+    const [isActive, setIsActive] = useState(false);
     const handleTap = () => {
         Animated.spring(transAnim, {
-            toValue: isActive ? 0 : 26, 
+            toValue: isActive ? 0 : 26,
             friction: 3,
             tension: 40,
             useNativeDriver: true,
@@ -18,11 +18,60 @@ const SwitchS: React.FC = () => {
     };
 
     return (
-        <TouchableOpacity onPress={handleTap} className="w-[52px] h-[26px] flex flex-column justify-center items-center relative">
-            <Animated.View style={[{ transform: [{ translateX: transAnim }] }]} className={`top-[0px] left-[0] absolute z-[2] w-[26px] h-[26px] border-[4px] ${isActive ? 'border-[#BB9A65]' : 'border-[#40505F]' }  bg-[#ffffff] rounded-[100px]`}></Animated.View>
-            <View className={`z-[1] w-[52px] h-[7px] ${isActive ? 'bg-[#BB9A65]' : 'bg-[#40505F]'} rounded-[20px]`}></View>
+        <TouchableOpacity onPress={handleTap} style={styles.container}>
+            <Animated.View
+                style={[
+                    { transform: [{ translateX: transAnim }] },
+                    styles.animatedView,
+                    isActive ? styles.activeBorder : styles.inactiveBorder,
+                ]}
+            />
+            <View
+                style={[
+                    styles.innerView,
+                    isActive ? styles.activeBackground : styles.inactiveBackground,
+                ]}
+            />
         </TouchableOpacity>
     );
 };
-
+const styles = StyleSheet.create({
+    container: {
+        width: 52,
+        height: 26,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'relative',
+    },
+    animatedView: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: 2,
+        width: 26,
+        height: 26,
+        borderWidth: 4,
+        backgroundColor: '#ffffff',
+        borderRadius: 100,
+    },
+    activeBorder: {
+        borderColor: '#BB9A65',
+    },
+    inactiveBorder: {
+        borderColor: '#40505F',
+    },
+    innerView: {
+        zIndex: 1,
+        width: 52,
+        height: 7,
+        borderRadius: 20,
+    },
+    activeBackground: {
+        backgroundColor: '#BB9A65',
+    },
+    inactiveBackground: {
+        backgroundColor: '#40505F',
+    },
+});
 export default SwitchS;

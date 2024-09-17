@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { UserProfile } from './ProfileInfo';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { Picker } from '@react-native-picker/picker';
+import FieldInput from '../../components/FieldInput';
 
 interface ProfileEditInfoProps {
     profile: UserProfile;
@@ -158,8 +159,22 @@ const ProfileEditInfo: React.FC<ProfileEditInfoProps> = ({ profile, setProfile }
                     </Modal>
                 </View>
             </View>
-
+            <FieldInput title='Job Title' placeHolder='Add Job Title' onChangeText={setJobTitle} contentText={jobtitle} />
+            <FieldInput title='Company' placeHolder='Add Company' onChangeText={setCompany} contentText={company} />
+            <FieldInput title='School' placeHolder='Add School' onChangeText={setSchool} contentText={school} />
+            <FieldInput title='Living In' placeHolder='Add City' onChangeText={setJobTitle} contentText={livingin} />
+            <Text style={styles.label}>About Me</Text>
+            <TextInput
+                style={styles.aboutMe}
+                placeholder='Introduce yourself'
+                placeholderTextColor="rgba(248, 241, 230, 0.2)"
+                value={aboutme}
+                onChangeText={setAboutMe}
+                multiline
+                
+            />
             {/* Remaining rows for height, weight, job title, company, school, living in, about me, etc. */}
+            <View style={styles.device} />
         </View>
     );
 };
@@ -205,8 +220,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     icon: {
-        width: 21,
-        height: 20,
+        width: 14,
+        height: 7,
     },
     pickerButton: {
         flexDirection: 'row',
@@ -230,7 +245,7 @@ const styles = StyleSheet.create({
     },
     pickerContainer: {
         paddingBottom: 40,
-        backgroundColor:'#ffffff'
+        backgroundColor: '#ffffff'
     },
     modalButton: {
         backgroundColor: '#ffffff',
@@ -239,6 +254,22 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingVertical: 8,
     },
+    aboutMe: {
+        height:114,
+        borderWidth:1,
+        borderColor:'rgba(255, 255, 255, 0.3)',
+        borderStyle: "solid",
+        borderRadius:6,
+        paddingLeft:14,
+        paddingTop:8
+    },
+    device: {
+        height: 2,
+        backgroundColor: 'rgba(107, 113, 118, 0.5)',
+        width:'120%',
+        marginLeft:-20,
+        marginVertical:24
+    }
 });
 
 export default ProfileEditInfo;

@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         gap: 15,
+        flex:1
     },
     profileCompletionTextContainer: {
         flex: 1,

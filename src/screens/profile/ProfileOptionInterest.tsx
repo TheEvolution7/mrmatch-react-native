@@ -1,50 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import OptionItem from './OptionItem';
+import userStore from '../../storage/UserStore';
+import { TITLEMODAL, TYPEMODAL } from '../../constant/typeModal';
 
-
-
-
-
-const ProfileOptionInterest: React.FC = () => {
-    const [options, setOption] = React.useState([
-        {
-            id: '1',
-            text: 'Travel ✈️',
-            iconLeft: '',
-            iconRight: '',
-        },
-        {
-            id: '2',
-            text: 'Yoga 🧘',
-            iconLeft: '',
-            iconRight: '',
-        },
-        {
-            id: '3',
-            text: 'Gaming 🎮',
-            iconLeft: '',
-            iconRight: '',
-        },
-        {
-            id: '4',
-            text: 'Movies 🎥',
-            iconLeft: '',
-            iconRight: '',
-        },
-        {
-            id: '5',
-            text: 'Music 🎵',
-            iconLeft: '',
-            iconRight: '',
-        },
-        {
-            id: '6',
-            text: 'Art 🎨',
-            iconLeft: '',
-            iconRight: '',
-        },
-    ]);
+const ProfileOptionInterest: React.FC = ({ openModal }) => {
+    // const [options, setOption] = React.useState(userStore.interests);
 
 
     return (
@@ -53,15 +14,23 @@ const ProfileOptionInterest: React.FC = () => {
                 <Text style={styles.headerText}>
                     Interests & Hobbies
                 </Text>
+                <TouchableOpacity onPress={() => {
+                    userStore.setTypeModal(TYPEMODAL.INTEREST);
+                    userStore.setTitleModal(TITLEMODAL.INTEREST);
+                    openModal(true);
+                }} style={styles.wrapShow}>
+                    <Text style={styles.showMore}>Show more</Text>
+                    <Image
+                        source={require('../../assets/images/downIc.png')}
+                    />
+                </TouchableOpacity>
             </View>
 
             <View style={styles.optionsContainer}>
-                {options.map((item) => (
+                {userStore.interests.map((item) => (
                     <View key={item.id}>
                         <OptionItem
-                            text={item.text}
-                            iconLeft={item.iconLeft}
-                            iconRight={item.iconRight}
+                            text={item}
                         />
                     </View>
                 ))}
@@ -78,12 +47,14 @@ const styles = StyleSheet.create({
     },
     headerContainer: {
         marginBottom: 30,
+        flexDirection: 'row'
     },
     headerText: {
         color: '#BB9A65',
         fontSize: 18,
         fontWeight: '600',
         fontFamily: 'font-heading', // Assuming this font is available in your project
+        flex: 1
     },
     optionsContainer: {
         flexDirection: 'row',
@@ -100,6 +71,16 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: '#6B7176',
     },
+    wrapShow: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    showMore: {
+        fontSize: 14,
+        fontFamily: "Inter-Regular",
+        color: "#f8f1e6",
+        marginRight: 8
+    }
 });
 export default ProfileOptionInterest;
 

@@ -3,8 +3,8 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 
 type OptionItemProps = {
     text: string;
-    iconLeft: any;
-    iconRight: any;
+    iconLeft?: any;
+    iconRight?: any;
 };
 
 const OptionItem: React.FC<OptionItemProps> = ({ text, iconLeft, iconRight }) => {

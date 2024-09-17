@@ -20,6 +20,7 @@ import SafeDateTutorial from '../SafeDate/SafeDateTutorial';
 import { SafeOnOffUnactive } from '../SafeDate/SafeOnOffUnactive';
 import { SafeOnOff } from '../SafeDate/SafeOnOff';
 import ProfileScreen from '../profile/ProfileScreen';
+import BasicInformation from './BasicInformation';
 
 function ExploreScreen() {
     return (
@@ -514,18 +515,7 @@ export default function HomePage() {
                                 ))}
                             </View>
                             <View style={styles.device} />
-                            <Text style={[styles.txt1]}>Basics Information</Text>
-                            {dataInfor.map((item, index) => (
-                                <TouchableOpacity key={index} style={styles.item}>
-                                    <View style={styles.iconContainer}>
-                                        <Image source={item?.icon} />
-                                    </View>
-                                    <Text style={styles.label}>{item.label}</Text>
-                                    <Text style={styles.select}>Select</Text>
-                                    <Image source={require('../../assets/images/ArrowRight.png')} />
-                                </TouchableOpacity>
-                            ))}
-                            <View style={styles.device} />
+                            <BasicInformation />
                             <Text style={[styles.txt1]}>Lifestyle</Text>
                             {dataLifeStyle.map((item) => (
                                 <TouchableOpacity key={item.id} style={styles.item}>

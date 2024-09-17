@@ -47,7 +47,7 @@ function Navigation() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Welcome" component={Welcome} />
+        <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="ProfileEditScreen" component={ProfileEditScreen}  />
        
 
