@@ -58,7 +58,7 @@ const ProfileOptionTravel: React.FC = () => {
                 ))}
             </View>
 
-            <View style={styles.separator}></View>
+            {/* <View style={styles.separator}></View> */}
         </View>
     );
 };

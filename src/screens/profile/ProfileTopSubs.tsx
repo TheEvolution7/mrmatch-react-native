@@ -1,10 +1,12 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 const ProfileTopSubs: React.FC = () => {
+    const navigation = useNavigation();
     return (
-        <View style={styles.container}>
+        <TouchableOpacity onPress={()=>navigation.navigate('UpgradeMembership')} style={styles.container}>
             <LinearGradient
                 locations={[0, 1]}
                 colors={['#bb9a65', '#775d34']}
@@ -36,7 +38,7 @@ const ProfileTopSubs: React.FC = () => {
                     </TouchableOpacity>
                 </View>
             </LinearGradient>
-        </View>
+        </TouchableOpacity>
     );
 };
 

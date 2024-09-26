@@ -21,14 +21,14 @@ const ProfileTopMenu: React.FC = () => {
             </View>
 
             <View style={styles.rightIcons}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>navigation.navigate('PrivacyScreen')}>
                     <Image
                         style={styles.icon}
                         resizeMode="contain"
                         source={require('../../assets/images/lock.png')}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('ProfileEditScreen')}>
+                <TouchableOpacity onPress={()=>navigation.navigate('SettingsScreen')}>
                     <Image
                         style={styles.icon}
                         resizeMode="contain"

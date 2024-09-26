@@ -102,7 +102,7 @@ const ProfileEditInfo: React.FC<ProfileEditInfoProps> = ({ profile, setProfile }
                         <Text style={[styles.pickerText, gender ? {} : styles.placeholder]}>{gender.charAt(0).toUpperCase() + gender.slice(1)}</Text>
                         <Image style={styles.icon} resizeMode="contain" source={require('../../assets/images/ar-down.png')} />
                     </TouchableOpacity>
-                    <Modal
+                    {/* <Modal
                         visible={isGenderPickerVisible}
                         transparent={true}
                         animationType="slide"
@@ -123,7 +123,7 @@ const ProfileEditInfo: React.FC<ProfileEditInfoProps> = ({ profile, setProfile }
                                 </View>
                             </View>
                         </View>
-                    </Modal>
+                    </Modal> */}
                 </View>
 
                 <View style={styles.column}>
@@ -135,7 +135,7 @@ const ProfileEditInfo: React.FC<ProfileEditInfoProps> = ({ profile, setProfile }
                         <Text style={[styles.pickerText, pronouns ? {} : styles.placeholder]}>{pronouns || 'Choose Pronoun'}</Text>
                         <Image style={styles.icon} resizeMode="contain" source={require('../../assets/images/ar-down.png')} />
                     </TouchableOpacity>
-                    <Modal
+                    {/* <Modal
                         visible={isPronounsPickerVisible}
                         transparent={true}
                         animationType="slide"
@@ -156,7 +156,7 @@ const ProfileEditInfo: React.FC<ProfileEditInfoProps> = ({ profile, setProfile }
                                 </View>
                             </View>
                         </View>
-                    </Modal>
+                    </Modal> */}
                 </View>
             </View>
             <FieldInput title='Job Title' placeHolder='Add Job Title' onChangeText={setJobTitle} contentText={jobtitle} />

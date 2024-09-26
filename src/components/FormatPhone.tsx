@@ -11,3 +11,7 @@ export const FPhoneNumber = (value: string) => {
         return value;
     }
 };
+
+export const FCardNumber = (cardNumber: string) => {
+    return cardNumber.replace(/\W/g, '').replace(/(.{4})/g, '$1 ').trim();
+};

@@ -3,6 +3,7 @@ import { View, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-nat
 
 import Carousel from "react-native-reanimated-carousel";
 import CustomPagination from '../../components/CustomPagination';
+import { useNavigation } from '@react-navigation/native';
 
 const width = Dimensions.get("window").width;
 
@@ -21,6 +22,7 @@ const ProfileImage: React.FC = () => {
             carouselRef.current.scrollTo({ index, animated: true });
         }
     };
+    const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
@@ -42,7 +44,7 @@ const ProfileImage: React.FC = () => {
             />
             <CustomPagination index={currentIndex} total={images.length} onDotPress={handleDotPress} />
 
-            <TouchableOpacity style={styles.editButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('ProfileEditScreen')} style={styles.editButton}>
                 <Image
                     style={styles.editImage}
                     resizeMode="contain"

@@ -14,6 +14,7 @@ import ProfileOptionLifestyle from './ProfileOptionLifestyle';
 import ProfileOptionMovie from './ProfileOptionMovie';
 import ProfileOptionBook from './ProfileOptionBook';
 import ProfileOptionTravel from './ProfileOptionTravel';
+import ProfileOptionAnthem from './ProfileOptionAnthem';
 
 
 
@@ -32,9 +33,9 @@ const ProfileScreen: React.FC = () => {
           <ProfileImage />
           <ProfileInfo />
           <ProfileRelationship />
-          <ProfileOptionInterest />
+          <ProfileOptionInterest isDisableBtn={true} />
           <ProfileOptionSocial />
-
+          <ProfileOptionAnthem />
           <ProfileOptionBasic />
           <ProfileOptionLifestyle />
           <ProfileOptionMovie />

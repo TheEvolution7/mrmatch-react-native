@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
         paddingRight: 13,
         paddingLeft: 8,
         marginHorizontal: 6, // For spacing equivalent to Tailwind's gap-x-[6px]
+        marginTop:8
     },
     icon: {
         width: 16,
@@ -40,6 +41,7 @@ const styles = StyleSheet.create({
     text: {
         color: '#F8F1E6',
         fontSize: 14,
+        marginLeft:8
     },
 });
 

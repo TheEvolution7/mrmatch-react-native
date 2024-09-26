@@ -17,10 +17,12 @@ import ProfilePreferences from '../explore/ProfilePreferennces';
 import LinearGradient from 'react-native-linear-gradient';
 import { BlurView } from '@react-native-community/blur';
 import ModalProfileSetting from './ModalProfileSetting';
+import { useNavigation } from '@react-navigation/native';
 
 
 
 const ProfileEditScreen: React.FC = () => {
+    const navigation = useNavigation();
     const [profile, setProfile] = useState<UserProfile>({
         name: 'Andrew',
         birthdate: '12/27/1995',
@@ -71,10 +73,10 @@ const ProfileEditScreen: React.FC = () => {
                 </View>
             </ScrollView>
             <View style={[styles.wrapGender, { paddingHorizontal: 20 }]}>
-                <TouchableOpacity style={{ flex: 1, borderRadius: 30, borderWidth: 1, borderColor: '#d7c09c', justifyContent: 'center', alignItems: 'center' }}>
+                <TouchableOpacity onPress={()=>navigation.goBack()} style={{ flex: 1, borderRadius: 30, borderWidth: 1, borderColor: '#d7c09c', justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={[styles.number, { color: '#d7c09c' }]}>Reset</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ flex: 1, marginLeft: 8 }}>
+                <TouchableOpacity onPress={()=>navigation.goBack()} style={{ flex: 1, marginLeft: 8 }}>
                     <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={{ borderRadius: 30, justifyContent: 'center', alignItems: 'center', height: 56 }}>
                         <Text style={styles.number}>Apply</Text>
                     </LinearGradient>

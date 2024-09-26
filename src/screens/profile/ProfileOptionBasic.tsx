@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         alignItems: 'center',
         marginLeft: -5,
-        gap: 10, // Note: React Native doesn't directly support `gap`, you may need to use `margin` or `padding` for spacing
+        // gap: 10, // Note: React Native doesn't directly support `gap`, you may need to use `margin` or `padding` for spacing
     },
     separator: {
         marginTop: 28,

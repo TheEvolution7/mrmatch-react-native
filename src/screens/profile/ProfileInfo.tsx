@@ -23,12 +23,29 @@ const ProfileInfo: React.FC = () => {
     const [infoitem] = useState([
         {
             icon: require('../../assets/images/gender-male.png'),
-            title: 'Man',
+            title: 'Man (he/him/his)',
+        },
+        {
+            icon: require('../../assets/images/ruler.png'),
+            title: '185 cm, 76 kg',
+        },
+        {
+            icon: require('../../assets/images/Work.png'),
+            title: 'Product Designer at Google LLC',
+        },
+        {
+            icon: require('../../assets/images/education.png'),
+            title: 'Columbia University',
+        },
+        {
+            icon: require('../../assets/images/Home.png'),
+            title: 'Live in New York City',
         },
         {
             icon: require('../../assets/images/Location.png'),
             title: 'Less than a kilometer away',
         },
+
     ]);
 
     return (
@@ -90,19 +107,19 @@ const ProfileInfo: React.FC = () => {
                         source={require('../../assets/images/boost.png')}
                     />
                     <View style={styles.actionTextContainer}>
-                        <Text style={styles.boostText}>
-                            0 <Text style={styles.whiteText}>Boost</Text>
+                        <Text style={[styles.boostText, { color: '#b85dff' }]}>
+                            0 <Text style={[styles.whiteText]}>Boost</Text>
                         </Text>
-                        <Text style={styles.getMoreText}>Get more</Text>
+                        <Text style={[styles.getMoreText, { color: '#b85dff' }]}>Get more</Text>
                     </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={[styles.actionButton, styles.shadow]}>
-                    <Text style={styles.basicText}>Basic</Text>
+                    <Text style={styles.basicText}>Ocean</Text>
                     <Image
                         style={styles.basicIcon}
                         resizeMode="contain"
-                        source={require('../../assets/images/basic.png')}
+                        source={require('../../assets/images/heart_green.png')}
                     />
                     <View style={styles.actionTextContainer}>
                         <Text style={styles.subscriptionText}>
@@ -118,7 +135,7 @@ const ProfileInfo: React.FC = () => {
                 <View style={styles.verifiedContainer}>
                     <LinearGradient
                         locations={[0, 1]}
-                        colors={['#40505F', '#40505F']}
+                        colors={['rgba(187, 154, 101, 1)', 'rgba(119, 93, 52, 1)']}
                         useAngle={true}
                         angle={101.24}
                         style={styles.verifiedBadge}
@@ -141,6 +158,11 @@ const ProfileInfo: React.FC = () => {
                 </View>
             </View>
 
+            <View style={styles.separator}></View>
+            <View style={styles.header}>
+                <Text style={styles.headerText}>About Me</Text>
+                <Text style={styles.description}>I'm an adventurous soul who loves exploring new places, trying exotic cuisines, and meeting interesting people. My passion for travel is matched only by my love for photography. Let's embark on an exciting journey together!</Text>
+            </View>
             <View style={styles.separator}></View>
         </View>
     );
@@ -170,7 +192,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         gap: 15,
-        flex:1
+        flex: 1,
     },
     profileCompletionTextContainer: {
         flex: 1,
@@ -225,7 +247,9 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     whiteText: {
-        color: '#FFFFFF',
+        color: '#f8f1e6',
+        fontSize: 12,
+        fontFamily: "Inter-Regular",
     },
     getMoreText: {
         color: '#3DA2FF',
@@ -234,7 +258,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     basicText: {
-        color: '#BB9A65',
+        color: '#97f2d1',
         fontSize: 12,
         fontWeight: '500',
         marginBottom: 10,
@@ -244,7 +268,23 @@ const styles = StyleSheet.create({
         height: 30,
     },
     shadow: {
-        shadowColor: '#5E728472',
+        // shadowColor: '#5E728472',
+        shadowColor: "rgba(49, 192, 141, 0.3)",
+        shadowOffset: {
+            width: 0,
+            height: 0
+        },
+        shadowRadius: 15,
+        elevation: 15,
+        shadowOpacity: 1,
+        borderRadius: 10,
+        backgroundColor: "#1c252d",
+        borderStyle: "solid",
+        borderColor: "rgba(49, 192, 141, 0.5)",
+        borderWidth: 1,
+        flex: 1,
+        width: "100%",
+        // overflow: "hidden"
     },
     profileDetailsContainer: {
         marginTop: 30,
@@ -263,6 +303,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 14,
         paddingVertical: 12,
         borderRadius: 30,
+        borderColor: '#fff',
+        width: 148,
+        borderWidth: 1
     },
     verifyIcon: {
         width: 16,
@@ -281,4 +324,32 @@ const styles = StyleSheet.create({
         marginLeft: -20,
         marginRight: -20,
     },
+    subscriptionText: {
+        color: '#B85DFF',   // This sets the text color to #B85DFF
+        fontSize: 12,       // This sets the font size to 12px
+        marginTop: 20,
+    },
+    upgradeText: {
+        fontWeight: '500',       // Equivalent to 'font-medium'
+        fontFamily: 'Inter-Medium',  // Replace 'YourFont' with your heading font family
+        fontSize: 12,            // Font size of 12px
+        color: '#BB9A65',        // Text color #BB9A65
+        marginTop: 5,
+    },
+    header: {
+        // marginBottom: 30,
+    },
+    headerText: {
+        color: '#BB9A65',
+        fontSize: 18,
+        fontWeight: '600',
+        fontFamily: 'font-heading', // Assuming this font is available
+    },
+    description: {
+        fontSize: 14,
+        lineHeight: 22,
+        fontFamily: "Inter-Regular",
+        color: "#f8f1e6",
+        marginTop: 20
+    }
 });

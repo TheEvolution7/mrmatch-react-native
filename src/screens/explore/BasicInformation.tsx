@@ -10,15 +10,15 @@ import { TITLEMODAL, TYPEMODAL } from '../../constant/typeModal';
 const BasicInformation: React.FC = ({ openModal }) => {
     const dataInfor = [
         { id: 1, label: 'Languages', icon: require('../../assets/images/language.png'), title: userStore.languages.toString() },
-        { id: 2, label: 'Religions', icon: require('../../assets/images/religion.png'), title: userStore.religion },
-        { id: 3, label: 'Zodiac', icon: require('../../assets/images/zodiac.png'), title: userStore.zodiac },
-        { id: 4, label: 'Education', icon: require('../../assets/images/education.png'), title: userStore.education },
-        { id: 5, label: 'Family Plans', icon: require('../../assets/images/baby.png'), title: userStore.familyPlan },
-        { id: 6, label: 'COVID Vaccine', icon: require('../../assets/images/vaccine.png'), title: userStore.vaccine },
-        { id: 7, label: 'Personality Type', icon: require('../../assets/images/puzzle.png'), title: userStore.personalType },
-        { id: 8, label: 'Communication Style', icon: require('../../assets/images/communication.png'), title: userStore.communStyle },
-        { id: 9, label: 'Love Style', icon: require('../../assets/images/love.png'), title: userStore.loveStyle },
-        { id: 10, label: 'Blood Type', icon: require('../../assets/images/blood.png'), title: userStore.bloodType },
+        { id: 2, label: 'Religions', icon: require('../../assets/images/religion.png'), title: userStore.religion.toString() },
+        { id: 3, label: 'Zodiac', icon: require('../../assets/images/zodiac.png'), title: userStore.zodiac.toString() },
+        { id: 4, label: 'Education', icon: require('../../assets/images/education.png'), title: userStore.education.toString() },
+        { id: 5, label: 'Family Plans', icon: require('../../assets/images/baby.png'), title: userStore.familyPlan.toString() },
+        { id: 6, label: 'COVID Vaccine', icon: require('../../assets/images/vaccine.png'), title: userStore.vaccine.toString() },
+        { id: 7, label: 'Personality Type', icon: require('../../assets/images/puzzle.png'), title: userStore.personalType.toString() },
+        { id: 8, label: 'Communication Style', icon: require('../../assets/images/communication.png'), title: userStore.communStyle.toString() },
+        { id: 9, label: 'Love Style', icon: require('../../assets/images/love.png'), title: userStore.loveStyle.toString() },
+        { id: 10, label: 'Blood Type', icon: require('../../assets/images/blood.png'), title: userStore.bloodType.toString() },
     ];
     return (
         <>
@@ -27,7 +27,10 @@ const BasicInformation: React.FC = ({ openModal }) => {
                 <TouchableOpacity onPress={() => {
                     userStore.setTypeModal(TYPEMODAL.BASIC);
                     userStore.setTitleModal(TITLEMODAL.BASIC);
-                    openModal(true);
+                    if (openModal) {
+                        openModal(true);
+                    }
+
                 }} key={index} style={styles.item}>
                     <View style={styles.iconContainer}>
                         <Image source={item?.icon} />

@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import FeatureCard from './FeatureCard';
 import { useIsIconOnStyle } from './IsIconOnStyleContext';
 
-
-
 const FeatureList: React.FC = () => {
-  const [features, setFeatures] = React.useState([
+  const [features, setFeatures] = useState([
     {
       id: '1',
       icon: require('../../assets/images/f-ic-1.png'),
@@ -18,11 +16,10 @@ const FeatureList: React.FC = () => {
       id: '2',
       icon: require('../../assets/images/f-ic-2.png'),
       iconActive: require('../../assets/images/f-ic-2-active.png'),
-      title: 'Check-in\nRemindera',
+      title: 'Check-in\nReminder',
       isActive: true,
     },
   ]);
-
 
   const toggleFeatureActive = (id: string) => {
     setFeatures((prevFeatures) =>
@@ -34,28 +31,19 @@ const FeatureList: React.FC = () => {
 
   const { isIconOn } = useIsIconOnStyle();
 
-  const renderItem = ({ item }: { item: typeof features[0] }) => (
-    <FeatureCard
-      icon={item.icon}
-      iconActive={item.iconActive}
-      title={item.title}
-      isActive={item.isActive}
-      onPress={() => toggleFeatureActive(item.id)}
-    />
-  );
-
   return (
-    <View>
-      <View className="flex justify-center space-x-2 px-[20px]">
+    <View style={styles.container}>
+      <View style={styles.headerContainer}>
         <Text
-          className={`${isIconOn ? 'text-[#BB9A65]' : 'text-[#2D3843]'
-            } font-heading font-medium text-[20px] leading-[24px] mt-[30px] mb-[30px]`}>
-          {isIconOn ? 'Fearures' : 'Features (Disabled)'}
+          style={[
+            styles.headerText,
+            { color: isIconOn ? '#BB9A65' : '#2D3843' },
+          ]}
+        >
+          {isIconOn ? 'Features' : 'Features (Disabled)'}
         </Text>
       </View>
-      <View
-        className={`${isIconOn ? 'opacity-[1]' : 'opacity-[0.5]'
-          } flex flex-row mx-[-8px] px-[20px]`}>
+      <View style={[styles.featureContainer, { opacity: isIconOn ? 1 : 0.5 }]}>
         {features.map((item) => (
           <FeatureCard
             key={item.id}
@@ -68,8 +56,28 @@ const FeatureList: React.FC = () => {
         ))}
       </View>
     </View>
-
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 20,
+  },
+  headerContainer: {
+    justifyContent: 'center',
+    marginVertical: 30,
+  },
+  headerText: {
+    fontFamily: 'Helvetica', // Replace with your custom font
+    fontWeight: '500',
+    fontSize: 20,
+    lineHeight: 24,
+    textAlign: 'center',
+  },
+  featureContainer: {
+    flexDirection: 'row',
+    marginHorizontal: -8,
+  },
+});
 
 export default FeatureList;

@@ -17,6 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import { BlurView } from '@react-native-community/blur';
 import DocumentPicker, { types } from 'react-native-document-picker';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import ModalSafety from '../../components/ModalSafety';
 const screenWidth = Dimensions.get('window').width;
 
 export default function ChatBox({ }) {
@@ -24,6 +25,7 @@ export default function ChatBox({ }) {
     const [isShowMulti, setShowMulti] = useState(false);
     const [textContent, setTextContent] = useState('');
     const [isShowAudio, setShowAudio] = useState(false);
+    const [isShowSafety, setShowSafety]= useState(false);
     const [listData, setListData] = useState([{
         id: 1,
         mess: 'It seems we have a lot in common & have a lot of interest in each other 😂',
@@ -97,7 +99,7 @@ export default function ChatBox({ }) {
 
                 } else {
                     // console.warn(response);
-                    
+
                 }
 
             }
@@ -186,6 +188,25 @@ export default function ChatBox({ }) {
                 </View>
             </Modal>
 
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isShowSafety}
+                onRequestClose={() => {
+                    // setModalVisible(!modalVisible);
+                }}>
+                <BlurView
+                    style={styles.absolute}
+                    // blurType="light"
+                    blurAmount={1}
+                    reducedTransparencyFallbackColor="white"
+                />
+                <View style={styles.centeredViewSafety}>
+                    <View style={styles.modalViewSafety}>
+                        <ModalSafety isShowUnmatch={true} setShowSatety={setShowSafety} title='Share Date Details'/>
+                    </View>
+                </View>
+            </Modal>
 
             <View style={styles.wrapHeader}>
                 <TouchableOpacity hitSlop={30} onPress={() => navigation.goBack()}>
@@ -205,7 +226,7 @@ export default function ChatBox({ }) {
                         source={require('../../assets/images/fi_video.png')} style={{ height: 24, width: 24, marginHorizontal: 14 }}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity hitSlop={30} onPress={() => navigation.goBack()}>
+                <TouchableOpacity hitSlop={30} onPress={() => {setShowSafety(true) }}>
                     <Image
                         source={require('../../assets/images/fi_shield.png')} style={{ height: 24, width: 24 }}
                     />
@@ -448,5 +469,19 @@ const styles = StyleSheet.create({
         opacity: 0.5,
         marginTop: 8,
         marginBottom: 32
+    },
+    modalViewSafety: {
+        width: '100%',
+        backgroundColor: '#1c252d',
+        position: 'absolute',
+        bottom: 0,
+        // left:0
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20
+    },
+    centeredViewSafety: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 })

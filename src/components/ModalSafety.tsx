@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 const ModalSafety = (props) => {
-    const { showModalBlock, setShowSatety, isShowUnmatch, setShowUnmatched } = props;
+    const { showModalBlock, setShowSatety, isShowUnmatch, setShowUnmatched, title } = props;
     const navigation = useNavigation();
     console.log(props);
     const onShare = async () => {
@@ -44,15 +44,26 @@ const ModalSafety = (props) => {
                     />
                 </TouchableOpacity>
                 <Text style={styles.txtHeader}>Safety Features</Text>
-                <Image
-                    source={require('../assets/images/fi_headPhone.png')} />
+                <TouchableOpacity onPress={()=>{
+                    // setShowSatety(false);
+                }}>
+                    <Image
+                        source={require('../assets/images/fi_headPhone.png')} />
+                </TouchableOpacity>
             </View>
             <View style={styles.device}></View>
-            <TouchableOpacity onPress={() => onShare()} style={{ flexDirection: 'row', marginTop: 20, paddingHorizontal: 20 }}>
+            <TouchableOpacity onPress={() => {
+                if(title?.length >0){
+                    setShowSatety(false);
+                    navigation.navigate('AddDate');
+                }else{
+                    onShare();
+                }
+            }} style={{ flexDirection: 'row', marginTop: 20, paddingHorizontal: 20 }}>
                 <Image
                     source={require('../assets/images/share.png')} />
                 <View style={{ marginLeft: 16 }}>
-                    <Text style={[styles.txt1, { marginTop: 0, color: '#f8f1e6' }]}>Share This Profile</Text>
+                    <Text style={[styles.txt1, { marginTop: 0, color: '#f8f1e6' }]}>{title ? title : 'Share This Profile'}</Text>
                     <Text style={styles.txt3}>Recommended Jessica to Friends</Text>
                 </View>
             </TouchableOpacity>

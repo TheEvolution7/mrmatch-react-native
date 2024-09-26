@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 10,
-        marginHorizontal: 12, // Equivalent to gap-x-[12px]
+        // marginHorizontal: 12, // Equivalent to gap-x-[12px]
     },
     icon: {
         width: 20,
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     text: {
         color: '#F8F1E6',
         fontSize: 14,
+        marginLeft:12
     },
 });
 

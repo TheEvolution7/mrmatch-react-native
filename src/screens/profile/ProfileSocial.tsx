@@ -47,7 +47,7 @@ const ProfileOptionSocial: React.FC = () => {
                 {socials
                     .filter((item) => item.isActive)
                     .map((item) => (
-                        <View key={item.id}>
+                        <View style={{margin:'auto'}} key={item.id}>
                             <SocialItem
                                 icon={item.icon}
                                 isActive={item.isActive}
@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
     },
     socialsContainer: {
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'center',
+        // flexWrap: 'wrap',
+        justifyContent: 'center',
     },
     separator: {
         marginTop: 28,

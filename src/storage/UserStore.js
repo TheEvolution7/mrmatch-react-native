@@ -25,6 +25,7 @@ class UserStore {
   travelRef = [];
   modalType = '';
   titleModal = '';
+  typeSub = '';
 
   constructor() {
     // Make state observable and actions reactive
@@ -134,6 +135,9 @@ class UserStore {
 
   setTravel(trav) {
     this.travelRef = trav;
+  }
+  settypeSub(type) {
+    this.typeSub = type;
   }
 
   // Action to increment the count

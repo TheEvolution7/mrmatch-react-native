@@ -1,15 +1,22 @@
-// SafeOnOff.tsx
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import { useIsIconOnStyle } from './IsIconOnStyleContext';
-export const SafeOnOff = () => {
+
+export const SafeOnOff: React.FC = () => {
   const { isIconOn } = useIsIconOnStyle();
+  
   return (
     <Image
-        className='w-[24px] h-[24px]'
-        resizeMode='contain'
-        source={isIconOn ? require('../../assets/images/fi_shield_on.png') : require('../../assets/images/shieldInactive.png')}
-        >
-    </Image>
+      style={styles.icon}
+      resizeMode='contain'
+      source={isIconOn ? require('../../assets/images/fi_shield_on.png') : require('../../assets/images/shieldInactive.png')}
+    />
   );
 };
+
+const styles = StyleSheet.create({
+  icon: {
+    width: 24,
+    height: 24,
+  },
+});

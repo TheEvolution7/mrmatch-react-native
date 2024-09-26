@@ -1,13 +1,13 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
     View,
     Text,
     Image,
     TouchableOpacity,
-    ScrollView,
     Animated,
     Alert,
     Linking,
+    StyleSheet,
 } from 'react-native';
 import GradientText from '../../components/GradientText';
 import LinearGradient from 'react-native-linear-gradient';
@@ -16,136 +16,207 @@ import FeatureList from './FeatureList';
 import SafeDateTopMenu from './SafeDateTopButton';
 
 export const ModeButton: React.FC = () => {
-
-
-    const [timer, setTimer] = useState(null);
-
+    const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const phoneNumber = '000000000';
-    
-    // const [isHolding, setIsHolding] = useState(false);
     const scaleAnim = useRef(new Animated.Value(0)).current;
-
+    const { isIconOn, setIsIconOn } = useIsIconOnStyle();
 
     const handlePressIn = () => {
-        // Alert.alert('a');
         const timeout = setTimeout(() => {
             if (isIconOn) {
-              // Perform action when button is held for 3 seconds
-              Linking.openURL(`tel:${phoneNumber}`)
-              Alert.alert('Your call has been placed');
+                Linking.openURL(`tel:${phoneNumber}`);
+                Alert.alert('Your call has been placed');
             }
         }, 2500);
-        setTimer(timeout)
-        
-        if (isIconOn == true) {
-
-        }
-
-        
-       
+        setTimer(timeout);
     };
 
-   
-    const { isIconOn, setIsIconOn } = useIsIconOnStyle();
     const handleTap = () => {
         Animated.spring(scaleAnim, {
-            toValue: isIconOn ? 0 : 1, 
+            toValue: isIconOn ? 0 : 1,
             friction: 3,
             tension: 40,
             useNativeDriver: true,
         }).start();
-        setIsIconOn(!isIconOn)
+        setIsIconOn(!isIconOn);
     };
- 
 
     return (
         <View>
             <SafeDateTopMenu />
-            <View className="flex justify-center space-x-2 px-[80px] py-[40px] border-[#6B7176] border-b-[1px]">
-                <View className="text-center flex justify-center">
-                    <GradientText
-                        text="SafeDate Mode"
-                        colors={['#F8F1E6', '#BB9A66']}
-                        fontSize={30}
-                    />
+            <View style={styles.contentContainer}>
+                <View style={styles.textCenter}>
+                    <GradientText text="SafeDate Mode" colors={['#F8F1E6', '#BB9A66']} fontSize={30} />
                 </View>
-                <Text className="font-body text-[14px] self-center text-center text-white leading-[24px] mt-[20px]">
-                    We highly recommended you to activate SafeDate feature before you go
-                    on your date for your own safety
+                <Text style={styles.descriptionText}>
+                    We highly recommend you to activate SafeDate feature before you go on your date for your own safety.
                 </Text>
                 <TouchableOpacity
                     onLongPress={handlePressIn}
                     onPress={handleTap}
                     disabled={false}
-                    className="flex items-center self-center justify-center w-[130px] h-[130px] mt-[40px] relative">
-                    <Animated.View
-                        style={[{ transform: [{ scale: scaleAnim }] }]}
-                        className="z-[0] absolute w-[190px] h-[190px] top-[-30px] left-[-30px] bg-[#BB9A65] opacity-[0.1] rounded-[550px]"></Animated.View>
-                    <Animated.View
-                        style={[{ transform: [{ scale: scaleAnim }] }]}
-                        className="z-[1] absolute w-[160px] h-[160px] top-[-15px] left-[-15px] bg-[#BB9A65] opacity-[0.2] rounded-[550px]"></Animated.View>
-
+                    style={styles.pressableButton}>
+                    <Animated.View style={[styles.outerCircle, { transform: [{ scale: scaleAnim }] }]} />
+                    <Animated.View style={[styles.innerCircle, { transform: [{ scale: scaleAnim }] }]} />
                     <LinearGradient
-                        className="z-[2] flex flex-1 justify-center items-center w-full rounded-[550px]"
+                        style={styles.gradientButton}
                         colors={isIconOn ? ['#BB9A65', '#775D34'] : ['#40505F', '#273747']}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 0, y: 1 }}>
                         <Image
-                            className="w-[50px] h-[50px] mb-[2px]"
+                            style={styles.icon}
                             resizeMode="contain"
-                            source={require('../../assets/images/on-off.png')}></Image>
+                            source={require('../../assets/images/on-off.png')}
+                        />
                     </LinearGradient>
                 </TouchableOpacity>
-                <Text className="max-w-[240px] min-h-[48px] self-center text-center text-[#D7C09C] font-heading text-[14px] leading-[24px] mt-[30px]">
+                <Text style={styles.instructionText}>
                     {isIconOn
                         ? 'Hold 3 seconds to contact emergency services'
-                        : 'Tap 1 times to turn on/off'}
+                        : 'Tap once to turn on/off'}
                 </Text>
             </View>
 
-            <View className="w-full" pointerEvents={isIconOn ? 'auto' : 'none'}>
+            <View pointerEvents={isIconOn ? 'auto' : 'none'}>
                 <FeatureList />
-                <View className="pt-[20px] mx-[20px] flex flex-column gap-y-[20px]">
+                <View style={styles.buttonContainer}>
                     <TouchableOpacity>
                         <LinearGradient
                             locations={[0, 1]}
                             colors={isIconOn ? ['#bb9a65', '#775d34'] : ['#2D3843', '#2D3843']}
                             useAngle={true}
                             angle={101.24}
-                            className="flex flex-row rounded-[800px] px-[20px] h-[56px] justify-center items-center">
+                            style={styles.linearButton}>
                             <Image
-                                className={`${isIconOn ? 'opacity-[1]' : 'opacity-[0.2]'
-                                    } w-[24px] h-[24px] mr-[15px]`}
+                                style={[styles.iconSmall, { opacity: isIconOn ? 1 : 0.2 }]}
                                 resizeMode="contain"
-                                source={require('../../assets/images/mail.png')}></Image>
-                            <Text
-                                className={`${isIconOn ? 'opacity-[1]' : 'opacity-[0.2]'
-                                    } text-white font-heading text-[16px] font-medium`}>
+                                source={require('../../assets/images/mail.png')}
+                            />
+                            <Text style={[styles.buttonText, { opacity: isIconOn ? 1 : 0.2 }]}>
                                 Emergency Message
                             </Text>
                         </LinearGradient>
                     </TouchableOpacity>
 
-                    <TouchableOpacity
-                        className={`${isIconOn ? 'opacity-[1]' : 'opacity-[0.5]'
-                            } flex flex-row rounded-[800px] px-[20px] h-[56px] justify-center items-center border-[#D7C09C] border-[1px]`}>
+                    <TouchableOpacity style={[styles.outlineButton, { opacity: isIconOn ? 1 : 0.5 }]}>
                         <Image
-                            className="w-[24px] h-[24px] mr-[15px]"
+                            style={styles.iconSmall}
                             resizeMode="contain"
-                            source={require('../../assets/images/contact.png')}></Image>
-                        <Text className="text-[#D7C09C] font-heading text-[16px] font-medium">
-                            Add Emergency Contacts
-                        </Text>
+                            source={require('../../assets/images/contact.png')}
+                        />
+                        <Text style={styles.outlineButtonText}>Add Emergency Contacts</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         </View>
-        
     );
 };
 
-
-
-
-
-
+const styles = StyleSheet.create({
+    contentContainer: {
+        justifyContent: 'center',
+        paddingHorizontal: 80,
+        paddingVertical: 40,
+        borderBottomWidth: 1,
+        borderBottomColor: '#6B7176',
+        alignItems:'center'
+    },
+    textCenter: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    descriptionText: {
+        fontSize: 14,
+        color: 'white',
+        textAlign: 'center',
+        lineHeight: 24,
+        marginTop: 20,
+    },
+    pressableButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 130,
+        height: 130,
+        marginTop: 40,
+        position: 'relative',
+    },
+    outerCircle: {
+        position: 'absolute',
+        width: 190,
+        height: 190,
+        backgroundColor: '#BB9A65',
+        opacity: 0.1,
+        borderRadius: 550,
+        top: -30,
+        left: -30,
+    },
+    innerCircle: {
+        position: 'absolute',
+        width: 160,
+        height: 160,
+        backgroundColor: '#BB9A65',
+        opacity: 0.2,
+        borderRadius: 550,
+        top: -15,
+        left: -15,
+    },
+    gradientButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        borderRadius: 550,
+        height:'100%'
+    },
+    icon: {
+        width: 50,
+        height: 50,
+        marginBottom: 2,
+    },
+    instructionText: {
+        maxWidth: 240,
+        minHeight: 48,
+        color: '#D7C09C',
+        fontSize: 14,
+        textAlign: 'center',
+        lineHeight: 24,
+        marginTop: 30,
+    },
+    buttonContainer: {
+        paddingTop: 20,
+        paddingHorizontal: 20,
+    },
+    linearButton: {
+        flexDirection: 'row',
+        borderRadius: 800,
+        paddingHorizontal: 20,
+        height: 56,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    iconSmall: {
+        width: 24,
+        height: 24,
+        marginRight: 15,
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: '500',
+    },
+    outlineButton: {
+        flexDirection: 'row',
+        borderRadius: 800,
+        paddingHorizontal: 20,
+        height: 56,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#D7C09C',
+        marginTop: 20,
+    },
+    outlineButtonText: {
+        color: '#D7C09C',
+        fontSize: 16,
+        fontWeight: '500',
+    },
+});

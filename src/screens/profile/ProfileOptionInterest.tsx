@@ -4,7 +4,7 @@ import OptionItem from './OptionItem';
 import userStore from '../../storage/UserStore';
 import { TITLEMODAL, TYPEMODAL } from '../../constant/typeModal';
 
-const ProfileOptionInterest: React.FC = ({ openModal }) => {
+const ProfileOptionInterest: React.FC = ({ openModal, isDisableBtn }) => {
     // const [options, setOption] = React.useState(userStore.interests);
 
 
@@ -14,7 +14,7 @@ const ProfileOptionInterest: React.FC = ({ openModal }) => {
                 <Text style={styles.headerText}>
                     Interests & Hobbies
                 </Text>
-                <TouchableOpacity onPress={() => {
+                {!isDisableBtn && <TouchableOpacity onPress={() => {
                     userStore.setTypeModal(TYPEMODAL.INTEREST);
                     userStore.setTitleModal(TITLEMODAL.INTEREST);
                     openModal(true);
@@ -23,7 +23,8 @@ const ProfileOptionInterest: React.FC = ({ openModal }) => {
                     <Image
                         source={require('../../assets/images/downIc.png')}
                     />
-                </TouchableOpacity>
+                </TouchableOpacity>}
+
             </View>
 
             <View style={styles.optionsContainer}>

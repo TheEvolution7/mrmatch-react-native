@@ -1,27 +1,40 @@
-import React, {} from 'react';
-import { ImageBackground, Text, View, Image, TouchableOpacity } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+import { ImageBackground, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Container from '../../components/Container';
-import LinearGradient from 'react-native-linear-gradient';
-const Stack = createNativeStackNavigator();
+
 const SafeDateTutorial2: React.FC = () => {
     const navigation = useNavigation();
+
     return (
         <Container>
-            <ImageBackground className="flex flex-1 flex-row justify-center items-center" source={require('../../assets/images/sd-3.jpg')} resizeMode="cover">
+            <ImageBackground 
+                style={styles.imageBackground} 
+                source={require('../../assets/images/sd-3.jpg')} 
+                resizeMode="cover"
+            >
                 <TouchableOpacity
-                    className="flex-1 w-full h-full"
+                    style={styles.touchableArea}
                     onPress={() => {
                         navigation.navigate('SafeDateTutorial4');
-                    }}>
-                </TouchableOpacity>
-                
+                    }}
+                />
             </ImageBackground>
-            
-            
         </Container>
     );
 };
+
+const styles = StyleSheet.create({
+    imageBackground: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    touchableArea: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+    },
+});
 
 export default SafeDateTutorial2;

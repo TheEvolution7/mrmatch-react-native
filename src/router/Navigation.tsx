@@ -31,6 +31,31 @@ import Report from '../screens/explore/Report';
 import ChatBox from '../screens/chats/ChatBox';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import ProfileEditScreen from '../screens/profile/ProfileEditScreen';
+import PrivacyScreen from '../screens/profile/privacy/PrivacyScreen';
+import UpgradeMembership from '../screens/profile/membership/UpgradeMembership';
+import PaymentMethod from '../screens/profile/membership/PaymentMethod';
+import SubscriptionConfirm from '../screens/profile/membership/SubscriptionConfirm';
+import Congratulation from '../screens/profile/membership/Congratulation';
+import SettingsScreen from '../screens/profile/settings/SettingsScreen';
+import ChangeUserName from '../screens/profile/privacy/ChangeUserName';
+import ListBlockedUsers from '../screens/profile/privacy/ListBlockedUsers';
+import DiscoveryPref from '../screens/profile/settings/DiscoveryPref';
+import SettingNotification from '../screens/profile/settings/SettingNotification';
+import SettingAccount from '../screens/profile/settings/SettingAccount';
+import AppAppearance from '../screens/profile/settings/AppAppeaarance';
+import AppLanguage from '../screens/profile/settings/AppLanguage';
+import ThirdPartyInt from '../screens/profile/settings/ThirdPartyInt';
+import AddNewPayment from '../screens/profile/settings/AddNewPayment';
+import DataAnalytic from '../screens/profile/settings/DataAnalytic';
+import SafetySupport from '../screens/profile/settings/SafetySupport';
+import FAQ from '../screens/profile/settings/FAQ';
+import ContactSupport from '../screens/profile/settings/ContactSupport';
+import Terms from '../screens/profile/settings/Terms';
+import Policy from '../screens/profile/settings/Policy';
+import FeedBack from '../screens/profile/settings/FeedBack';
+import SafetyGuide from '../screens/profile/settings/SatetyGuide';
+import AddDate from '../screens/chats/AddDate';
+import PreviewDate from '../screens/chats/PrivewDate';
 const Stack = createNativeStackNavigator();
 const MyTheme = {
   ...DefaultTheme,
@@ -48,10 +73,10 @@ function Navigation() {
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="ProfileEditScreen" component={ProfileEditScreen}  />
-       
+        <Stack.Screen name="ProfileEditScreen" component={ProfileEditScreen} />
 
-        
+
+
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="Registration" component={Registration} />
         <Stack.Screen name="PasswordCreate" component={PasswordCreate} />
@@ -78,9 +103,32 @@ function Navigation() {
         <Stack.Screen name="Report" component={Report} />
         <Stack.Screen name="ChatBox" component={ChatBox} />
         <Stack.Screen name="Login" component={LoginPage} />
-
+        <Stack.Screen name="PrivacyScreen" component={PrivacyScreen} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
-        
+        <Stack.Screen name="UpgradeMembership" component={UpgradeMembership} />
+        <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
+        <Stack.Screen name="SubscriptionConfirm" component={SubscriptionConfirm} />
+        <Stack.Screen name="Congratulation" component={Congratulation} />
+        <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+        <Stack.Screen name="ChangeUserName" component={ChangeUserName} />
+        <Stack.Screen name="ListBlockedUsers" component={ListBlockedUsers} />
+        <Stack.Screen name="DiscoveryPref" component={DiscoveryPref} />
+        <Stack.Screen name="SettingNotification" component={SettingNotification} />
+        <Stack.Screen name="SettingAccount" component={SettingAccount} />
+        <Stack.Screen name="AppAppearance" component={AppAppearance} />
+        <Stack.Screen name="AppLanguage" component={AppLanguage} />
+        <Stack.Screen name="ThirdPartyInt" component={ThirdPartyInt} />
+        <Stack.Screen name="AddNewPayment" component={AddNewPayment} />
+        <Stack.Screen name="DataAnalytic" component={DataAnalytic} />
+        <Stack.Screen name="SafetySupport" component={SafetySupport} />
+        <Stack.Screen name="FAQ" component={FAQ} />
+        <Stack.Screen name="ContactSupport" component={ContactSupport} />
+        <Stack.Screen name="Terms" component={Terms} />
+        <Stack.Screen name="Policy" component={Policy} />
+        <Stack.Screen name="FeedBack" component={FeedBack} />
+        <Stack.Screen name="SafetyGuide" component={SafetyGuide} />
+        <Stack.Screen name="AddDate" component={AddDate} />
+        <Stack.Screen name="PreviewDate" component={PreviewDate} />
       </Stack.Navigator>
     </NavigationContainer>
   );
