@@ -8,20 +8,21 @@ import HeaderScreen from '../../../components/Header';
 const FAQQuesttion = ({ title, desc }) => {
     const [isShowDetail, setShowDetail] = useState(false);
     return (
-        <TouchableOpacity onPress={() => setShowDetail(!isShowDetail)}>
+        <View >
             <View style={styles.separator} />
-            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal:20 }}>
-                <Text style={styles.title}>{title}</Text>
-                {isShowDetail ?
-                    <Image source={require('../../../assets/images/downIc.png')} style={{ width: 14, height: 7 }} />
-                    :
-                    <Image source={require('../../../assets/images/rightArrow.png')} style={{ width: 7, height: 14 }} />}
+            <TouchableOpacity onPress={() => setShowDetail(!isShowDetail)} style={{paddingVertical:28}}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20 }}>
+                    <Text style={styles.title}>{title}</Text>
+                    {isShowDetail ?
+                        <Image source={require('../../../assets/images/downIc.png')} style={{ width: 14, height: 7 }} />
+                        :
+                        <Image source={require('../../../assets/images/rightArrow.png')} style={{ width: 7, height: 14 }} />}
 
-            </View>
+                </View>
 
-            {isShowDetail && <Text style={styles.desc}>{desc}</Text>}
-
-        </TouchableOpacity>
+                {isShowDetail && <Text style={styles.desc}>{desc}</Text>}
+            </TouchableOpacity>
+        </View>
     )
 }
 
@@ -67,7 +68,7 @@ const FAQ: React.FC = () => {
                 <HeaderScreen title='FAQ' />
             </View>
 
-            <View style={{ height: 44, marginTop: 23, paddingHorizontal:20 }}>
+            <View style={{ height: 44, marginTop: 23, paddingHorizontal: 20 }}>
                 <ScrollView horizontal={true}>
                     {listFunc.map((item) => {
                         return (
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 56,
         marginTop: 20,
-        marginHorizontal:20
+        marginHorizontal: 20
     },
     searchInput: {
         flex: 1,
@@ -154,8 +155,8 @@ const styles = StyleSheet.create({
         left: 16
     },
     separator: {
-        marginTop: 28,
-        marginBottom: 28,
+        // marginTop: 28,
+        // marginBottom: 28,
         height: 1,
         backgroundColor: '#6B7176',
         marginLeft: -20,
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
         color: "#f8f1e6",
         opacity: 0.5,
         marginTop: 10,
-        marginHorizontal:20
+        marginHorizontal: 20
     }
 })
 export default FAQ;

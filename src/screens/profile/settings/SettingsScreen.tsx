@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         lineHeight: 32,
         fontWeight: "500",
         fontFamily: "Inter-Medium",
-        color: "#d54444",
+        color: "#D7C09C",
         flex: 1,
         textAlign: 'center',
         marginLeft: -12

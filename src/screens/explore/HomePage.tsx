@@ -393,7 +393,7 @@ export default function HomePage() {
                             <Slider
                                 style={styles.slider}
                                 minimumValue={0}
-                                maximumValue={500}
+                                maximumValue={100}
                                 minimumTrackTintColor="#D4B07A" // Gold-like color for the track
                                 maximumTrackTintColor="#FFFFFF" // White color for the track
                                 // thumbTintColor="#FFFFFF" // White color for the thumb
@@ -555,7 +555,7 @@ export default function HomePage() {
                 // reducedTransparencyFallbackColor="white"
                 />
                 <View style={[styles.centeredView, { paddingHorizontal: 0, paddingTop: 80 }]}>
-                    <View style={[styles.modalView, { borderWidth: 0, backgroundColor: '#1c252d', paddingHorizontal: 0, alignItems: 'flex-start' }]}>
+                    <View style={[styles.modalView2, { borderWidth: 0, backgroundColor: '#1c252d', paddingHorizontal: 0, alignItems: 'flex-start' }]}>
                         <View style={styles.wrapHeader}>
                             <TouchableOpacity hitSlop={30} onPress={() => setShowFilter(false)}>
                                 <Image
@@ -898,6 +898,27 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: '100%',
         // height: '100%',
+        paddingBottom: 32
+    },
+    modalView2: {
+        margin: 20,
+        paddingHorizontal: 20,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        borderRadius: 21,
+        backgroundColor: '#1c252d',
+        borderStyle: "solid",
+        borderColor: '#bb9a65',
+        borderWidth: 1,
+        width: '100%',
+        height: '100%',
         paddingBottom: 32
     },
     titleTxt: {

@@ -155,7 +155,7 @@ export default function Match({ showModalFilter }) {
                         <View style={{ flex: 1, justifyContent: 'center', marginRight: 22 }}>
                             <Text style={styles.txt1}>Matches</Text>
                         </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'center' , alignItems:'center'}}>
                             <TouchableOpacity onPress={() => {
                                 setFocusSearch(true);
                                 setTimeout(() => {

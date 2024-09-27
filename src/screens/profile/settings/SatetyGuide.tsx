@@ -8,15 +8,16 @@ import HeaderScreen from '../../../components/Header';
 const Term = ({ title, desc }) => {
     const [isShowDetail, setShowDetail] = useState(false);
     return (
-        <TouchableOpacity onPress={() => setShowDetail(!isShowDetail)} style={{ paddingBottom: 28 }}>
+        <View >
             <View style={styles.separator} />
-            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginTop: 28 }}>
-                <Text style={styles.title}>{title}</Text>
-            </View>
+            <TouchableOpacity onPress={() => setShowDetail(!isShowDetail)} style={{ paddingVertical: 20 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20 }}>
+                    <Text style={styles.title}>{title}</Text>
+                </View>
 
-            {isShowDetail && <Text style={styles.desc}>{desc}</Text>}
-
-        </TouchableOpacity>
+                {isShowDetail && <Text style={styles.desc}>{desc}</Text>}
+            </TouchableOpacity>
+        </View>
     )
 }
 

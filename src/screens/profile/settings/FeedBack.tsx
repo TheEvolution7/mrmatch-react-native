@@ -127,7 +127,7 @@ const FeedBack: React.FC = () => {
                         placeholderTextColor="rgba(248, 241, 230, 0.2)"
                         multiline />
                 </View>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginBottom: 30 }}>
+                <TouchableOpacity onPress={() => setModalVisible(true)} style={{ marginBottom: 30 }}>
                     <LinearGradient locations={[0, 1]} colors={['#bb9a65', '#775d34']} useAngle={true} angle={101.24} style={styles.btnCont}>
                         <Text style={styles.txtCon}>Submit</Text>
                     </LinearGradient>

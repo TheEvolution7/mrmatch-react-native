@@ -216,17 +216,17 @@ export default function ChatBox({ }) {
                 </TouchableOpacity>
                 <Image source={require('../../assets/images/avatarFind.png')} style={styles.avatar} />
                 <Text style={styles.name}>Charlotte</Text>
-                <TouchableOpacity hitSlop={30} onPress={() => navigation.goBack()}>
+                <TouchableOpacity hitSlop={0} onPress={() => navigation.goBack()}>
                     <Image
                         source={require('../../assets/images/fi_phone.png')} style={{ height: 24, width: 24 }}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity hitSlop={30} onPress={() => navigation.goBack()}>
+                <TouchableOpacity hitSlop={0} onPress={() => navigation.goBack()} style={{marginHorizontal: 14}}>
                     <Image
-                        source={require('../../assets/images/fi_video.png')} style={{ height: 24, width: 24, marginHorizontal: 14 }}
+                        source={require('../../assets/images/fi_video.png')} style={{ height: 24, width: 24 }}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity hitSlop={30} onPress={() => {setShowSafety(true) }}>
+                <TouchableOpacity hitSlop={0} onPress={() => {setShowSafety(true) }}>
                     <Image
                         source={require('../../assets/images/fi_shield.png')} style={{ height: 24, width: 24 }}
                     />
@@ -404,11 +404,12 @@ const styles = StyleSheet.create({
         lineHeight: 19,
         fontWeight: "500",
         fontFamily: "Inter-Medium",
-        color: "#f8f1e6"
+        color: "#f8f1e6",
+        textAlign:'center'
     },
     tool: {
         marginHorizontal: 'auto',
-        marginTop: 24
+        marginTop: 24,
     },
     absolute: {
         position: "absolute",

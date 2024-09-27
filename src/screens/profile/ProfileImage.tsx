@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     editButton: {
         position: 'absolute',
         bottom: 20,
-        right: 20,
+        right: 40,
     },
     editImage: {
         width: 56,

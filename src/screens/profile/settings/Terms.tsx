@@ -8,15 +8,15 @@ import HeaderScreen from '../../../components/Header';
 const Term = ({ title, desc }) => {
     const [isShowDetail, setShowDetail] = useState(false);
     return (
-        <TouchableOpacity onPress={() => setShowDetail(!isShowDetail)}>
+        <View >
             <View style={styles.separator} />
-            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal:20 }}>
-                <Text style={styles.title}>{title}</Text>
-            </View>
-
-            {isShowDetail && <Text style={styles.desc}>{desc}</Text>}
-
-        </TouchableOpacity>
+            <TouchableOpacity onPress={() => setShowDetail(!isShowDetail)} style={{paddingVertical:20}}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20 }}>
+                    <Text style={styles.title}>{title}</Text>
+                </View>
+                {isShowDetail && <Text style={styles.desc}>{desc}</Text>}
+            </TouchableOpacity>
+        </View>
     )
 }
 
@@ -67,11 +67,11 @@ const Terms: React.FC = () => {
         },
     ]
     return (
-        <Container style={{ }}>
-            <View style={{paddingHorizontal:20}}>
+        <Container style={{}}>
+            <View style={{ paddingHorizontal: 20 }}>
                 <HeaderScreen title='Terms & Conditions' />
             </View>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:28}}>
                 {listFaq.map((item) => {
                     return (
                         <Term title={item?.title} desc={item?.desc} />
@@ -128,8 +128,8 @@ const styles = StyleSheet.create({
         left: 16
     },
     separator: {
-        marginTop: 28,
-        marginBottom: 28,
+        // marginTop: 28,
+        // marginBottom: 28,
         height: 1,
         backgroundColor: '#6B7176',
         marginLeft: -20,
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
         color: "#f8f1e6",
         opacity: 0.5,
         marginTop: 10,
-        marginHorizontal:20
+        marginHorizontal: 20
     }
 })
 export default Terms;

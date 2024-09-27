@@ -78,7 +78,7 @@ const ProfileEditInfo: React.FC<ProfileEditInfoProps> = ({ profile, setProfile }
                         onPress={() => setDatePickerVisibility(true)}
                         style={styles.datePickerButton}
                     >
-                        <Image style={styles.icon} resizeMode="contain" source={require('../../assets/images/fi_calendar.png')} />
+                        <Image style={{}} resizeMode="contain" source={require('../../assets/images/fi_calendar.png')} />
                         <Text style={styles.dateText}>{formatDate(birthdate)}</Text>
                     </TouchableOpacity>
                     <DateTimePickerModal
